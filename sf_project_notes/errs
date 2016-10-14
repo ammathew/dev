@@ -1,0 +1,675 @@
+24 2016 #24236]   loading posts since 2016-03-04 00:00:01 until 2016-03-07 00:00:01
+^C
+amouchinski@amouchinski:~/mpa$ source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/run_ppa_report.sh config_local_prod.yml > ppa_report_script_run_output
+manpath: warning: $MANPATH set, ignoring /etc/manpath.config
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+  Error: instagram user 'bbcgoodfood?hl=en' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+Unable to lookup pinterest user 'http:pinterest.combritishvogue', skipping: Request failed: 404 NOT FOUND(404) at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 390.
+  Error: instagram user 'http:instagram.combritishvogue' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+
+
+
+ in get fb page posts 
+
+"1459296000"
+  Error: instagram user 'http:instagram.combritishgq' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+
+
+
+ in get fb page posts 
+
+"1459296000"
+Unable to lookup pinterest user 'http:pinterest.comhouseandgarden', skipping: Request failed: 404 NOT FOUND(404) at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 390.
+  Error: instagram user 'http:instagram.comhouseandgardenuk' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+
+
+
+ in get fb page posts 
+
+"1459296000"
+Unable to lookup pinterest user 'http:pinterest.comglamourmaguk', skipping: Request failed: 404 NOT FOUND(404) at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 390.
+  Error: instagram user 'http:instagram.comglamouruk' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+Unable to lookup pinterest user 'http:pinterest.combridesmagazine', skipping: Request failed: 404 NOT FOUND(404) at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 390.
+  Error: instagram user 'http:instagram.comBridesmagazine' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+
+
+
+ in get fb page posts 
+
+"1459296000"
+  Error: instagram user 'instagram.comtheworldofinteriorsmagazine' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+
+
+
+ in get fb page posts 
+
+"1459296000"
+Unable to lookup pinterest user 'pinterest.comtatleruk', skipping: Request failed: 404 NOT FOUND(404) at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 390.
+  Error: instagram user 'http:instagram.comtatleruk' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+amouchinski@amouchinski:~/mpa$ Write failed: Broken pipe
+AnnMarys-MacBook-Air:~ ammathew$ 

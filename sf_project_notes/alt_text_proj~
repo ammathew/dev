@@ -1,0 +1,464 @@
+* TODO clean up PR
+** put alt text logic into a component file
+*** where are component files defined?
+
+NEXT: CONTINUE MOVING CODE INTO COMPONENT FILES
+
+
+** add in image-wrap element and alt_text_input at the same time?
+
+* TODO put in ui javascript in component file
+
+
+
+I need to attach a click handler to the button, but the way popover works is each time it shows it removes and re-creates the element, instead of just showing/hiding it, hence removing any event handlers I have associated with said button.
+
+put add alt text under pic
+
+popover disappears
+
+scoping.
+
+multople image uploads, alt text for each
+
+**  remove all on compose collapse
+
+
+
+build out back end
+
+
+
+** TODO on blur not working now... need to send in config object in ui setup
+
+* TODO add in/take offalt text box upon switching accounts?
+
+** find switch account logic
+
+twiite
+
+config is not defined
+
+
+*** err
+
+i think it's going to be hard to make this work because my logic adds an input box to the last element with an .image-wrap class on it
+
+
+loop through and set up ui?
+
+
+
+
+** err 
+
+alt_text.js?v=3.401:6 Uncaught TypeError: Cannot read property 'meta' of undefined
+
+p  input appended to image-thumb for some reason
+
+** se cond a
+
+second alt not working
+
+
+
+* DONE err
+
+alt_text.js?v=3.401:6 Uncaught TypeError: Cannot read property 'meta' of undefined
+
+** what changed from previously, when was not getting that error
+
+value of imagefilename withing element not being set?
+
+becomes null after adding alt text
+
+had to move call to alt_text_input
+
+*** cant test alt text right now because not letting me right click
+tested on firefox
+
+
+** issues with img.alt not matching attachments.meta...
+
+take data-imagefilename from immage input/p element is attached to?
+
+* what if you add in alt text after adding images w/fb?
+
+** NEXT compatability with facebook images
+
+* DONE strip out "alt text: " before publish 
+add i tooltip instead
+
+* DONE fix up css
+
+** DONE will styles be applied if <input> tag is being appended to dom after load of page?
+
+*** TODO apparantly yes; why is this?
+
+
+** how to display inout box properly?
+
+what is the difference between float and clear?
+
+*** need both display:block and clear:float ..why?
+
+*** align paragraph tag within div
+
+*** double replace with input value bug,
+
+* DONE make alt text work with multiple image uploads
+** CANCELED need to add to attachments parameter in /message/add i think
+
+in compose.js
+config.attachments.push(data.media);
+add alt text to attachments
+if media_attachment in publish.js
+
+media thumbnail url vs. same value in attachments?
+
+** from input box to image attachment
+
+*** iterate through boxes
+
+should images be placed side to side or up and down?
+
+** put alt text and image in its own container
+   
+** UI
+
+*** add in popover 
+**** have popoever dissapear when press entee
+
+'input[type=text]' action not taking?
+
+
+
+
+ammathew [3:29 PM] 
+hey...so im having some issues implementing the back end for alt text for multiple image uploads ... basically, i added  an alt text param to the attachments param that goes in through the front end
+
+[3:29] 
+is that the right way to do it?
+
+guru [3:30 PM] 
+hey, yeah so from what i remember of your code i think it already handles alt text if its in attachments
+
+[3:30] 
+where do you store the alt text right now?
+
+ammathew [3:30 PM] 
+getting  a little messy back end ... like missing db column stuff
+
+[3:30] 
+as its own param
+
+[3:30] 
+not in attachments
+
+[3:31] 
+and that gets attached to content item meta
+
+[3:31] 
+but cant be its own param if there are several of them each related to a picture
+
+guru [3:31 PM] 
+hmm ok, so the best thing to do would be to store the alt text as an array in meta and just add it to the right image when uploading it to twitter
+
+[3:31] 
+does that make sense? i might be missing something
+
+ammathew [3:32 PM] 
+so like use its index in the array to find the right image to attach it to?
+
+guru [3:32 PM] 
+yeah
+
+ammathew [3:33 PM] 
+so dont add to attachments right?
+
+guru [3:33 PM] 
+nope
+
+[3:33] 
+that would be a lot of work
+
+[3:33] 
+since its tied to tables
+
+ammathew [3:33 PM] 
+haha, yea i see that now
+
+[3:33] 
+ok, work on doing it that way
+
+guru [3:33 PM] 
+sweet
+
+
+HUH?
+Uncaught TypeError: Cannot read property 'indexOf' of undefined
+
+*** add in alt text as array
+
+*** now fix backend
+
+   
+** build out backend
+
+what happens to attachments?
+
+keeps restarting during pry
+
+$self->content_item->attachments 
+at Tweet.pm
+lin447?
+$self->content_item_complete_hashref->{meta}{attachments}   
+
+
+compile errors
+unresponsive terminal
+
+
+1> $self->content_item_complete_hashref->{meta}{attachments}[0]->meta                                            
+Can't call method "meta" on unblessed reference at reply input line 1.
+2> $self->content_item_complete_hashref->{meta}{attachments}[0]->{meta}                                          
+$res[1] = {
+  'alt_text' => 'fasdfsad'
+}
+
+
+
+huh?
+
+*** increase timeout of Tweet worker
+
+i think timeout is set in SocialFlow/WorkQueue/Container.pm
+
+*** how to iterate through $self->content_item_complete_hashref->{meta}{attachments}  ?
+
+
+** build out UI
+
+*** why so many elements selected when selecting image-wrap ?
+
+document.getElementsByClassName('image-wrap')
+
+*** attachments sent in are the same now
+
+* DONE make sure recyclea works with alt text
+ammathew: you will need to make sure that recycle using the expand and recycle using the dropdown filter work with alt text too
+
+** where is recycle populated?
+
+attachment.meta.alt_text
+
+** 
+
+img_upload.init(data);
+
+now thinks it's a video ( add thumbnal ui ) 
+
+populating first alt text with second
+
+[error] [ 4 ] [ http://ammathew.home.saturn.sflow.us:4010/api/message/add ] [4][A.M. MATHEW]DBIx::Class::Row::store_column(): No such column 'alt_text' on SocialFlow::Web::Model::ContentQueue::ContentItemAttachment at /home/ammathew/to_devel_local/SocialFlow-ContentQueue/lib/SocialFlow/ContentQueue/Schema/Result/ContentItem.pm line 517
+
+
+where is alt_text getting appended to attachments instead of attachments.meta?
+
+=
+* DONE edit?? 0 edit works
+* DONE fix filter and recycle 
+
+looks like it works out of the box
+recycle function appears to grab  content_item, , loop through attachmets, add oto results->{attachments} if exists
+
+* DONE recycle??
+* DONE log error if create media metadata endpoint errors
+
+https://github.com/SocialFlowDev/SocialFlow-WorkQueue/pull/75/files
+
+
+skaufman [12:14 PM] 
+yeah change it there
+
+[12:14] 
+also, can that method error?
+
+[12:14] 
+$self->create_media_metadata(  $upload_response->{media_id}, $twitter_alt_text_params );
+
+[12:14] 
+if so it should log out the error or something
+
+
+skaufman [12:16 PM] 
+ok great, i added a minor comment,
+
+[12:16] 
+other than that and possibly logging the error if there is one it should be good to go
+
+[12:16] 
+we can use the release candidate code for the work queue to test it on qa
+
+** can that endpoint error?
+
+from twitter docs, responses can be:
+200 (success), 4xx (Bad Request), 5xx (server error)
+
+so ...add try catch?
+or...?
+
+get tweet worker running again
+
+* DONE error in tweet worker when trying to publish anything to twitter 
+
+[error] [ TwitterTweet:1 ] [ job:12116473 ] Twitter job 12116473 generated error: 200 OK at /home/ammathew/perl5/lib/perl5/x86_64-linux-gnu-thread-multi/Moose/Meta/Method/Delegation.pm line 110 at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib//SocialFlow/WorkQueue/Runner/Role/MessageErrorHandling.pm line 104.
+[info] [ TwitterTweet:1 ] [ job:12116473 ] Got error [200 OK at /home/ammathew/perl5/lib/perl5/x86_64-linux-gnu-thread-multi/Moose/Meta/Method/Delegation.pm line 110], Matched error {
+  display_error => "Error sending message."
+}
+
+non alt text post generates this error too
+
+** put in die or try catch?
+
+try to break endpount?
+
+* DONE set up release candidate stuff
+
+skaufman [3:49 PM] 
+ammathew: you dont need run the worker anymore
+
+jmlenehan [3:49 PM] 
+:flushed:
+
+skaufman [3:49 PM] 
+you can run a specific release candidate
+
+joe [3:49 PM] 
+patspeiser: seeing lots of veronica@gawker support tickets recently
+
+[3:50] 
+lauren needs her to tell her to chill
+
+ryan [3:50 PM] 
+skaufman: to sf-app=iser
+
+skaufman [3:50 PM] 
+then add in that release candidate to socialflow web
+
+[3:50] 
+ryan: yeah
+
+ammathew [3:50 PM] 
+how can i do that?
+
+patspeiser [3:50 PM] 
+i wish joe
+
+skaufman [3:50 PM] 
+ammathew: get socialflow workqueue up to date with master,
+
+[3:50] 
+then https://github.com/SocialFlowDev/SocialFlow-WorkQueue/pull/76
+
+patspeiser [3:50 PM] 
+contrary to that upper disillusionment
+
+skaufman [3:50 PM] 
+bin/sf-workqueue worker --release_candidate skaufman.rc2 --job_name TwitterTweet
+
+patspeiser [3:50 PM] 
+the site is nearing critical states of failure haha
+
+[3:50] 
+But agree
+
+skaufman [3:50 PM] 
+whatever you specify for release candidate,
+
+skaufman [3:51 PM] 
+you need to add to the Job instantiation in SocialFlow Web
+
+[3:51] 
+ammathew: so theres one file i think in SocialFLow-WEb
+
+
+skaufman [3:51 PM] 
+that instantiates all the job queue stuff
+
+
+skaufman [3:51 PM] 
+so just go in that file and add release_candidate => "ammathew.alt_text"
+
+[3:51] 
+or whatever
+
+
+** install deps?
+
+dzil 
+ammathew@ammathew:~/to_devel_local/SocialFlow-WorkQueue$ dzil listdeps --missing | sfcpanm
+
+skaufman [12:10 PM] 
+can also do dzil authordeps --missing if you need to do that
+
+[12:10] 
+for dist zilla plugins
+
+
+** cant auth in new account
+
+ammathew: ohh ok,
+
+[11:45] 
+you just need to stop using your devel localed version,
+
+[11:46] 
+that VERSION line probably gets added there by Dist::Zilla etc
+
+
+
+
+
+** code changes
+
+/home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/ControllerRole/JobQueue.pm
+L51,
+added in release_candidate => 'twitter_alt_text'
+
+release candidate stuff not working
+
+** troubleshooting
+
+not logging out
+
+in db?
+
+12116524
+
+Attribute (s3_base_url) is requir
+ed at constructor SocialFlow::WorkQueue::Runner::Twitter::Tweet::new (defined at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../l
+ib/SocialFlow/WorkQueue/Runner/Twitter/Tweet.pm line 525)
+
+what calls Tweet.pm?
+
+need to update work_queue_runner.yml from sf-deploy-application
+
+
+Use of uninitialized value $ver in substitution (s///) at /home/ammathew/to_devel_local/Net-Twitter/lib/Net/Twitter.pm line 98, <GEN1> line 1.
+
+looks like need to reauth account
+
+"We're sorry. It looks like we're experiencing a brief interruption."
+
+
+
+* DONE PR comment that csam put in. 
+* DONE update version of Net::Twitter in pr  
+* set up alt text dev env again
+
+
+
+One thing are you registered as democrat to vote tomorrow.One request please vote for Hillary. Lots of love  mom
+
+alt_text.js?v=3.401:6 Uncaught TypeError: Cannot read property 'meta' of undefined

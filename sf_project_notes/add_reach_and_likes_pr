@@ -1,0 +1,251 @@
+* respond to pr comments
+
+** tickets 
+https://github.com/SocialFlowDev/SocialFlow-Web/pull/1353/files#r57746184
+
+( sf tabular )
+
+https://github.com/SocialFlowDev/SocialFlow-Tabular/pull/12
+
+** DONE add in column separator
+
+is this in TimeBased.pm?
+when warning out $headers in sub _gen_headers
+
+    {
+                           'width' => '2',
+                           'name' => 'blank',
+                           'key' => 'blank'
+                         },
+
+how is this empty header inserted?
+
+already defined in $column_headers
+
+what is self->column_headers?
+
+lib/SocialFlow/Tabular.pm
+
+log out stuff in above file...
+
+blank is defined in $sheet_headers
+
+has 'column_headers' => ( is => 'rw', isa => 'HashRef', default => sub { {} } );
+in Tabular.pm
+
+
+
+** DONE add in %likes change and in %followers average per message
+
+included in rollups for other metrics:
+https://github.com/SocialFlowDev/SocialFlow-Tabular/blob/ammathew.add_reach_and_likes_to_reports/lib/SocialFlow/Tabular/TimeBased.pm
+
+*** how were these t`hings done for other reports?
+
+
+sub _span_averages 
+
+*** add in average because appears to be there already
+
+**** add to yml and _span_averages function and see jf it just works out of the box
+***** do week over week for now
+****** DONE bring up WOW worker on my box
+
+
+ammathew@ammathew:~/to_devel_local$ SOCIALFLOW_WEB_PATH=~/yml 
+ammathew@ammathew:~/to_devel_local$ perl /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/sf-workqueue workers --job WeekOverWeek=1
+Could not connect to Redis server at job-queue.dev.saturn.sfsrv.net:[% port.redis_work_queue.redis_work_queue %]: Invalid argument at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib//SocialFlow/WorkQueue/Container.pm line 154.
+
+******* Could not find container or service for tally in api_backend at /home/ammathew/perl5/lib/perl5/Bread/Board/Traversable.pm line 106.
+
+look at db for error
+
+select * from work_queue_job where class='SocialFlow::WorkQueue::Job::WeekOverWeek' order by job_id desc limit 1;
+
+{"exception":"SocialFlow::WorkQueue::Error::WorkerExit","message":"Worker subprocess exited unexpectedly"} 
+
+
+
+NEX
+
+** DONE add in reach metrics
+*** DONE change yml in sf-web
+
+Error while loading /home/ammathew/to_devel_local/SocialFlow-Web/app.psgi: YAML::XS::Load Error:The problem:
+did not find expected key
+
+got above error because of bad tabbing in yml...
+
+
+*** DONE reach all zeros, is this real or something wrong?
+
+reached back a year... 
+stalled on frontend .... dont see job on worker?
+socialflow spinner,not progress bar
+on worker, looks like job second job isnt registered ( first is? )
+== feeling detached, stalled == what to do ==
+
+go into db..
+completed....looks like is/was some  sort of front end issue
+
+reach looks good. 
+
+** DONE add in additional reach at likes metrics for MOM and DOD as well
+
+bring up DOD worker
+
+
+** DONE likes average per message all zeros?
+
+
+might have something to do with above warnng?
+
+** CANCELED test on dev home
+*** how to get on dev home?
+*** error when starting worker
+
+ammathew@dev-home:~$ perl SocialFlow-WorkQueue/bin/sf-workqueue workers --job WeekOverWeek=1
+Could not find container or service for WeekOverWeek in Worker
+
+Can't locate SocialFlow/Maintenance.pm in @INC
+
+! Configuring . failed. See /home/ammathew/.cpanm/work/1459441816.8487/build.log for details.
+
+
+jonlorusso [12:33 PM] 
+ammathew: https://github.com/SocialFlowDev/SocialFlow-Deploy/blob/95f1ffcdca226d1f6165d406abcc28919c6bee3b/lib/SocialFlow/Maintenance.pm
+
+Could not connect to Redis server at job-queue.dev.saturn.sfsrv.net:7003: Invalid argument at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib//SocialFlow/WorkQueue/Container.pm line 154.
+
+
+'redis-1.dev:7000
+
+set SOCIALFLOW_WEB_PATH as redis1.dev:7000, still not working...
+
+could not connect to Redis server at redis-1.dev:7000
+
+do i even need to run worker on dev-home?
+
+how did I do this before?
+
+ammathew [3:28 PM] 
+anyone know what redis server im supposed to use in work_queue_redis on dev home?
+
+[3:28] 
+i tried could not connect to Redis server at redis-1.dev:7000
+
+[3:28] 
+i mean redis-1.dev:7000
+
+[3:29] 
+job-queue.dev.saturn.sfsrv.net:7003 fwiw
+
+[3:29] 
+guru?
+
+ok, i think i never actually tested with prod data, just columns rendered, with zero values, on accound of changes to sf-web on dev-home
+
+** DONE ok, just test on QNTM
+
+Argument "n/a" isn't numeric in subtraction (-) at /home/ammathew/to_devel_local/SocialFlow-Tabular/lib/SocialFlow/Tabular/TimeBased.pm line 533, <GEN1> line 2.
+
+*** DONE seems that likes channge percent is not being calculated properly
+
+maybe something to do with this error:
+Argument "n/a" isn't numeric in subtraction (-) at /home/ammathew/to_devel_local/SocialFlow-Tabular/lib/SocialFlow/Tabular/TimeBased.pm line 533, <GEN1> line 2.
+
+**** but wrong in other columns too?
+
+check on prod
+
+ammathew [4:25 PM] 
+do clients ever complain about time based reports ( dod, wow,mom ) not having correct values for change %'s ... because when they go down they def look wrong ...
+
+[4:25] 
+on prod
+
+this is an issue on prod. can fix on prod?
+
+
+
+
+
+**** fix  change in percentage issue
+
+ $last_span != 0
+          ? ( ( $this_span - $last_span ) / $last_span ) * 100
+          : 'n/a';
+
+wont calculate if last span 0? but last span is often 0?
+
+sub _span_changes
+
+fine at $span_rollup->{"percent_$_"} ...something done with the columns upon rendering?
+
+    $self->report_structure(
+        $self->_report_structure( $span_rollups, \@span_epochs ) );
+
+maybe something to do with how preview is rendering? try on google docs
+
+ok, it is just a matter of how preview is rendering negative percentages?
+
+**** percentage change is sometimees a string, sometime a number?
+
+
+*** TODO how to put in an empty column separator?
+
+
+*** no likes average per message? 
+
+
+
+
+
+
+
+** TODO rearrange average per message and change % to be consistant with other measures
+
+** TODO prepare update to PR
+
+only is sf-web...just checkout the 3 ymls from development branch...
+
+* other concerns
+** "like_or_favorite" designation ala TimeBased.pm L555
+** why
+
+** random warning
+Argument "n/a" isn't numeric in subtraction (-) at /home/ammathew/to_devel_local/SocialFlow-Tabular/lib/SocialFlow/Tabular/TimeBased.pm line 533, <GEN1> line 2.
+
+* dzil release
+
+
+guru [4:06 PM] 
+yeah so in SocialFlow-Tabular, run dzil install first
+
+[4:06] 
+see if it runs fine
+
+[4:06] 
+then dzil release
+
+[4:06] 
+it will auto bump the version
+
+[4:07] 
+check github to see if the tag has been bumped up
+
+new messages
+[4:07] 
+add that to dist.ini in SocialFlow-WorkQueue
+
+[4:07] 
+and do the same
+
+
+fatal: Not a git repository (or any parent up to mount point /home/ammathew)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+
+
+this is breaking my terminal
+"reset"
+to fix terminal

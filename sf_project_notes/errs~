@@ -1,0 +1,1340 @@
+Last login: Fri Apr 29 00:30:54 on console
+AnnMarys-MacBook-Air:~ ammathew$ scp amouchinski@amouchinski.home.saturn.sfsrv.net:/home/amouchinski/mpa/data/mpa_report_2016-03-01_2016-04-28.xls .
+no such identity: /Users/ammathew/.ssh/amouchinski.home.saturn.sfsrv.net.key: No such file or directory
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+mpa_report_2016-03-01_2016-04-28.xls          100% 6656     6.5KB/s   00:00    
+AnnMarys-MacBook-Air:~ ammathew$ ssh amouchinski@amouchinski.home.saturn.sfsrv.net
+no such identity: /Users/ammathew/.ssh/amouchinski.home.saturn.sfsrv.net.key: No such file or directory
+Linux amouchinski.home.saturn.sflow.us 3.2.0-4-amd64 #1 SMP Debian 3.2.60-1+deb7u1 x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+No mail.
+Last login: Thu Apr 28 18:38:41 2016 from 10.126.0.10
+amouchinski@amouchinski:~$ pwd
+/home/amouchinski
+amouchinski@amouchinski:~$ ls
+2			       mpa		      share
+bin			       perl		      SocialFlow-Web-Config
+crontab			       perl5		      tmp
+etc			       perlbrew.txt	      var
+include			       redis-2.8.13	      yml
+jobqueue_shorten_on_publish.t  redis-2.8.13.tar.gz    zeromq-2.2.0
+label-update-1-12.tgz	       repos		      zeromq-2.2.0.tar.gz
+lib			       root		      ZMQ-LibZMQ2-1.09
+logs			       sfweb-labels-dec9.tgz  ZMQ-LibZMQ2-1.09.tar.gz
+amouchinski@amouchinski:~$ cd mpa/
+amouchinski@amouchinski:~/mpa$ cd data
+amouchinski@amouchinski:~/mpa/data$ ls
+blah.xls
+mpa_data_2014-11.yml
+mpa_data_2014-11.yml-backup
+mpa_data_2014-11.yml-combined
+mpa_data_2014-12.yml
+mpa_data_2015-01.yml
+mpa_data_2015-02.yml
+mpa_data_2015-03.yml
+mpa_data_2015-03.yml-backup
+mpa_data_2015-03.yml-backup2
+mpa_data_2015-04_delta.yml
+mpa_data_2015-04.yml
+mpa_data_2015-04.yml-backup
+mpa_data_2015-05.yml
+mpa_data_2015-06.yml
+mpa_data_2015-07_new.yml
+mpa_data_2015-07_orig.yml
+mpa_data_2015-07.yml
+mpa_data_2015-09.yml
+mpa_data_2015-10.yml
+mpa_data_2015-10.yml-old
+mpa_data_2015-11.yml
+mpa_data_2015-11.yml-old
+mpa_data_2015-12.yml
+mpa_data_2016-01.yml
+mpa_data_2016-03.yml
+mpa_data_2016-04b.yml
+mpa_data_2016-04.yml
+mpa_data_blah.yml
+mpa_data_fberr_2015-04.yml
+mpa_data_gplusretry_2015-04.yml
+mpa_data_ig_test.yml
+mpa_data_newmonthly_2014-11.yml
+mpa_data_people_tw_march.yml
+mpa_data_test_sm.xls
+mpa_report_2016-03-01_2016-03-30.xls
+mpa_report_2016-03-01_2016-04-28.xls
+mpa_report_detailsmag_2014-12-01.xls
+mpa_report_monthly_2014-11.xls
+mpa_report_monthly_2014-12.xls
+mpa_report_monthly_2015-01.xls
+mpa_report_monthly_2015-02.xls
+mpa_report_monthly_2015-03.xls
+mpa_report_monthly_2015-03.xls-backup
+mpa_report_monthly_2015-04.xls
+mpa_report_monthly_2015-05.xls
+mpa_report_monthly_2015-06.xls
+mpa_report_monthly_2015-07.xls
+mpa_report_monthly_2015-09.xls
+mpa_report_monthly_2015-10.xls
+mpa_report_monthly_2015-11.xls
+mpa_report_monthly_2015-11.xls-old
+mpa_report_monthly_2015-12.xls
+mpa_report_monthly_2016-01_askmen
+mpa_report_monthly_2016-01.xls
+mpa_report_weekly_2014-11-24.xls
+mpa_report_weekly_2014-12-01.xls
+mpa_report_weekly_2014-12-06.xls
+mpa_report_weekly_2014-12-13.xls
+mpa_report_weekly_2014-12-20.xls
+mpa_report_weekly_2014-12-27.xls
+mpa_report_weekly_2015-01-03.xls
+mpa_report_weekly_2015-01-10.xls
+mpa_report_weekly_2015-01-17.xls
+mpa_report_weekly_2015-01-24.xls
+mpa_report_weekly_2015-01-31.xls
+mpa_report_weekly_2015-02-07.xls
+mpa_report_weekly_2015-02-14.xls
+mpa_report_weekly_2015-02-21.xls
+mpa_report_weekly_2015-02-28.xls
+mpa_report_weekly_2015-03-07.xls
+mpa_report_weekly_2015-03-14.xls
+mpa_report_weekly_2015-03-21.xls
+mpa_report_weekly_2015-03-28.xls
+mpa_report_weekly_2015-04-04.xls
+mpa_report_weekly_2015-04-11.xls
+mpa_report_weekly_2015-04-18.xls
+mpa_report_weekly_2015-04-25.xls
+mpa_report_weekly_2015-05-02.xls
+mpa_report_weekly_2015-05-23.xls
+mpa_report_weekly_2015-05-30.xls
+mpa_report_weekly_2015-06-06.xls
+mpa_report_weekly_2015-06-13.xls-old
+mpa_report_weekly_2015-06-15.xls
+mpa_report_weekly_2015-06-20.xls
+mpa_report_weekly_2015-06-27.xls
+mpa_report_weekly_2015-07-04.xls
+mpa_report_weekly_2015-07-18.xls
+mpa_report_weekly_2015-07-25.xls
+mpa_report_weekly_2015-07-28.xls
+mpa_report_weekly_2015-08-01.xls
+mpa_report_weekly_2015-08-08.xls
+mpa_report_weekly_2015-08-15.xls
+mpa_report_weekly-2015-08-22.xls
+mpa_report_weekly-2015-08-29.xls
+mpa_report_weekly-2015-09-01.xls
+mpa_report_weekly_2015-09-05.xls
+mpa_report_weekly_2015-09-12.xls
+mpa_report_weekly_2015-09-19.xls
+mpa_report_weekly_2015-09-26.xls
+mpa_report_weekly_2015-10-03.xls
+mpa_report_weekly_2015-10-10.xls
+mpa_report_weekly_2015-10-17.xls
+mpa_report_weekly_2015-10-31.xls
+mpa_report_weekly_2015-11-07.xls
+mpa_report_weekly_2015-11-14.xls
+mpa_report_weekly_2015-11-21.xls
+mpa_report_weekly_2015-11-28.xls
+mpa_report_weekly_2015-12-05.xls
+mpa_report_weekly_2015-12-12.xls
+mpa_report_weekly_2015-12-19.xls
+mpa_report_weekly_2015-12-26.xls
+mpa_report_weekly_2016-01-02.xls
+mpa_report_weekly_2016-01-09.xls
+mpa_report_weekly_2016-01-16.xls
+mpa_report_weekly_2016-01-30.xls
+mpa_report_weekly_2016-03-05.xls
+mpa_report_weekly_2016-03-12.xls
+mpa_report_weekly_2016-03-26.xls
+mpa_report_weekly_2016-04-02.xls
+mpa_report_weekly_2016-04-09.xls
+mpa_report_weekly_2016-04-16.xls
+mpa_report_weekly_2016-04-23.xls
+mpa_report_weekly_listtest_2014-12-11.xls
+t-d.txt
+test.pl
+test.pl~
+t-m.txt
+amouchinski@amouchinski:~/mpa/data$ ls -lat
+total 59980
+-rw-r--r-- 1 amouchinski amouchinski 143872 Apr 28 22:14 mpa_report_2016-03-01_2016-03-30.xls
+drwxr-xr-x 2 amouchinski amouchinski   8192 Apr 28 22:14 .
+drwx------ 5 amouchinski amouchinski   4096 Apr 28 21:17 ..
+-rw-r--r-- 1 amouchinski amouchinski   6656 Apr 28 18:54 mpa_report_2016-03-01_2016-04-28.xls
+-rw-r--r-- 1 amouchinski amouchinski    963 Apr 27 16:23 mpa_data_blah.yml
+-rw-r--r-- 1 amouchinski amouchinski    963 Apr 27 16:20 mpa_data_2016-04b.yml
+-rw-r--r-- 1 amouchinski amouchinski 869888 Apr 23 02:28 mpa_report_weekly_2016-04-23.xls
+-rw-r--r-- 1 amouchinski amouchinski 570701 Apr 16 03:39 mpa_data_2016-04.yml
+-rw-r--r-- 1 amouchinski amouchinski 870400 Apr 16 02:16 mpa_report_weekly_2016-04-16.xls
+-rw-r--r-- 1 amouchinski amouchinski 869888 Apr  9 02:22 mpa_report_weekly_2016-04-09.xls
+-rw-r--r-- 1 amouchinski amouchinski 871424 Apr  2 02:25 mpa_report_weekly_2016-04-02.xls
+-rw-r--r-- 1 amouchinski amouchinski 872448 Mar 26 02:11 mpa_report_weekly_2016-03-26.xls
+-rw-r--r-- 1 amouchinski amouchinski 574103 Mar 16 07:21 mpa_data_2016-03.yml
+-rw-r--r-- 1 amouchinski amouchinski 873984 Mar 12 02:54 mpa_report_weekly_2016-03-12.xls
+-rw-r--r-- 1 amouchinski amouchinski 628736 Mar  7 19:32 blah.xls
+-rw-r--r-- 1 amouchinski amouchinski   2491 Mar  7 19:32 test.pl
+-rw-r--r-- 1 amouchinski amouchinski 873472 Mar  5 02:45 mpa_report_weekly_2016-03-05.xls
+-rw-r--r-- 1 amouchinski amouchinski   2381 Mar  3 23:08 test.pl~
+-rw-r--r-- 1 amouchinski amouchinski   6144 Feb  4 20:13 mpa_report_monthly_2016-01_askmen
+-rw-r--r-- 1 amouchinski amouchinski 878592 Feb  2 03:40 mpa_report_monthly_2016-01.xls
+-rw-r--r-- 1 amouchinski amouchinski 880128 Jan 30 04:02 mpa_report_weekly_2016-01-30.xls
+-rw-r--r-- 1 amouchinski amouchinski 587674 Jan 16 02:48 mpa_data_2016-01.yml
+-rw-r--r-- 1 amouchinski amouchinski 881152 Jan 16 02:48 mpa_report_weekly_2016-01-16.xls
+-rw-r--r-- 1 amouchinski amouchinski 880640 Jan  9 03:44 mpa_report_weekly_2016-01-09.xls
+-rw-r--r-- 1 amouchinski amouchinski 878080 Jan  2 01:30 mpa_report_weekly_2016-01-02.xls
+-rw-r--r-- 1 amouchinski amouchinski 883712 Jan  1 04:07 mpa_report_monthly_2015-12.xls
+-rw-r--r-- 1 amouchinski amouchinski 879616 Dec 26 03:17 mpa_report_weekly_2015-12-26.xls
+-rw-r--r-- 1 amouchinski amouchinski 880640 Dec 19 02:42 mpa_report_weekly_2015-12-19.xls
+-rw-r--r-- 1 amouchinski amouchinski 588729 Dec 16 04:23 mpa_data_2015-12.yml
+-rw-r--r-- 1 amouchinski amouchinski 881152 Dec 12 03:47 mpa_report_weekly_2015-12-12.xls
+-rw-r--r-- 1 amouchinski amouchinski 881664 Dec  5 03:01 mpa_report_weekly_2015-12-05.xls
+-rw-r--r-- 1 amouchinski amouchinski 884224 Dec  1 07:32 mpa_report_monthly_2015-11.xls
+-rw-r--r-- 1 amouchinski amouchinski 884224 Dec  1 03:12 mpa_report_monthly_2015-11.xls-old
+-rw-r--r-- 1 amouchinski amouchinski 586993 Nov 30 23:23 mpa_data_2015-11.yml-old
+-rw-r--r-- 1 amouchinski amouchinski 879616 Nov 28 04:04 mpa_report_weekly_2015-11-28.xls
+-rw-r--r-- 1 amouchinski amouchinski 881152 Nov 21 03:59 mpa_report_weekly_2015-11-21.xls
+-rw-r--r-- 1 amouchinski amouchinski 586993 Nov 16 04:09 mpa_data_2015-11.yml
+-rw-r--r-- 1 amouchinski amouchinski 879616 Nov 14 04:26 mpa_report_weekly_2015-11-14.xls
+-rw-r--r-- 1 amouchinski amouchinski 843776 Nov  7 02:10 mpa_report_weekly_2015-11-07.xls
+-rw-r--r-- 1 amouchinski amouchinski 845312 Nov  6 03:41 mpa_report_monthly_2015-10.xls
+-rw-r--r-- 1 amouchinski amouchinski 843776 Oct 31 01:39 mpa_report_weekly_2015-10-31.xls
+-rw-r--r-- 1 amouchinski amouchinski 562649 Oct 22  2015 mpa_data_2015-10.yml
+-rw-r--r-- 1 amouchinski amouchinski 842240 Oct 17  2015 mpa_report_weekly_2015-10-17.xls
+-rw-r--r-- 1 amouchinski amouchinski 564576 Oct 16  2015 mpa_data_2015-10.yml-old
+-rw-r--r-- 1 amouchinski amouchinski 841728 Oct 10  2015 mpa_report_weekly_2015-10-10.xls
+-rw-r--r-- 1 amouchinski amouchinski 842240 Oct  3  2015 mpa_report_weekly_2015-10-03.xls
+-rw-r--r-- 1 amouchinski amouchinski 844288 Oct  1  2015 mpa_report_monthly_2015-09.xls
+-rw-r--r-- 1 amouchinski amouchinski 832000 Sep 26  2015 mpa_report_weekly_2015-09-26.xls
+-rw-r--r-- 1 amouchinski amouchinski 832000 Sep 19  2015 mpa_report_weekly_2015-09-19.xls
+-rw-r--r-- 1 amouchinski amouchinski 556889 Sep 16  2015 mpa_data_2015-09.yml
+-rw-r--r-- 1 amouchinski amouchinski 832000 Sep 12  2015 mpa_report_weekly_2015-09-12.xls
+-rw-r--r-- 1 amouchinski amouchinski 832512 Sep  5  2015 mpa_report_weekly_2015-09-05.xls
+-rw-r--r-- 1 amouchinski amouchinski 835072 Sep  1  2015 mpa_report_weekly-2015-09-01.xls
+-rw-r--r-- 1 amouchinski amouchinski 832512 Aug 29  2015 mpa_report_weekly-2015-08-29.xls
+-rw-r--r-- 1 amouchinski amouchinski 832000 Aug 22  2015 mpa_report_weekly-2015-08-22.xls
+-rw-r--r-- 1 amouchinski amouchinski 832512 Aug 15  2015 mpa_report_weekly_2015-08-15.xls
+-rw-r--r-- 1 amouchinski amouchinski 833024 Aug  8  2015 mpa_report_weekly_2015-08-08.xls
+-rw-r--r-- 1 amouchinski amouchinski 837120 Aug  1  2015 mpa_report_monthly_2015-07.xls
+-rw-r--r-- 1 amouchinski amouchinski 833024 Aug  1  2015 mpa_report_weekly_2015-08-01.xls
+-rw-r--r-- 1 amouchinski amouchinski 834048 Jul 28  2015 mpa_report_weekly_2015-07-28.xls
+-rw-r--r-- 1 amouchinski amouchinski 803328 Jul 25  2015 mpa_report_weekly_2015-07-25.xls
+-rw-r--r-- 1 amouchinski amouchinski 537432 Jul 23  2015 mpa_data_2015-07.yml
+-rw-r--r-- 1 amouchinski amouchinski 439801 Jul 23  2015 mpa_data_2015-07_new.yml
+-rw-r--r-- 1 amouchinski amouchinski 641536 Jul 18  2015 mpa_report_weekly_2015-07-18.xls
+-rw-r--r-- 1 amouchinski amouchinski 353814 Jul 16  2015 mpa_data_2015-07_orig.yml
+-rw-r--r-- 1 amouchinski amouchinski 518656 Jul  4  2015 mpa_report_weekly_2015-07-04.xls
+-rw-r--r-- 1 amouchinski amouchinski 520192 Jul  1  2015 mpa_report_monthly_2015-06.xls
+-rw-r--r-- 1 amouchinski amouchinski 518144 Jun 27  2015 mpa_report_weekly_2015-06-27.xls
+-rw-r--r-- 1 amouchinski amouchinski 518144 Jun 20  2015 mpa_report_weekly_2015-06-20.xls
+-rw-r--r-- 1 amouchinski amouchinski 352123 Jun 16  2015 mpa_data_2015-06.yml
+-rw-r--r-- 1 amouchinski amouchinski 518656 Jun 15  2015 mpa_report_weekly_2015-06-15.xls
+-rw-r--r-- 1 amouchinski amouchinski 453632 Jun 13  2015 mpa_report_weekly_2015-06-13.xls-old
+-rw-r--r-- 1 amouchinski amouchinski 453632 Jun  6  2015 mpa_report_weekly_2015-06-06.xls
+-rw-r--r-- 1 amouchinski amouchinski 454656 Jun  1  2015 mpa_report_monthly_2015-05.xls
+-rw-r--r-- 1 amouchinski amouchinski 453632 May 30  2015 mpa_report_weekly_2015-05-30.xls
+-rw-r--r-- 1 amouchinski amouchinski 454144 May 23  2015 mpa_report_weekly_2015-05-23.xls
+-rw-r--r-- 1 amouchinski amouchinski 308322 May 19  2015 mpa_data_2015-05.yml
+-rw-r--r-- 1 amouchinski amouchinski 372736 May  2  2015 mpa_report_weekly_2015-05-02.xls
+-rw-r--r-- 1 amouchinski amouchinski 373248 May  1  2015 mpa_report_monthly_2015-04.xls
+-rw-r--r-- 1 amouchinski amouchinski 371712 Apr 25  2015 mpa_report_weekly_2015-04-25.xls
+-rw-r--r-- 1 amouchinski amouchinski 256072 Apr 23  2015 mpa_data_2015-04.yml
+-rw-r--r-- 1 amouchinski amouchinski   3993 Apr 23  2015 mpa_data_2015-04_delta.yml
+-rw-r--r-- 1 amouchinski amouchinski 255132 Apr 23  2015 mpa_data_2015-04.yml-backup
+-rw-r--r-- 1 amouchinski amouchinski 371712 Apr 18  2015 mpa_report_weekly_2015-04-18.xls
+-rw-r--r-- 1 amouchinski amouchinski   1090 Apr 17  2015 mpa_data_fberr_2015-04.yml
+-rw-r--r-- 1 amouchinski amouchinski   2313 Apr 17  2015 mpa_data_gplusretry_2015-04.yml
+-rw-r--r-- 1 amouchinski amouchinski 290816 Apr 11  2015 mpa_report_weekly_2015-04-11.xls
+-rw-r--r-- 1 amouchinski amouchinski 291328 Apr  4  2015 mpa_report_weekly_2015-04-04.xls
+-rw-r--r-- 1 amouchinski amouchinski 292352 Apr  1  2015 mpa_report_monthly_2015-03.xls
+-rw-r--r-- 1 amouchinski amouchinski 199936 Apr  1  2015 mpa_data_2015-03.yml
+-rw-r--r-- 1 amouchinski amouchinski 314368 Apr  1  2015 mpa_report_monthly_2015-03.xls-backup
+-rw-r--r-- 1 amouchinski amouchinski 199982 Apr  1  2015 mpa_data_2015-03.yml-backup2
+-rw-r--r-- 1 amouchinski amouchinski    668 Mar 30  2015 mpa_data_ig_test.yml
+-rw-r--r-- 1 amouchinski amouchinski    289 Mar 30  2015 mpa_data_people_tw_march.yml
+-rw-r--r-- 1 amouchinski amouchinski 199967 Mar 30  2015 mpa_data_2015-03.yml-backup
+-rw-r--r-- 1 amouchinski amouchinski 291840 Mar 28  2015 mpa_report_weekly_2015-03-28.xls
+-rw-r--r-- 1 amouchinski amouchinski 291840 Mar 21  2015 mpa_report_weekly_2015-03-21.xls
+-rw-r--r-- 1 amouchinski amouchinski 291840 Mar 14  2015 mpa_report_weekly_2015-03-14.xls
+-rw-r--r-- 1 amouchinski amouchinski 291328 Mar  7  2015 mpa_report_weekly_2015-03-07.xls
+-rw-r--r-- 1 amouchinski amouchinski 292352 Mar  1  2015 mpa_report_monthly_2015-02.xls
+-rw-r--r-- 1 amouchinski amouchinski 291840 Feb 28  2015 mpa_report_weekly_2015-02-28.xls
+-rw-r--r-- 1 amouchinski amouchinski 291840 Feb 21  2015 mpa_report_weekly_2015-02-21.xls
+-rw-r--r-- 1 amouchinski amouchinski 200424 Feb 16  2015 mpa_data_2015-02.yml
+-rw-r--r-- 1 amouchinski amouchinski 291840 Feb 14  2015 mpa_report_weekly_2015-02-14.xls
+-rw-r--r-- 1 amouchinski amouchinski 291840 Feb  7  2015 mpa_report_weekly_2015-02-07.xls
+-rw-r--r-- 1 amouchinski amouchinski 292352 Feb  1  2015 mpa_report_monthly_2015-01.xls
+-rw-r--r-- 1 amouchinski amouchinski 291328 Jan 31  2015 mpa_report_weekly_2015-01-31.xls
+-rw-r--r-- 1 amouchinski amouchinski 291328 Jan 24  2015 mpa_report_weekly_2015-01-24.xls
+-rw-r--r-- 1 amouchinski amouchinski 291840 Jan 17  2015 mpa_report_weekly_2015-01-17.xls
+-rw-r--r-- 1 amouchinski amouchinski 199027 Jan 16  2015 mpa_data_2015-01.yml
+-rw-r--r-- 1 amouchinski amouchinski 291840 Jan 10  2015 mpa_report_weekly_2015-01-10.xls
+-rw-r--r-- 1 amouchinski amouchinski 291840 Jan  3  2015 mpa_report_weekly_2015-01-03.xls
+-rw-r--r-- 1 amouchinski amouchinski 293376 Jan  1  2015 mpa_report_monthly_2014-12.xls
+-rw-r--r-- 1 amouchinski amouchinski 291840 Dec 27  2014 mpa_report_weekly_2014-12-27.xls
+-rw-r--r-- 1 amouchinski amouchinski 292352 Dec 20  2014 mpa_report_weekly_2014-12-20.xls
+-rw-r--r-- 1 amouchinski amouchinski 199956 Dec 16  2014 mpa_data_2014-12.yml
+-rw-r--r-- 1 amouchinski amouchinski 239616 Dec 13  2014 mpa_report_weekly_2014-12-13.xls
+-rw-r--r-- 1 amouchinski amouchinski 292352 Dec 11  2014 mpa_report_weekly_listtest_2014-12-11.xls
+-rw-r--r-- 1 amouchinski amouchinski 239616 Dec  6  2014 mpa_report_weekly_2014-12-06.xls
+-rw-r--r-- 1 amouchinski amouchinski 240128 Dec  2  2014 mpa_report_monthly_2014-11.xls
+-rw-r--r-- 1 amouchinski amouchinski 239104 Dec  1  2014 mpa_report_weekly_2014-12-01.xls
+-rw-r--r-- 1 amouchinski amouchinski   5632 Dec  1  2014 mpa_report_detailsmag_2014-12-01.xls
+-rw-r--r-- 1 amouchinski amouchinski   7830 Dec  1  2014 t-m.txt
+-rw-r--r-- 1 amouchinski amouchinski   7630 Dec  1  2014 t-d.txt
+-rw-r--r-- 1 amouchinski amouchinski 161449 Dec  1  2014 mpa_data_2014-11.yml-combined
+-rw-r--r-- 1 amouchinski amouchinski 161449 Nov 24  2014 mpa_data_2014-11.yml
+-rw-r--r-- 1 amouchinski amouchinski 153430 Nov 24  2014 mpa_data_2014-11.yml-backup
+-rw-r--r-- 1 amouchinski amouchinski   5632 Nov 24  2014 mpa_data_test_sm.xls
+-rw-r--r-- 1 amouchinski amouchinski   8023 Nov 24  2014 mpa_data_newmonthly_2014-11.yml
+-rw-r--r-- 1 amouchinski amouchinski 240128 Nov 24  2014 mpa_report_weekly_2014-11-24.xls
+amouchinski@amouchinski:~/mpa/data$ ls^C
+amouchinski@amouchinski:~/mpa/data$ grep -r "perry@socialflow.com" .^C
+amouchinski@amouchinski:~/mpa/data$ ^C^C
+amouchinski@amouchinski:~/mpa/data$ logout
+Connection to amouchinski.home.saturn.sfsrv.net closed.
+AnnMarys-MacBook-Air:~ ammathew$ scp amouchinski@amouchinski.home.saturn.sfsrv.net:/home/amouchinski/mpa/data/mpa_report_2016-03-01_2016-03-30.xls .
+no such identity: /Users/ammathew/.ssh/amouchinski.home.saturn.sfsrv.net.key: No such file or directory
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+mpa_report_2016-03-01_2016-03-30.xls          100%  141KB 140.5KB/s   00:00    
+AnnMarys-MacBook-Air:~ ammathew$ ssh sf
+ssh: Could not resolve hostname ammathew.home.saturn.sfsrv.net: nodename nor servname provided, or not known
+AnnMarys-MacBook-Air:~ ammathew$ ssh sf
+ssh: Could not resolve hostname ammathew.home.saturn.sfsrv.net: nodename nor servname provided, or not known
+AnnMarys-MacBook-Air:~ ammathew$ ssh sf
+ssh: Could not resolve hostname ammathew.home.saturn.sfsrv.net: nodename nor servname provided, or not known
+AnnMarys-MacBook-Air:~ ammathew$ ssh amouchinski@amouchinski.home.saturn.sfsrv.net
+no such identity: /Users/ammathew/.ssh/amouchinski.home.saturn.sfsrv.net.key: No such file or directory
+Linux amouchinski.home.saturn.sflow.us 3.2.0-4-amd64 #1 SMP Debian 3.2.60-1+deb7u1 x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+No mail.
+Last login: Sat Apr 30 03:44:06 2016 from 10.126.0.6
+amouchinski@amouchinski:~$ source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/run_ppa_report.sh config_local_prod.yml
+manpath: warning: $MANPATH set, ignoring /etc/manpath.config
+yo
+TIME_SINCE
+1456790400
+TIME_UNTIL
+1459296000
+File '/home/amouchinski/mpa/ppa_members_new_3.yml' does not exist at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 79.
+amouchinski@amouchinski:~/mpa$ source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/run_ppa_report.sh config_local_prod.yml
+manpath: warning: $MANPATH set, ignoring /etc/manpath.config
+yo
+TIME_SINCE
+1456790400
+TIME_UNTIL
+1459296000
+[Sat Apr 30 04:15:32 2016 #23869] Running action 'default' on reports 'facebook', 'twitter', 'gplus', 'instagram', 'pinterest' for '/home/amouchinski/mpa/ppa_members_3.yml' members since '2016-03-01 00:00:00' and until '2016-03-30 00:00:00')
+[Sat Apr 30 04:15:32 2016 #23869] -- Working on Time Inc / Amateur Gardening (1 of 1)
+[Sat Apr 30 04:15:32 2016 #23869] Getting FB page '150068518396029' insights
+
+
+
+ in get fb page posts 
+
+"1459296000"
+[Sat Apr 30 04:15:35 2016 #23869] Getting FB page posts
+[Sat Apr 30 04:15:35 2016 #23869]   loading posts since 2016-03-01 00:00:00 until 2016-03-04 00:00:00
+[Sat Apr 30 04:15:36 2016 #23869]   got 4 posts
+[Sat Apr 30 04:15:36 2016 #23869]   loading posts since 2016-03-04 00:00:01 until 2016-03-07 00:00:01
+[Sat Apr 30 04:15:36 2016 #23869]   got 0 posts
+[Sat Apr 30 04:15:36 2016 #23869]   loading posts since 2016-03-07 00:00:02 until 2016-03-10 00:00:02
+[Sat Apr 30 04:15:37 2016 #23869]   got 3 posts
+[Sat Apr 30 04:15:37 2016 #23869]   loading posts since 2016-03-10 00:00:03 until 2016-03-13 00:00:03
+[Sat Apr 30 04:15:38 2016 #23869]   got 2 posts
+[Sat Apr 30 04:15:38 2016 #23869]   loading posts since 2016-03-13 00:00:04 until 2016-03-16 00:00:04
+[Sat Apr 30 04:15:38 2016 #23869]   got 1 posts
+[Sat Apr 30 04:15:38 2016 #23869]   loading posts since 2016-03-16 00:00:05 until 2016-03-19 00:00:05
+^C
+amouchinski@amouchinski:~/mpa$ source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/run_ppa_report.sh config_local_prod.yml
+manpath: warning: $MANPATH set, ignoring /etc/manpath.config
+yo
+TIME_SINCE
+1456790400
+TIME_UNTIL
+1459296000
+YAML::Tiny found illegal characters in plain scalar: 'Time Inc:' at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 79.
+amouchinski@amouchinski:~/mpa$ source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/run_ppa_report.sh config_local_prod.yml
+manpath: warning: $MANPATH set, ignoring /etc/manpath.config
+yo
+TIME_SINCE
+1456790400
+TIME_UNTIL
+1459296000
+YAML::Tiny found illegal characters in plain scalar: 'Time Inc:' at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 79.
+amouchinski@amouchinski:~/mpa$ source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/run_ppa_report.sh config_local_prod.yml
+manpath: warning: $MANPATH set, ignoring /etc/manpath.config
+yo
+TIME_SINCE
+1456790400
+TIME_UNTIL
+1459296000
+YAML::Tiny found illegal characters in plain scalar: 'Time Inc:' at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 79.
+amouchinski@amouchinski:~/mpa$ source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/run_ppa_report.sh config_local_prod.yml
+manpath: warning: $MANPATH set, ignoring /etc/manpath.config
+yo
+TIME_SINCE
+1456790400
+TIME_UNTIL
+1459296000
+[Sat Apr 30 04:27:13 2016 #24139] Running action 'default' on reports 'facebook', 'twitter', 'gplus', 'instagram', 'pinterest' for '/home/amouchinski/mpa/ppa_members_3.yml' members since '2016-03-01 00:00:00' and until '2016-03-30 00:00:00')
+[Sat Apr 30 04:27:13 2016 #24139] Looking up twitter users: autocar
+[Sat Apr 30 04:27:13 2016 #24139] -- Working on Haymarket / Autocar (1 of 1)
+[Sat Apr 30 04:27:13 2016 #24139] Getting FB page '88466919022' insights
+
+
+
+ in get fb page posts 
+
+"1459296000"
+[Sat Apr 30 04:27:17 2016 #24139] Getting FB page posts
+[Sat Apr 30 04:27:17 2016 #24139]   loading posts since 2016-03-01 00:00:00 until 2016-03-04 00:00:00
+[Sat Apr 30 04:27:20 2016 #24139]   got 44 posts
+[Sat Apr 30 04:27:20 2016 #24139]   loading posts since 2016-03-04 00:00:01 until 2016-03-07 00:00:01
+[Sat Apr 30 04:27:21 2016 #24139]   got 15 posts
+[Sat Apr 30 04:27:21 2016 #24139]   loading posts since 2016-03-07 00:00:02 until 2016-03-10 00:00:02
+[Sat Apr 30 04:27:22 2016 #24139]   got 22 posts
+[Sat Apr 30 04:27:22 2016 #24139]   loading posts since 2016-03-10 00:00:03 until 2016-03-13 00:00:03
+[Sat Apr 30 04:27:24 2016 #24139]   got 24 posts
+[Sat Apr 30 04:27:24 2016 #24139]   loading posts since 2016-03-13 00:00:04 until 2016-03-16 00:00:04
+[Sat Apr 30 04:27:25 2016 #24139]   got 20 posts
+[Sat Apr 30 04:27:25 2016 #24139]   loading posts since 2016-03-16 00:00:05 until 2016-03-19 00:00:05
+[Sat Apr 30 04:27:28 2016 #24139]   got 27 posts
+[Sat Apr 30 04:27:28 2016 #24139]   loading posts since 2016-03-19 00:00:06 until 2016-03-22 00:00:06
+^C
+amouchinski@amouchinski:~/mpa$ source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/run_ppa_report.sh config_local_prod.yml
+manpath: warning: $MANPATH set, ignoring /etc/manpath.config
+yo
+TIME_SINCE
+1456790400
+TIME_UNTIL
+1459296000
+YAML::Tiny found bad indenting in line '  Classic Cars:' at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 79.
+amouchinski@amouchinski:~/mpa$ source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/run_ppa_report.sh config_local_prod.yml
+manpath: warning: $MANPATH set, ignoring /etc/manpath.config
+yo
+TIME_SINCE
+1456790400
+TIME_UNTIL
+1459296000
+[Sat Apr 30 04:32:23 2016 #24236] Running action 'default' on reports 'facebook', 'twitter', 'gplus', 'instagram', 'pinterest' for '/home/amouchinski/mpa/ppa_members_new_2.yml' members since '2016-03-01 00:00:00' and until '2016-03-30 00:00:00')
+[Sat Apr 30 04:32:23 2016 #24236] Looking up twitter users: TheWeekUK, evomagazine, BigIssue, AutoExpress, MensFitnessMag, PBmagazineUK, LandRoverOwner, MotherAndBaby, matchmagazine, bikemagazine, CloserOnline, KerrangMagazine, QMagazine, MCNnews, MCNsport, prac_classics, empiremagazine, GoFishingUK, MOJOmagazine, yoursmagazine, angling_times, ClassicCars_Mag, TheTodaysGolfer, TheTodaysGolfer, heatworld, CARmagazine, practphoto, DPMagazine, Topsantecom, GraziaUK, FourFourTwo, autosport, Stufftv, F1Racing_mag, autocar, TVChoice, takeabreakmag, tvchoice, bellamagazineUK, thatslifeuk, p_b_o, SportingGunMag, GolfMonthly, ChatMagazine, whatsontvuk, theagteam, tvtimesmagazine, AnglersMail, WomanMagazine, TVSatelliteWeek, Womans_Weekly, Lookmagazine, womanandhome, idealhome, NME, Rugbyworldmag, Countrylifemag, instyle_UK, WorldSoccerMag, celebsnow, countryhomesmag, marieclaireuk, PickMeUpMag, homesandgardens, cyclingweekly, GTK_Essentials, TheFieldmag, housetohome, horseandhound, Livingetc, WomansOwn, deliciousmag, HistoryExtra?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor, bbcgoodfood, GWmag, homes_antiques, youyourwedding, EasyCookMag, RadioTimes, olivemagazine, bbc_topgear, totpmag, MusicMagazine, WildlifeMag?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor, allaboutsoapmag, ELLEUK, CosmopolitanUK, InsideSoapMag, BestMagOfficial, ELLEDecoUK, UKWomensHealth, RedMagDaily, countrylivinguk, PrimaMag, RevealMag, runnersworlduk, GHmagazine, MensHealthUK, RealPeopleMag, EsquireUK, BazaarUK
+[Sat Apr 30 04:32:24 2016 #24236] Looking up twitter users: HB, www.BritishVogue, www.BritishGQ, www._houseandgarden, www.glamourmaguk, VanityFair, www.bridesmagazine, www.wofinteriors, www.tatlerUK
+[Sat Apr 30 04:32:24 2016 #24236] -- Working on Dennis / The Week (1 of 112)
+[Sat Apr 30 04:32:24 2016 #24236] Getting FB page 'theweekuk' insights
+
+
+
+ in get fb page posts 
+
+"1459296000"
+[Sat Apr 30 04:32:27 2016 #24236] Getting FB page posts
+[Sat Apr 30 04:32:27 2016 #24236]   loading posts since 2016-03-01 00:00:00 until 2016-03-04 00:00:00
+[Sat Apr 30 04:32:28 2016 #24236]   got 42 posts
+[Sat Apr 30 04:32:28 2016 #24236]   loading posts since 2016-03-04 00:00:01 until 2016-03-07 00:00:01
+[Sat Apr 30 04:32:29 2016 #24236]   got 13 posts
+[Sat Apr 30 04:32:29 2016 #24236]   loading posts since 2016-03-07 00:00:02 until 2016-03-10 00:00:02
+[Sat Apr 30 04:32:30 2016 #24236]   got 35 posts
+[Sat Apr 30 04:32:30 2016 #24236]   loading posts since 2016-03-10 00:00:03 until 2016-03-13 00:00:03
+[Sat Apr 30 04:32:31 2016 #24236]   got 32 posts
+[Sat Apr 30 04:32:31 2016 #24236]   loading posts since 2016-03-13 00:00:04 until 2016-03-16 00:00:04
+[Sat Apr 30 04:32:32 2016 #24236]   got 28 posts
+[Sat Apr 30 04:32:32 2016 #24236]   loading posts since 2016-03-16 00:00:05 until 2016-03-19 00:00:05
+[Sat Apr 30 04:32:33 2016 #24236]   got 37 posts
+[Sat Apr 30 04:32:33 2016 #24236]   loading posts since 2016-03-19 00:00:06 until 2016-03-22 00:00:06
+[Sat Apr 30 04:32:34 2016 #24236]   got 16 posts
+[Sat Apr 30 04:32:34 2016 #24236]   loading posts since 2016-03-22 00:00:07 until 2016-03-25 00:00:07
+[Sat Apr 30 04:32:35 2016 #24236]   got 42 posts
+[Sat Apr 30 04:32:35 2016 #24236]   loading posts since 2016-03-25 00:00:08 until 2016-03-28 00:00:08
+[Sat Apr 30 04:32:35 2016 #24236]   got 5 posts
+[Sat Apr 30 04:32:35 2016 #24236]   loading posts since 2016-03-28 00:00:09 until 2016-03-30 00:00:00
+[Sat Apr 30 04:32:36 2016 #24236]   got 13 posts
+[Sat Apr 30 04:32:36 2016 #24236]   total 263 posts
+[Sat Apr 30 04:32:36 2016 #24236] Getting FB page likes
+[Sat Apr 30 04:32:36 2016 #24236] Getting G+ user info
+[Sat Apr 30 04:32:36 2016 #24236] Getting G+ activity of +TheweekCoUk
+[Sat Apr 30 04:32:36 2016 #24236]   next page token=undef
+[Sat Apr 30 04:32:37 2016 #24236]   got 100 activity items
+[Sat Apr 30 04:32:37 2016 #24236]   there are 0 actual posts
+[Sat Apr 30 04:32:37 2016 #24236]   total new posts: 0
+[Sat Apr 30 04:32:37 2016 #24236] Getting pinterest counts for user 'theweekuk'
+[Sat Apr 30 04:32:37 2016 #24236] Calculating new pin stats
+[Sat Apr 30 04:32:37 2016 #24236]   loading pin data (bookmark = undef)
+[Sat Apr 30 04:32:38 2016 #24236] Getting tweets by TheWeekUK
+[Sat Apr 30 04:32:38 2016 #24236]   -> getting tweets from the user's timeline (max_id=undef)
+[Sat Apr 30 04:32:38 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:32:38 2016 #24236]   -> getting tweets from the user's timeline (max_id=722443425019105280)
+[Sat Apr 30 04:32:39 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:32:39 2016 #24236]   -> getting tweets from the user's timeline (max_id=718358498808098819)
+[Sat Apr 30 04:32:39 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:32:39 2016 #24236]   -> getting tweets from the user's timeline (max_id=714825503610441728)
+[Sat Apr 30 04:32:40 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:32:40 2016 #24236]   -> getting tweets from the user's timeline (max_id=709724644815855616)
+[Sat Apr 30 04:32:40 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:32:40 2016 #24236]   -> getting tweets from the user's timeline (max_id=705680705976569856)
+[Sat Apr 30 04:32:40 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:32:40 2016 #24236]   total 492 tweets
+[Sat Apr 30 04:32:41 2016 #24236] -- Working on Dennis / Evo (2 of 112)
+[Sat Apr 30 04:32:41 2016 #24236] Getting FB page 'evomagazine' insights
+
+
+
+ in get fb page posts 
+
+"1459296000"
+[Sat Apr 30 04:32:43 2016 #24236] Getting FB page posts
+[Sat Apr 30 04:32:43 2016 #24236]   loading posts since 2016-03-01 00:00:00 until 2016-03-04 00:00:00
+[Sat Apr 30 04:32:44 2016 #24236]   got 46 posts
+[Sat Apr 30 04:32:44 2016 #24236]   loading posts since 2016-03-04 00:00:01 until 2016-03-07 00:00:01
+[Sat Apr 30 04:32:44 2016 #24236]   got 2 posts
+[Sat Apr 30 04:32:44 2016 #24236]   loading posts since 2016-03-07 00:00:02 until 2016-03-10 00:00:02
+[Sat Apr 30 04:32:45 2016 #24236]   got 11 posts
+[Sat Apr 30 04:32:45 2016 #24236]   loading posts since 2016-03-10 00:00:03 until 2016-03-13 00:00:03
+[Sat Apr 30 04:32:46 2016 #24236]   got 16 posts
+[Sat Apr 30 04:32:46 2016 #24236]   loading posts since 2016-03-13 00:00:04 until 2016-03-16 00:00:04
+[Sat Apr 30 04:32:46 2016 #24236]   got 3 posts
+[Sat Apr 30 04:32:46 2016 #24236]   loading posts since 2016-03-16 00:00:05 until 2016-03-19 00:00:05
+[Sat Apr 30 04:32:46 2016 #24236]   got 19 posts
+[Sat Apr 30 04:32:46 2016 #24236]   loading posts since 2016-03-19 00:00:06 until 2016-03-22 00:00:06
+[Sat Apr 30 04:32:47 2016 #24236]   got 7 posts
+[Sat Apr 30 04:32:47 2016 #24236]   loading posts since 2016-03-22 00:00:07 until 2016-03-25 00:00:07
+[Sat Apr 30 04:32:48 2016 #24236]   got 27 posts
+[Sat Apr 30 04:32:48 2016 #24236]   loading posts since 2016-03-25 00:00:08 until 2016-03-28 00:00:08
+[Sat Apr 30 04:32:49 2016 #24236]   got 6 posts
+[Sat Apr 30 04:32:49 2016 #24236]   loading posts since 2016-03-28 00:00:09 until 2016-03-30 00:00:00
+[Sat Apr 30 04:32:49 2016 #24236]   got 7 posts
+[Sat Apr 30 04:32:49 2016 #24236]   total 144 posts
+[Sat Apr 30 04:32:49 2016 #24236] Getting FB page likes
+[Sat Apr 30 04:32:49 2016 #24236] Getting G+ user info
+[Sat Apr 30 04:32:50 2016 #24236] Getting G+ activity of 102471617579050194022
+[Sat Apr 30 04:32:50 2016 #24236]   next page token=undef
+[Sat Apr 30 04:32:50 2016 #24236]   got 1 activity items
+[Sat Apr 30 04:32:50 2016 #24236]   there are 0 actual posts
+[Sat Apr 30 04:32:50 2016 #24236]   total new posts: 0
+[Sat Apr 30 04:32:50 2016 #24236] Searching instagram user 'officialevomagazine'
+[Sat Apr 30 04:32:50 2016 #24236]   getting instagram user info by id 1693240005
+[Sat Apr 30 04:32:50 2016 #24236] Getting recent media stats for instagram user 1693240005
+[Sat Apr 30 04:32:50 2016 #24236]   getting data (max_id = undef)
+[Sat Apr 30 04:32:51 2016 #24236]     got 33 items
+[Sat Apr 30 04:32:51 2016 #24236]   getting data (max_id = 1209528259293748185_1693240005)
+[Sat Apr 30 04:32:51 2016 #24236]     got 33 items
+[Sat Apr 30 04:32:51 2016 #24236]   getting data (max_id = 1196481852399949863_1693240005)
+[Sat Apr 30 04:32:52 2016 #24236]     got 27 items
+[Sat Apr 30 04:32:52 2016 #24236]   total 93 posts
+[Sat Apr 30 04:32:52 2016 #24236] Getting tweets by evomagazine
+[Sat Apr 30 04:32:52 2016 #24236]   -> getting tweets from the user's timeline (max_id=undef)
+[Sat Apr 30 04:32:52 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:32:52 2016 #24236]   -> getting tweets from the user's timeline (max_id=710052538683367424)
+[Sat Apr 30 04:32:53 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:32:53 2016 #24236]   total 146 tweets
+[Sat Apr 30 04:32:53 2016 #24236] -- Working on Dennis / Big Issue (3 of 112)
+[Sat Apr 30 04:32:53 2016 #24236] Getting FB page 'bigissueuk' insights
+
+
+
+ in get fb page posts 
+
+"1459296000"
+[Sat Apr 30 04:32:56 2016 #24236] Getting FB page posts
+[Sat Apr 30 04:32:56 2016 #24236]   loading posts since 2016-03-01 00:00:00 until 2016-03-04 00:00:00
+[Sat Apr 30 04:32:56 2016 #24236]   got 5 posts
+[Sat Apr 30 04:32:56 2016 #24236]   loading posts since 2016-03-04 00:00:01 until 2016-03-07 00:00:01
+[Sat Apr 30 04:32:57 2016 #24236]   got 3 posts
+[Sat Apr 30 04:32:57 2016 #24236]   loading posts since 2016-03-07 00:00:02 until 2016-03-10 00:00:02
+[Sat Apr 30 04:32:57 2016 #24236]   got 4 posts
+[Sat Apr 30 04:32:57 2016 #24236]   loading posts since 2016-03-10 00:00:03 until 2016-03-13 00:00:03
+[Sat Apr 30 04:32:57 2016 #24236]   got 2 posts
+[Sat Apr 30 04:32:57 2016 #24236]   loading posts since 2016-03-13 00:00:04 until 2016-03-16 00:00:04
+[Sat Apr 30 04:32:58 2016 #24236]   got 4 posts
+[Sat Apr 30 04:32:58 2016 #24236]   loading posts since 2016-03-16 00:00:05 until 2016-03-19 00:00:05
+[Sat Apr 30 04:32:58 2016 #24236]   got 10 posts
+[Sat Apr 30 04:32:58 2016 #24236]   loading posts since 2016-03-19 00:00:06 until 2016-03-22 00:00:06
+[Sat Apr 30 04:32:59 2016 #24236]   got 6 posts
+[Sat Apr 30 04:32:59 2016 #24236]   loading posts since 2016-03-22 00:00:07 until 2016-03-25 00:00:07
+[Sat Apr 30 04:32:59 2016 #24236]   got 3 posts
+[Sat Apr 30 04:32:59 2016 #24236]   loading posts since 2016-03-25 00:00:08 until 2016-03-28 00:00:08
+[Sat Apr 30 04:32:59 2016 #24236]   got 1 posts
+[Sat Apr 30 04:32:59 2016 #24236]   loading posts since 2016-03-28 00:00:09 until 2016-03-30 00:00:00
+[Sat Apr 30 04:33:00 2016 #24236]   got 0 posts
+[Sat Apr 30 04:33:00 2016 #24236]   total 38 posts
+[Sat Apr 30 04:33:00 2016 #24236] Getting FB page likes
+[Sat Apr 30 04:33:00 2016 #24236] Getting pinterest counts for user 'bigissue'
+[Sat Apr 30 04:33:00 2016 #24236] Calculating new pin stats
+[Sat Apr 30 04:33:00 2016 #24236]   loading pin data (bookmark = undef)
+[Sat Apr 30 04:33:01 2016 #24236] Searching instagram user 'bigissueuk'
+[Sat Apr 30 04:33:01 2016 #24236]   getting instagram user info by id 1517857282
+[Sat Apr 30 04:33:01 2016 #24236] Getting recent media stats for instagram user 1517857282
+[Sat Apr 30 04:33:01 2016 #24236]   getting data (max_id = undef)
+[Sat Apr 30 04:33:01 2016 #24236]     got 19 items
+[Sat Apr 30 04:33:01 2016 #24236]   total 19 posts
+[Sat Apr 30 04:33:01 2016 #24236] Getting tweets by BigIssue
+[Sat Apr 30 04:33:01 2016 #24236]   -> getting tweets from the user's timeline (max_id=undef)
+[Sat Apr 30 04:33:02 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:02 2016 #24236]   -> getting tweets from the user's timeline (max_id=720208323472191488)
+[Sat Apr 30 04:33:02 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:02 2016 #24236]   -> getting tweets from the user's timeline (max_id=716957792079376384)
+[Sat Apr 30 04:33:03 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:03 2016 #24236]   -> getting tweets from the user's timeline (max_id=710524115015208960)
+[Sat Apr 30 04:33:03 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:03 2016 #24236]   -> getting tweets from the user's timeline (max_id=707212757888798724)
+[Sat Apr 30 04:33:04 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:04 2016 #24236]   total 419 tweets
+[Sat Apr 30 04:33:04 2016 #24236] -- Working on Dennis / Auto Express (4 of 112)
+[Sat Apr 30 04:33:04 2016 #24236] Getting FB page 'AutoExpress' insights
+
+
+
+ in get fb page posts 
+
+"1459296000"
+[Sat Apr 30 04:33:07 2016 #24236] Getting FB page posts
+[Sat Apr 30 04:33:07 2016 #24236]   loading posts since 2016-03-01 00:00:00 until 2016-03-04 00:00:00
+[Sat Apr 30 04:33:08 2016 #24236]   got 26 posts
+[Sat Apr 30 04:33:08 2016 #24236]   loading posts since 2016-03-04 00:00:01 until 2016-03-07 00:00:01
+[Sat Apr 30 04:33:09 2016 #24236]   got 22 posts
+[Sat Apr 30 04:33:09 2016 #24236]   loading posts since 2016-03-07 00:00:02 until 2016-03-10 00:00:02
+[Sat Apr 30 04:33:09 2016 #24236]   got 18 posts
+[Sat Apr 30 04:33:09 2016 #24236]   loading posts since 2016-03-10 00:00:03 until 2016-03-13 00:00:03
+[Sat Apr 30 04:33:10 2016 #24236]   got 20 posts
+[Sat Apr 30 04:33:10 2016 #24236]   loading posts since 2016-03-13 00:00:04 until 2016-03-16 00:00:04
+[Sat Apr 30 04:33:11 2016 #24236]   got 16 posts
+[Sat Apr 30 04:33:11 2016 #24236]   loading posts since 2016-03-16 00:00:05 until 2016-03-19 00:00:05
+[Sat Apr 30 04:33:11 2016 #24236]   got 20 posts
+[Sat Apr 30 04:33:11 2016 #24236]   loading posts since 2016-03-19 00:00:06 until 2016-03-22 00:00:06
+[Sat Apr 30 04:33:12 2016 #24236]   got 19 posts
+[Sat Apr 30 04:33:12 2016 #24236]   loading posts since 2016-03-22 00:00:07 until 2016-03-25 00:00:07
+[Sat Apr 30 04:33:13 2016 #24236]   got 24 posts
+[Sat Apr 30 04:33:13 2016 #24236]   loading posts since 2016-03-25 00:00:08 until 2016-03-28 00:00:08
+[Sat Apr 30 04:33:13 2016 #24236]   got 17 posts
+[Sat Apr 30 04:33:13 2016 #24236]   loading posts since 2016-03-28 00:00:09 until 2016-03-30 00:00:00
+[Sat Apr 30 04:33:14 2016 #24236]   got 12 posts
+[Sat Apr 30 04:33:14 2016 #24236]   total 194 posts
+[Sat Apr 30 04:33:14 2016 #24236] Getting FB page likes
+[Sat Apr 30 04:33:14 2016 #24236] Searching instagram user 'autoexpressmagazine'
+[Sat Apr 30 04:33:14 2016 #24236]   getting instagram user info by id 337637345
+[Sat Apr 30 04:33:15 2016 #24236] Getting recent media stats for instagram user 337637345
+[Sat Apr 30 04:33:15 2016 #24236]   getting data (max_id = undef)
+[Sat Apr 30 04:33:15 2016 #24236]     got 26 items
+[Sat Apr 30 04:33:15 2016 #24236]   total 26 posts
+[Sat Apr 30 04:33:15 2016 #24236] Getting tweets by AutoExpress
+[Sat Apr 30 04:33:15 2016 #24236]   -> getting tweets from the user's timeline (max_id=undef)
+[Sat Apr 30 04:33:15 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:15 2016 #24236]   -> getting tweets from the user's timeline (max_id=724640418231525378)
+[Sat Apr 30 04:33:16 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:16 2016 #24236]   -> getting tweets from the user's timeline (max_id=723058966360518657)
+[Sat Apr 30 04:33:16 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:16 2016 #24236]   -> getting tweets from the user's timeline (max_id=721617467634638848)
+[Sat Apr 30 04:33:16 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:16 2016 #24236]   -> getting tweets from the user's timeline (max_id=720182770819936256)
+[Sat Apr 30 04:33:17 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:17 2016 #24236]   -> getting tweets from the user's timeline (max_id=718158678369538048)
+[Sat Apr 30 04:33:17 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:17 2016 #24236]   -> getting tweets from the user's timeline (max_id=716280050031550467)
+[Sat Apr 30 04:33:18 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:18 2016 #24236]   -> getting tweets from the user's timeline (max_id=714415009686683648)
+[Sat Apr 30 04:33:18 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:18 2016 #24236]   -> getting tweets from the user's timeline (max_id=712458944015249410)
+[Sat Apr 30 04:33:19 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:19 2016 #24236]   -> getting tweets from the user's timeline (max_id=710575302678675456)
+[Sat Apr 30 04:33:19 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:19 2016 #24236]   -> getting tweets from the user's timeline (max_id=709016933127954432)
+[Sat Apr 30 04:33:19 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:19 2016 #24236]   -> getting tweets from the user's timeline (max_id=706941007951101952)
+[Sat Apr 30 04:33:20 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:20 2016 #24236]   -> getting tweets from the user's timeline (max_id=705090625394245632)
+[Sat Apr 30 04:33:20 2016 #24236]   got 200 tweets
+[Sat Apr 30 04:33:20 2016 #24236]   total 1167 tweets
+[Sat Apr 30 04:33:20 2016 #24236] -- Working on Dennis / Men's Fitness (5 of 112)
+[Sat Apr 30 04:33:20 2016 #24236] Getting FB page 'MensFitnessMagazine' insights
+
+
+
+ in get fb page posts 
+
+"1459296000"
+[Sat Apr 30 04:33:23 2016 #24236] Getting FB page posts
+[Sat Apr 30 04:33:23 2016 #24236]   loading posts since 2016-03-01 00:00:00 until 2016-03-04 00:00:00
+[Sat Apr 30 04:33:24 2016 #24236]   got 12 posts
+[Sat Apr 30 04:33:24 2016 #24236]   loading posts since 2016-03-04 00:00:01 until 2016-03-07 00:00:01
+^C
+amouchinski@amouchinski:~/mpa$ source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/run_ppa_report.sh config_local_prod.yml > ppa_report_script_run_output
+manpath: warning: $MANPATH set, ignoring /etc/manpath.config
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+  Error: instagram user 'bbcgoodfood?hl=en' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+Unable to lookup pinterest user 'http:pinterest.combritishvogue', skipping: Request failed: 404 NOT FOUND(404) at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 390.
+  Error: instagram user 'http:instagram.combritishvogue' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+
+
+
+ in get fb page posts 
+
+"1459296000"
+  Error: instagram user 'http:instagram.combritishgq' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+
+
+
+ in get fb page posts 
+
+"1459296000"
+Unable to lookup pinterest user 'http:pinterest.comhouseandgarden', skipping: Request failed: 404 NOT FOUND(404) at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 390.
+  Error: instagram user 'http:instagram.comhouseandgardenuk' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+
+
+
+ in get fb page posts 
+
+"1459296000"
+Unable to lookup pinterest user 'http:pinterest.comglamourmaguk', skipping: Request failed: 404 NOT FOUND(404) at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 390.
+  Error: instagram user 'http:instagram.comglamouruk' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+
+
+
+ in get fb page posts 
+
+"1459296000"
+
+
+
+ in get fb page posts 
+
+"1459296000"
+Unable to lookup pinterest user 'http:pinterest.combridesmagazine', skipping: Request failed: 404 NOT FOUND(404) at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 390.
+  Error: instagram user 'http:instagram.comBridesmagazine' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+
+
+
+ in get fb page posts 
+
+"1459296000"
+  Error: instagram user 'instagram.comtheworldofinteriorsmagazine' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+
+
+
+ in get fb page posts 
+
+"1459296000"
+Unable to lookup pinterest user 'pinterest.comtatleruk', skipping: Request failed: 404 NOT FOUND(404) at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 390.
+  Error: instagram user 'http:instagram.comtatleruk' not found
+{ data => [], meta => { code => 200 } } at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 599.
+amouchinski@amouchinski:~/mpa$ Write failed: Broken pipe
+AnnMarys-MacBook-Air:~ ammathew$ 

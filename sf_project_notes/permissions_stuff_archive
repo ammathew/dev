@@ -1,0 +1,74 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /Users/ammathew/sf_project_notes/permissions_stuff
+
+
+* on front end set to social account admin if selected on at least one account?
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-06-14 Tue 10:00
+  :ARCHIVE_FILE: ~/sf_project_notes/permissions_stuff
+  :ARCHIVE_CATEGORY: permissions_stuff
+  :END:
+
+
+
+* undo all in region on emacs?
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-06-14 Tue 10:00
+  :ARCHIVE_FILE: ~/sf_project_notes/permissions_stuff
+  :ARCHIVE_OLPATH: archived/STUFF
+  :ARCHIVE_CATEGORY: permissions_stuff
+  :END:
+
+
+
+yazanator [11:50 AM] 
+@jonlorusso: is system the best way to run cli scripts with perl
+
+[11:50] 
+system($command, @arguments)
+
+[11:51] 
+http://perldoc.perl.org/functions/system.html
+
+ammathew [11:53 AM] 
+looks like thats for running a perl script within a perl script no?
+
+yazanator [11:53 AM] 
+woah
+
+[11:53] 
+perlception
+
+[11:53] 
+hrm
+
+[11:53] 
+gotta investigate further then
+
+jonlorusso [11:53 AM] 
+nah you can run other than perl with that
+
+ammathew [11:54 AM] 
+ah cool
+
+yazanator [11:54 AM] 
+oh nice
+
+jonlorusso [11:54 AM] 
+system is like backticks
+
+[11:54] 
+`echo foo`
+
+[11:54] 
+derp
+
+[11:54] 
+` ` echo foo ` `
+
+git log -p -S Raquel
+
+git log --author is cleaner
+

@@ -1,0 +1,752 @@
+* ticket
+
+https://github.com/SocialFlowDev/qa/issues/3437
+
+
+ammathew [3:05 PM]  
+hey ... is there like a repo where some workers or some cron job checks for new rss items etc?
+
+guru [3:09 PM]  
+i think its this
+
+[3:09]  
+https://github.com/SocialFlowDev/SocialFlow-FeedSource/blob/master/lib/SocialFlow/FeedSource/Fetcher.pm
+
+[3:09]  
+https://github.com/SocialFlowDev/sf-deploy-application/blob/d7ca38265de960e3ff7a5453acfe601592d30927/application/FeedFetcher/supervisor.tt
+
+ammathew [3:09 PM]  
+ah cool...thanks
+
+* Beginning
+
+find sample mrss feed?
+how are rss feeds dealt with now?
+
+rss items not adding?
+for non mrss too
+
+why are items not adding?
+
+reuters rss has been added
+how did it add all those items?
+
+Request URL:http://ammathew.home.saturn.sflow.us:4010/api/feed_source/add
+service_user_id:1578
+account_type:socialflow
+feed_url:http://feeds.reuters.com/news/artsculture
+name:Reuters: Arts
+default_import:post_all
+is_active:1
+template:[title] [link]
+
+https://github.com/SocialFlowDev/SocialFlow-Web/blob/master/lib/SocialFlow/API/Controller/FeedSource.pm
+
+0> $feed_source->as_hashref($c->user->obj->time_zone)                           
+$res[0] = {
+  'client_id' => 4,
+  'client_service_id' => 1578,
+  'content_queue_id' => 371,
+  'content_source_id' => 2088,
+  'create_date' => '09-14-2016 03:00 pm',
+  'feed_config_parameters' => {
+                                'FeedSource::initial_import_rule' => 'post_all',
+                                'FeedSource::template' => '[title] [link]'
+                              },
+  'feed_source_id' => 1468,
+  'feed_url' => 'http://feeds.reuters.com/news/artsculture'
+}
+
+* where parsed?
+
+https://github.com/SocialFlowDev/SocialFlow-FeedSource/blob/master/lib/SocialFlow/FeedSource/ContentQueueImport.pm#L415
+
+* get feedfetcher worker to run on my box?
+
+
+
+guru [5:22 PM]  
+ammathew - content-importing.dev.saturn.sfsrv.net
+
+[5:22]  
+which i think is -6
+
+[5:22]  
+https://github.com/SocialFlowDev/sf-deploy-application/blob/master/application/FeedFetcher/dev/config.yml
+
+
+** feedfetcher runs on services 2
+
+
+
+[program:feed_fetcher]
+environment     = SOCIALFLOW_WEB_PATH=/etc/socialflow/dev/FeedFetcher/SocialFlow-Web-Config,SITE_ENVIRONMENT=dev,SF_LOG_EMAIL_TO='',PGAPPNAME=feed_fetcher
+directory       = /opt/socialflow/dev/FeedFetcher/current
+command         = perl -I/opt/socialflow/dev/FeedFetcher/current/perl5/lib/perl5 perl5/bin/sf-spawn.pl SocialFlow::FeedSource::Fetcher --pool_size 10 --hard_timeout 90
+autorestart     = true
+autostart       = true
+stderr_logfile=syslog
+stdout_logfile=syslog
+
+
+appuser@services-2:~$ supervisorctl -c /etc/socialflow/dev/FeedFetcher/supervisor.conf 
+feed_db_writer:feed_db_writer_0   RUNNING   pid 1706, uptime 8:04:38
+feed_db_writer:feed_db_writer_1   RUNNING   pid 9493, uptime 1:26:26
+feed_fetcher                      RUNNING   pid 11530, uptime 1:24:26
+
+
+ammathew@ammathew:~$ perl perl5/bin/sf-spawn.pl  SocialFlow::FeedSource::Fetcher --pool_size 10 --hard_timeout 90
+[info] Successfully raised open file limit to 4096 at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Fetcher.pm line 147.
+
+
+
+*** 
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-FeedSource$ perl ~/perl5/bin/sf-spawn.pl  SocialFlow::FeedSource::ContentQueueImport --pool_size 10 --hard_timeout 90
+
+
+/lib/SocialFlow/FeedSource/Role/RedisContentImport.pm:sub get_feed_to_import {
+
+ sub get_feed_to_import {
+    my ( $self) = @_;
+    return $self->feed_source_redis->lpop('feeds_to_import');
+}
+
+* try to see content item going through ContentQueueImport
+
+not seeing feeds going through
+
+feed_source_redis?
+
+has script_util => (
+    is      => 'ro',
+    lazy    => 1,
+    handles => [qw/feed_source_schema feed_source_redis config/],
+    builder => '_script_util',
+);
+
+sub _script_util {
+    my $self = shift;
+    return SocialFlow::ScriptUtil->new( $self->script_util_args );
+}
+
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-FeedSource$ perl ~/perl5/bin/sf-spawn.pl  SocialFlow::FeedSource::Fetcher --pool_size 10 --hard_timeout 90
+Error loading package[SocialFlow::FeedSource::Fetcher]: [SocialFlow/FeedSource/Fetcher.pm did not return a true value at /home/ammathew/perl5/lib/perl5/Module/Runtime.pm line 317.
+] at /home/ammathew/perl5/lib/perl5/SocialFlow/Deploy/Spawner.pm line 38.
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-FeedSource$ git stash
+fatal: Unable to create '/home/ammathew/to_devel_local/SocialFlow-FeedSource/.git/index.lock': Disk quota exceeded
+Cannot save the current index state
+
+
+**
+
+
+ryan [3:55 PM]  
+did you get the feed_fetcher and content importer working
+
+ammathew [3:56 PM]  
+er, no
+
+[3:56]  
+any tips
+
+ryan [3:56 PM]  
+whats the issue?
+
+ammathew [3:57 PM]  
+might have something to do with redis
+
+ryan [3:57 PM]  
+you definitely need redis running
+
+ammathew [3:57 PM]  
+content importer not seeing the fetched feeds
+
+ryan [3:57 PM]  
+are you running both locally?
+
+[3:58]  
+acutally all three workers?
+
+ammathew [3:58 PM]  
+u mean  running a redis server too
+
+[3:58]  
+actually not
+
+ryan [3:58 PM]  
+feed fetcher -> feed fetcher —db_writer -> content_importer
+
+[3:58]  
+plus redis (edited)
+
+ammathew [3:58 PM]  
+i was looking through the code
+
+[3:58]  
+db writer huh
+
+[3:58]  
+didnt have that up
+
+ryan [3:58 PM]  
+thats the link
+
+[3:59]  
+ill link you
+
+[3:59]  
+https://github.com/SocialFlowDev/sf-deploy-application/blob/master/application/FeedFetcher/supervisor.tt
+
+[3:59]  
+need both of those running
+
+ammathew [3:59 PM]  
+i see
+
+[3:59]  
+ill try that
+
+[3:59]  
+thanks
+
+ryan [3:59 PM]  
+https://github.com/SocialFlowDev/sf-deploy-application/blob/master/application/ContentImporter/supervisor.tt
+
+[3:59]  
+then the first one there
+
+[3:59]  
+and then redis on your local machine
+
+[4:00]  
+probably gonna need to dl redis if you dont have it
+
+[4:00]  
+http://redis.io/topics/quickstart - i used those instructions
+
+ammathew [4:00 PM]  
+oh ... think ive had it up before
+
+new messages
+ryan [4:01 PM]  
+i just always have it running in a tmux session - saves me the aggravation
+
+
+
+
+tcp        0      0 0.0.0.0:6379            0.0.0.0:*               LISTEN      9567/redis-server
+
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-FeedSource$ perl ~/perl5/bin/sf-spawn.pl  SocialFlow::FeedSource::Fetcher --db_writer
+In blocking pop mode at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Fetcher.pm line 105.
+
+
+
+
+ryan [4:34 PM]  
+nice
+
+new messages
+[4:35]  
+another tip when you begin debugging on a single feed - go into sf_web.feed_source and change the fetch_every = 1
+
+ryan [4:36 PM]  
+https://github.com/SocialFlowDev/SocialFlow-FeedSource/blob/master/lib/SocialFlow/FeedSource/Fetcher.pm#L250 also edit that function so that it only returns your feed, you can search by feed_id
+
+[4:36]  
+then the logs arent insane (edited)
+
+* add mrss feed and only pull that feed
+
+
+bless( {
+                    '_result_source' => $VAR1->{'_result_source'},
+                    '_in_storage' => 1,
+                    '_column_data' => {
+                                        'fetch_every' => 0,
+                                        'feed_id' => 4202,
+                                        'last_fetch_date' => '2016-09-21 20:59:04',
+                                        'create_date' => '2016-05-17 14:04:16',
+                                        'last_status' => 'fail',
+                                        'error_status' => 'Error: Couldn\'t connect to server',
+                                        'feed_url' => 'http://rdwyer.home.saturn.sfsrv.net:8081/',
+                                        'load_time' => '0.02',
+                                        'is_active' => 1,
+                                        'last_md5' => '9943294b3d75430ca0a3673e6a1ae720',
+                                        'type' => 'RSS 2.0',
+                                        'check_for_edits' => 1,
+                                        'last_update_date' => '2016-06-14 19:04:54'
+                                      }
+                  }, 'SocialFlow::FeedSource::Schema::Result::Feed' );
+
+
+sample mrss feed: http://api.ooyala.com/syndication/roku?id=b655fd44-6699-499c-b60c-57d71593e7c7
+
+
+
+feed source id= 4365
+
+set up testing env...
+
+
+* to get into sf_feed_source db
+
+sf_feed_source=> select * from feed where feed_url like '%ooyala%';
+
+ammathew@ammathew:~/to_devel_local$ psql -U socialflow_web -h pg-site.dev -d sf_feed_source -W 
+
+sf_feed_source=> select * from feed where feed_url like '%ooyala%';
+
+"Please rebuild libcurl with AsynchDNS to avoid blocking DNS requests"
+
+[error] [SocialFlow::FeedSource::Fetcher] died with error [Could not connect to Redis server at 127.0.0.1:6379: Connection refused at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Fetcher.pm line 69.
+
+redis server was down; wonder how it was taken down
+
+make it so reads new entries in feeds every time
+
+
+* another tip when you begin debugging on a single feed - go into sf_web.feed_source and change the fetch_every = 1
+
+* make it 
+
+
+wuhere are feeds retrieved and processed?
+
+    my $feed_source_rs = $schema->resultset(
+        'SocialFlow::Web::Schema::Result::FeedSource');
+
+update metod on that schema?
+
+$feed_source->update( { 'last_saved_feed_entry_id' => $max_saved_id } ) if ($max_saved_id);
+
+
+    my @feed_sources = $feed_source_rs->search(
+        {
+            'content_source.is_active' => 1,
+            'client_service.is_active' => 1,
+            'client.active' => 1,
+            'me.feed_url' => $feed,
+        },
+        { prefetch => [ 'content_source', 'client_service', 'client' ] }
+    );
+
+
+
+where is this update function?
+
+doesnt matter, doesnt process indivual feed entries
+
+    @new_entries = $self->get_entries($feed_source, $search_params, $search_attrs, $config_params, $last_saved_id);
+
+$self->_feed_entry_rs->search( $search_params, $search_attrs )
+
+   if ( $self->db_writer ) {
+        $self->redis_db_write_loop();
+    }
+
+redis_db_write_loop: 
+
+my $command = decode_sereal($sereal_cmd);
+
+** delete/readd feed ... find out structure of feed, and mimic...
+
+
+auth not working?
+
+
+New entries[0] at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/ContentQueueImport.pm line 413.
+
+-
+   my $template_list = $self->build_template_list(\@new_entries, $config_params, $feed_source);
+
+    
+    @new_entries = $self->prepare_entries(\@new_entries, $feed_source, $superadmin_appuser, 
+       $config_params, $content_queue, $schema, $editing);
+
+
+sub prepare_entries
+
+
+** look at how we handle videos now, and see how can be parsed from video feed
+
+Request URL:http://ammathew.home.saturn.sflow.us:4010/api/message/add
+Request Method:POST
+Status Code:200 OK
+Remote Address:10.125.3.25:4010
+Response Headers
+view source
+Cache-Control:no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0
+Connection:keep-alive
+Content-Length:1147
+Content-Type:text/javascript; charset=utf-8
+Date:Mon, 26 Sep 2016 20:39:23 GMT
+Pragma:no-cache
+Set-Cookie:socialflow_web_session_v2=c25fb6bbadc2f8dcc15cc81a1faeb508af6d138f; path=/; expires=Mon, 26-Sep-2016 22:39:22 GMT; HttpOnly
+Request Headers
+view source
+Accept:application/json, text/javascript, */*; q=0.01
+Accept-Encoding:gzip, deflate
+Accept-Language:en-US,en;q=0.8
+Connection:keep-alive
+Content-Length:855
+Content-Type:application/x-www-form-urlencoded; charset=UTF-8
+Cookie:_mkto_trk=id:786-QHH-424&token:_mch-saturn.sflow.us-1440525798740-46561; tfcid=tfcid_0C62DD1A-8400-11E6-8BFF-C12FA5D9DC26; __utmt=1; __utma=200461502.966317911.1440525799.1474916492.1474922307.503; __utmb=200461502.2.9.1474922315772; __utmc=200461502; __utmz=200461502.1465504209.291.3.utmcsr=Sailthru|utmccn=invite_user|utmcmd=email; socialflow_web_session_v2=c25fb6bbadc2f8dcc15cc81a1faeb508af6d138f
+Host:ammathew.home.saturn.sflow.us:4010
+Origin:http://ammathew.home.saturn.sflow.us:4010
+Referer:http://ammathew.home.saturn.sflow.us:4010/publish
+User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36
+X-Requested-With:XMLHttpRequest
+Form Data
+view source
+view URL encoded
+shorten_links:1
+service_user_id:1578
+account_type:socialflow
+media_thumbnail_url:http://ammathew.home.saturn.sflow.us:4010/static/images/app/default-video-image.png
+media_filename:373dc185-638c-dcff-4557-f0f8b34bbf6f.mov
+media_type:video
+attachments:[{"type":"video","filename":"373dc185-638c-dcff-4557-f0f8b34bbf6f.mov","thumbnail_url":"http://ammathew.home.saturn.sflow.us:4010/static/images/app/default-video-image.png"}]
+video_captions_file_path:
+video_captions_file_name:
+message:safsadf
+publish_option:optimize
+expiration_date:
+optimize_start_date:
+optimize_end_date:
+scheduled_date:
+must_send:1
+content_attributes:{"link":"","title":"","video_params":"{}","mentions":"[]"}
+links_json:{}
+shorten_query_parameters:
+
+
+*  how do video uploads work?
+
+ $c->model("ContentQueue::ContentItem")->create_content_item(
+
+https://github.com/SocialFlowDev/SocialFlow-ContentQueue/blob/master/lib/SocialFlow/ContentQueue/Schema/ResultSet/ContentItem.pm#L190
+
+my $content_item = $self->create($column_vals);
+use base 'DBIx::Class::ResultSet';
+
+$p->{results} = $results;
+my $column_vals  = $self->determine_column_values($p);
+
+how are content items forvideo posts created??
+
+where published to fb etc?
+
+
+ if ( $content_item->status eq "Publish Now"
+        and not $client_service->is_virtual )
+    {
+        $job = $self->job_publish(
+            $c,
+            {
+                content_item   => $content_item,
+                client_service => $client_service,
+                fb_params      => $fb_params,
+            }
+        );
+    }
+
+./SocialFlow-Web/lib/SocialFlow/Web/ControllerRole/JobQueue.pm:sub job_publish {
+
+    if (   $supported_service->{name} eq 'facebook_page'
+        && $p->{content_item}->media
+        && $p->{content_item}->media->type eq 'video' )
+    {
+        $job_sub = 'job_video_post_' . $supported_service->{name};
+    }
+
+
+my $job = SocialFlow::WorkQueue::Job::FacebookVideoPost
+
+my ($job_id) = $c->model('JobQueue::WorkQueueJob')->submit_jobs($job);
+
+
+
+how does a video get uploaded normally?
+
+get fb video worker to run on my box?
+
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-WorkQueue/bin$ sf-workqueue worker --release_candidate ammathew.mrss --job_name FacebookVideoPost
+[info] waiting for jobs to process at /home/ammathew/perl5/lib/perl5/SocialFlow/WorkQueue/JobRunner.pm line 289.
+[info] listening for jobs on queue workqueue_list_SocialFlow::WorkQueue::Job::FacebookVideoPost-ammathew.mrss at /home/ammathew/perl5/lib/perl5/SocialFlow/WorkQueue/QueueSubscriber/RedisList.pm line 49.
+
+added 
+
+/home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/ControllerRole/JobQueue.pm
+L110,
+added in release_candidate => 'ammathew.mrss'
+
+not seeing video post jobs go through
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-WorkQueue/bin$ sf-workqueue worker --release_candidate ammathew.mrss --job_name FacebookVideoPost
+-bash: /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/sf-workqueue: perl: bad interpreter: No such file or directory
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-WorkQueue$ bin/sf-workqueue worker --release_candidate ammathew.mrss --job_name FacebookVideoPost
+-bash: bin/sf-workqueue: perl: bad interpreter: No such file or directory
+
+still not going through sf-workqueue worker...
+
+[info] listening for jobs on queue workqueue_list_SocialFlow::WorkQueue::Job::FacebookVideoPost-ammathew.mrss at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib//SocialFlow/WorkQueue/QueueSubscriber/RedisList.pm line 49.
+
+still having trouble getting FB video jobs to go through worker
+
+* how do videos get uploaded to say facebook?
+
+$media[0]->filename;
+SocialFlow::ContentQueue::Schema::Result::ContentItemAttachment
+
+ok, so by FacebookVideoPost.pm L224, the video was already uploaded
+
+http://ammathew.home.saturn.sflow.us:4010/api/message/generate_s3_policy_form
+
+http://ammathew.home.saturn.sflow.us:4010/api/media_exists?filename=8ac6b2d2-4a72-cf8c-cf8d-243f68e6c669.mov&modelname=S3Bucket%3A%3APhotoUpload
+
+
+* feed item comes in, and then attach media? 
+
+look at where the feedfecher parser comes in...
+
+
+sf_job_queue=> select * from work_queue_job where class like '%Video%' order by job_id desc limit 1;;
+
+last one was at sf_job_queue=> select * from work_queue_job where class like '%Video%' order by job_id desc limit 1;;
+
+where is vid added onfront end?
+
+server not loading
+
+maybe have to revert setting SOCIALFLOW_WEB_PATH=~/yml?
+
+yes, reverted bashrc and now starts up
+
+* are videos updoaded directly into backend 
+
+data.url
+"https://s3.amazonaws.com/dev-cust-photo-posts-euyhabcakleui"
+
+
+data.url
+"https://s3.amazonaws.com/dev-cust-photo-posts-euyhabcakleui"
+
+upload video to fb from url??
+
+create fb object with url in feed as url?
+
+
+
+ammathew [3:38 PM]  
+hey so mrss feed items contain urls of videos.... is there any need to upload to s3 from the url?
+
+[3:38]  
+a little confused by this video stuff heh
+
+guru [3:39 PM]  
+haha, no, i think we should do it similar to how we handle images from feeds
+
+[3:39]  
+pass in the url directly
+
+ammathew [3:39 PM]  
+ok cool
+
+
+hoe does content_item->attachments get populated?
+
+in content_item->meta?
+
+  '[{"type":"video","filename":"806baec2-9c4b-a884-9cc1-bfb1756abff0.mov","thumbnail_url":"http://ammathew.home.saturn.sflow.us:4010/static/images/app/default-video-image.png"}]',
+
+* how do rss images get handled?
+
+find rss feed with images
+
+
+./lib/SocialFlow/FeedSource/Schema/ResultSet/FeedEntry.pm:sub get_enclosure_url {
+
+
+[Fri Sep 30 20:23:29 2016 10/0/0] Fetching feed 1485 (http://www.nbcbayarea.com/investigations/top-stories/?rss=y&rss=y)
+
+need feed number from FeedEntry table?
+
+feed parsed into
+'XML::Feed::Entry::Format::RSS' object
+
+make new module?
+
+https://github.com/davorg/XML-Feed
+
+jump on mpa rep
+
+./lib/SocialFlow/FeedSource/Schema/Result/Feed.pm:sub parse_xml_feed {
+
+
+ammathew [4:33 PM]  
+hey joe the module we're using to parse RSS feeds ( XML::Feed) doesnt seem to support MRSS feeds, but this other module XML::FeedPP does
+
+[4:33]  
+wondering if i can add it or something
+
+joe [4:34 PM]  
+oh interesting
+
+patspeiser [4:34 PM]  
+you may or something
+
+joe [4:34 PM]  
+looking
+
+patspeiser [4:34 PM]  
+but you cannot add it.
+
+joe [4:35 PM]  
+it hasnt been updated since 2011. i would say if theres a way to detect if something is an MRSS feed, and only use this module in that case
+
+[4:35]  
+versus switching over to it fully
+
+[4:35]  
+since xml::feed works really well for normal rss and atom feeds
+
+ammathew [4:36 PM]  
+wouldnt want to switch over everything to it
+
+[4:36]  
+yea...
+
+joe [4:36 PM]  
+is this a separate daemon?
+
+[4:36]  
+or it's like
+
+[4:36]  
+going to be part of feed fetcher?
+
+ammathew [4:36 PM]  
+seems like it'd be part of the feedfetcher
+
+[4:36]  
+though it is video
+
+joe [4:36 PM]  
+yeah, if this is the only lib that works for that stuff, sounds good to me
+
+ammathew [4:36 PM]  
+maybe youd want to put it in another daemon, i dunno
+
+joe [4:37 PM]  
+hehe, hard to say :) if it's doing the same basic shit then it can be in fetcher
+
+ammathew [4:37 PM]  
+yea it is
+
+[4:37]  
+as far as i can tell
+
+new messages
+joe [4:37 PM]  
+ok cool
+
+
+* how to detect if mrss feed?
+
+namespace declaration:
+
+rss xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:ext="http://ooyala.com/syndication/ext/"
+
+syntax error
+
+
+
+[Fri Oct  7 19:13:35 2016 30/0/0] Unable to update feed 4365 (0.001 seconds; http://api.ooyala.com/syndication/mp4?id=00d1c219-1b16-4273-a591-3bfb5bf7f2fc): Can't locate object method "entries" via package "XML::FeedPP::RSS" at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/Result/Feed.pm line 82.
+
+any possibility of forking and adding it on?
+
+
+"http://search.yahoo.com/mrss/" => {
+    category => "/Training",
+    group => "\n        \n        \n        \n        \n        \n        \n        \n        \n      ",
+    title => "Little Fockers.mov"
+  },
+
+
+:/home/ammathew/to_devel_local/xml-feed/lib/XML/Feed/Entry/Format/RSS.pm
+
+
+really track this down...
+
+
+SocialFlow::FeedSource::Fetcher::_update_feed_entries
+ $parsed_feed = $feed->parse_xml_feed($body);
+
+my $feed = XML::Feed->parse( \$body )
+
+./lib/XML/Feed.pm:sub parse {
+
+ $format = $feed->identify_format(\$xml) or return $class->error($feed->errstr);
+
+ this is format class 
+XML::Feed::Format::RSS at /home/ammathew/to_devel_local/xml-feed/lib/XML/Feed.pm line 77.
+
+
+$rss->add_module(prefix=>'dc', uri=>"http://purl.org/dc/terms/");
+$rss->add_module(prefix=>'media', uri=>"http://search.yahoo.com/mrss")
++; 
+$rss->parse($raw);
+foreach my $item (@{$rss->{'items'}}) 
+{ 
+$title = $item->{'title'}; 
+$media_content_url = $item->{'media'}->{'content'}->{'url'};
+$media_keywords = $item->{'media'}->{'keywords'}; 
+print $title, "\n"; 
+print $media_content_url, "\n"; 
+print $media_keywords, "\n"; 
+}
+
+
+
+ $feed->{rss}->add_module(prefix=>'media', uri=>"http://search.yahoo.com/mrss>
+$res[2] = 'media'
+
+
+* try using FeedPP as prefered parser?
+
+$XML::Feed::Format::RSS::PREFERRED_PARSER = "XML::RSS::FeedPP";
+
+3> $XML::Feed::Format::RSS::PREFERRED_PARSER = "XML::FeedPP::RSS";                                              
+$res[1] = 'XML::FeedPP'
+
+4> $parsed_feed = $feed->parse_xml_feed($body);                                                            
+No feed source at /home/ammathew/to_devel_local/xml-feed/lib/XML/Feed/Format/RSS.pm line 28.
+
+
+3> $parsed_feed = $feed->parse_xml_feed($body);                                                            
+Can't locate object method "add_module" via package "XML::FeedPP::RSS" at /home/ammathew/to_devel_local/xml-feed/lib/XML/Feed/Format/RSS.pm line 32.
+
+
+
+$XML::Feed::Format::RSS::PREFERRED_PARSER = "XML::Atom::Feed"; 
+XML::Atom::Ext::Media 
+
+cpanm XML::Atom::Ext::Media 
+
+my $feed = XML::Atom::Feed->new( URI->new('http://gdata.youtube.com/feeds/api/users/andreasmarienborg/uploads') );
+
+
+
+my $feed = XML::Atom::Feed->new( URI->new('http://api.ooyala.com/syndication/mp4?id=00d1c219-1b16-4273-a591-3bfb5bf7f2fc') );
+
+what does feed->entries look like?
+
+'XML::Feed::Entry::Format::RSS'
+
+'XML::Feed::Format::RSS'

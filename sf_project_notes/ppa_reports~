@@ -1,0 +1,113 @@
+
+* how to ssh into arseni's box
+ ssh amouchinski@amouchinski.home.saturn.sfsrv.net
+
+* how was report run?
+
+source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/run_report_monthly_initial_feb_minb.sh config_local_prod.yml
+
+* construct run command for new report
+
+source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/run_ppa_report.sh config_local_prod.yml
+
+
+./run_ppa_report.sh: line 17: /home/amouchinski/mpa_report.pl: No such file or directory
+
+
+source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/run_report_monthly_initial_feb_minb.sh config_local_prod.yml
+
+
+** TODO get paths right...
+
+
+*** DONE err
+message => "Could not execute request (https://graph.facebook.com/aarpbulletintoday/insights?until=1458000000&since=1456790400&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U): OAuthException - (#803) Some of the aliases you requested do not exist: aarpbulletintoday",
+
+*** where do te xls files go?
+
+** csv to yml
+
+*** mung this xls data 
+
+** mung ppa_members.ym to make it look like mpa_memebers.yml
+
+*** look into nested data in csv to yaml, and then try to just mung the file using pythin
+
+*** what is an xlsm file?
+
+*** err
+
+ValueError: substring not found
+
+find and replace.. urls connected to usernames
+
+next: check mpa_data_blah.yml
+
+
+*** where did report go?
+
+my guess is that the script errored
+
+
+* get yml into xls file
+
+** why isnt it already dumping out into xcel file?
+
+source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/run_ppa_report.sh config_local_prod.yml
+
+* TODO are time since and time until set correctly?
+  
+** how set time_until and time_since on run_ppa_report.sh?
+
+
+=$(perl -Maliased=DateTime::Format::Natural,N -e 'print N->new->parse_datetime("1st day last month")->epoch')
+
+
+"30th day last month"
+
+* TODO cleanup ppa members list
+** ther are a few items missing? clean up...
+..put them back..
+
+** am i using the right ppa list?
+** what should i do about removed items?
+** put in missing fields
+
+look into all values for immediate organization
+
+
+en=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U): OAuthException - (#803) Some of the aliases you requested do not exist: Autocar-88466919022",
+Some of the aliases you requested do not exist: Sporting-Gun-165349250156698" 
+
+** DONE add pluses to appropriate gplus members
+** DONE why us housetohome listed multiple times?
+   that way in excel file. same site urls
+
+* TODO 
+
+** 
+code    => 404,
+  data    => "https://graph.facebook.com/Sporting-Gun-165349250156698/insights?until=1458000000&since=1456790400&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U",
+  message => "Could not execute request (https://graph.facebook.com/Sporting-Gun-165349250156698/insights?until=1458000000&since=1456790400&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U): OAuthException - (#803) Some of the aliases you requested do not exist: Sporting-Gun-165349250156698",
+}
+[Thu Apr 28 21:44:04 2016 #15594] Sleeping...
+[Thu Apr 28 21:44:09 2016 #15594] Retrying (1)
+[Thu Apr 28 21:44:09 2016 #15594] Caught exception: {
+  code    => 404,
+  data    => "https://graph.facebook.com/Sporting-Gun-165349250156698/insights?until=1458000000&since=1456790400&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U",
+  message => "Could not execute request (https://graph.facebook.com/Sporting-Gun-165349250156698/insights?until=1458000000&since=1456790400&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U): OAuthException - (#803) Some of the aliases you requested do not exist: Sporting-Gun-165349250156698",
+}
+
+** 
+[Thu Apr 28 21:43:19 2016 #15594] Caught exception: {
+  code    => 404,
+  data    => "https://graph.facebook.com/Autocar-88466919022/insights?until=1458000000&since=1456790400&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U",
+  message => "Could not execute request (https://graph.facebook.com/Autocar-88466919022/insights?until=1458000000&since=1456790400&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U): OAuthException - (#803) Some of the aliases you requested do not exist: Autocar-88466919022",
+}
+
+
+[Thu Apr 28 21:48:38 2016 #15594] Caught exception: {
+  code    => 404,
+  data    => "https://graph.facebook.com/Amateur-Gardening-magazine-150068518396029/insights?until=1458000000&since=1456790400&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U",
+  message => "Could not execute request (https://graph.facebook.com/Amateur-Gardening-magazine-150068518396029/insights?until=1458000000&since=1456790400&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U): OAuthException - (#803) Some of the aliases you requested do not exist: Amateur-Gardening-magazine-150068518396029",
+}

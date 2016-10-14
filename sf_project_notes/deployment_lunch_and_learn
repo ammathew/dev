@@ -1,0 +1,52 @@
+sf-deploy application
+application listss or deploys
+exceptions are things managed my ops ( nagions..db? ) ..
+yml easy to validate
+c headers
+ssh'ed into ff-tally-5
+crash emails...crashmon ...fromsupervisor(?)
+"control supervor daemon"
+
+in sf-deploy-apllication
+
+sf-deploy.pl 
+( from SocialFlow::Deploy )
+sf-deploy.ol -c appication/tally-tribal/dev --supervisorctl status
+
+
+xmpl rpc to communicate over unix sockets
+
+content-length
+reads bite by bite
+
+strace
+system calls behind the scenes
+
+/var/run 
+/var/lib ... for shared object files, data.. 
+/opt/socialflow is where actual code is
+/current...... 
+can delete current and point symlink to old version, and then restart everything...
+
+* version.yml
+
+SocialFlow-Web is standard
+was release candidate on release candidated ... .0__111...
+.1  is release to prod
+.2, .3 ... hotfixes etc
+
+script deploy until for version numbering
+
+* sf-appuser
+
+when would you use tag...
+hold everything else the same...
+
+* not all of them have supervisor files
+
+* other 
+
+sometimes PATH gets messed up
+
+
+

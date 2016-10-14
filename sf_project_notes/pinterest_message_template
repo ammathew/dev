@@ -1,0 +1,68 @@
+* ticket
+
+**https://github.com/SocialFlowDev/qa/issues/3436
+
+* begining
+
+ammathew.pinterest_message_template_upload
+
+** auth in pinterest accout 
+
+Attackers might be trying to steal your information from joe.home.saturn.sfsrv.net (for example, passwords, messages, or credit cards). NET::ERR_CERT_AUTHORITY_INVALID
+
+10.126.0.14 - - [06/Sep/2016:15:52:48 +0000] "GET /api/settings/appuser/string_config_parameter?config_parameter=AppUser%3A%3ANotification%3A%3APinterest%3A%3Awhitelist_shortener HTTP/1.1" 200 107 "http://ammathew.home.saturn.sfsrv.net:4010/settings/application/social_accounts" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.89 Safari/537.36"
+Action is auth/pinterest/base_index at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/Auth/Pinterest.pm line 35.
+redirecting to https://www.pinterest.com/oauth/?response_type=code&redirect_url=http%3A%2F%2Fammathew.home.saturn.sfsrv.net%3A4010%2Fauth%2Fpinterest%2Fcallback&consumer_id=1446194 at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/Auth/Pinterest.pm line 46.
+10.126.0.14 - - [06/Sep/2016:15:52:53 +0000] "GET /auth/pinterest HTTP/1.1" 302 457 "http://ammathew.home.saturn.sfsrv.net:4010/settings/application/social_accounts" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.89 Safari/537.36"
+
+
+ammathew [11:54 AM]  
+does auth work on saturn?
+ammathew [11:55 AM]  
+im getting a 504 Gateway Time-out
+[11:55]  
+^joe?
+[11:55]  
+auth for pinterest that is
+
+
+ammathew [12:06 PM]  
+hrm, trying to auth a pinterest account on 
+https://joe.home.saturn.sfsrv.net instead ... seems to die silently :confused:
+
+
+ammathew [12:17 PM]  
+any clients with authed in pinterest accounts i can use?
+[12:17]  
+on dev?
+[12:17]  
+giving up on authing
+
+
+using  Test-Eric under ignored users
+
+
+** get sample file
+
+ammathew [12:26 PM]  
+hey...im working on https://github.com/SocialFlowDev/qa/issues/3436
+
+[12:26]  
+could u send me a sample file
+
+[12:26]  
+with feed sources?
+
+No messages were added due to the following errors. Please correct these errors and resubmit the file.
+Spreadsheet row 2 contains errors. Invalid fields: expiration date, optimize end date.
+
+
+http://ammathew.home.saturn.sfsrv.net:4010/settings/application/content_sources/add_content_source?prev_url=/settings/application/content_sources
+
+
+
+** dont see xhr when hitting upload ... wht is it tat happenes? 
+
+
+
+[error] [ 188 ] [ http://ammathew.home.saturn.sflow.us:4010/settings/application/content_sources/add_content_source?prev_url=/settings/application/content_sources ] [188][Test-Eric]Attribute (board_id) is required at constructor SocialFlow::Pinterest::Post::new (defined at /home/ammathew/perl5/lib/perl5/SocialFlow/Pinterest/Post.pm line 83) line 30

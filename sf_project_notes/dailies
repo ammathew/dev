@@ -1,0 +1,12 @@
+* march 31
+** update reach and likes PR
+
+* april 15
+
+** helping ryan bring the facebook reporting daemon up
+
+
+ammathew@ammathew:~/perl5/bin$ SITE_ENVIRONMENT=dev SF_LOG_LEVEL=debug perl ~/perl5/bin/facebook_timeline_daemon.pl
+
+Invalid argument at /home/ammathew/perl5/lib/perl5/SocialFlow/Reporting/Daemon/ZMQSubscriber.pm line 48.
+

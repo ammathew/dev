@@ -1,0 +1,2260 @@
+* ticket
+
+https://gist.github.com/skaufman-socialflow/1c0329aa63f41d647026
+
+
+https://github.com/SocialFlowDev/SocialFlow-Web/wiki/BBC-Permissions-project
+
+
+
+
+replace lookup_role
+
+$user->_lookup_role( $cs_role_id )->role_id  } );
+
+
+
+
+* NEXT PR COMMENTS
+  
+Error while loading /home/ammathew/to_devel_local/SocialFlow-Web/app.psgi: Couldn't instantiate component "SocialFlow::Web::Controller::API::ClientService::Facebook", "Attribute (facebook_redis_host) does not pass the type constraint because: Validation failed for 'Str' with value undef at constructor SocialFlow::Web::Controller::API::ClientService::Facebook::new (defined at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API/ClientService/Facebook.pm line 89) line 54
+
+why bein redirected to publish after inviting user?
+
+
+** functionu
+
+h you did write that method sort of
+
+[3:54]  
+_social_account_admin_client_services
+
+[3:54]  
+in  lib/SocialFlow/Web/Controller/API/ClientService.pm
+
+[3:55]  
+so you could pretty must copy that to appuser or client
+
+[3:55]  
+i guess you'd do something like my( $self, $client ) = @_ in Appuser
+
+[3:56]  
+then you could do $user->social_account_admin_client_services
+
+** check capability rather than role?
+
+
+
+
+
+** TODO change has social account admin rol to has social account admin capability
+
+
+
+
+** TODO look into this error
+
+[error] [ 206 ] [ http://ammathew.home.saturn.sflow.us:4010/api/settings/invite_user ] [206][A.M. MATHEW]Caught exception in SocialFlow::Web::Controller::API::Settings->invite_user "Can't call method "datetime_parser" on an undefined value at /home/ammathew/perl5/lib/perl5/DBIx/Class/InflateColumn/DateTime.pm line 221." at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API.pm line 214.
+
+
+
+
+* NEXT
+
+edit path
+settings/admin/edit_user_permissions
+
+
+Error while loading /home/ammathew/to_devel_local/SocialFlow-Web/app.psgi: Couldn't instantiate component "SocialFlow::Web::Controller::Settings::SocialAccountAdmin", "Attribute (config_params) is required at /home/ammathew/perl5/lib/perl5/x86_64-linux-gnu-thread-multi/Moose/Object.pm line 24
+
+why cant find page?
+
+how was template served before?
+
+2 controllers sharing a function??
+
+https://github.com/SocialFlowDev/SocialFlow-Web/tree/master/lib/SocialFlow/Web/ControllerRole
+
+
+add in configs
+
+why are all accounts showing?
+
+why is edit user not 
+
+/setting/user_account  isnt working?
+
+
+Couldn't render template "settings/user_account.html": undef error - Can't find action for path 'settings/social_account_admin' at /home/ammathew/perl5/lib/perl5/Template/Alloy.pm line 569.
+
+
+need to revisti above later
+
+for now
+
+http://ammathew.home.saturn.sflow.us:4010/settings/social_account_admin/edit_user_permissions/210  404ing?
+
+working but name and email not being written out
+
+
+what happened to old edit_user_permissions
+
+where is code excluding admins etc from list of editable users?
+
+social account admin should have no access to admin
+
+
+why does "read only" state stick on SAA dashboard when editing for client admin, but still has all privilidges ( as it should  );
+
+why is resend invite there?
+
+use new sf web schema method to list of client services in SAA dash?
+
+is there a has_max_role function?
+
+manage_client_service_accounts capability?
+
+joe [6:00 PM]  
+so like
+
+[6:00]  
+you can have PathPart: link_shortening
+
+[6:00]  
+but in the nav yml it's going by action path
+
+[6:00]  
+so as far as nav yml is concerned it's like linkshortening/base_index
+
+[6:00]  
+and when generating the nav it will use the correct PathPart
+
+
+
+change the user_permissions_social_account_admin endpoint?
+
+
+change implies roles? 
+
+
+
+should the enpoints now at settings/user_permissions and settings/user_permission_social_account_admin share an endpoint?
+
+
+take another look at has_social_account_admin_role function?
+
+
+cleanup appuser.pm ( my does $self->role_vals return undef? )
+
+
+
+* NEXT  how about if social account gets deleted??
+
+
+
+* NEXT
+
+
+$self->_can_edit_user???
+
+
+add in validation for client  user permissioned
+
+* access to http://ammathew.home.saturn.sflow.us:4010/settings/admin/users_permissions/edit_user_permissions_social_account_admin/220  page for example needs to be validated and needs to redirect
+
+
+* TODO resend invite doesnt work on client now
+orm_error: {msgid: "invalid_form", message: "social_account_admin capability required"
+
+
+
+so, social account admin is above admin of client service, below account admin
+
+
+social accout admin definately in client service, not client
+
+
+{form_error: {msgid: "invalid_form", message: "social_account_admin capability required"},…}
+
+
+is admin role anywhere on  client role table
+
+
+
+
+ammathew [4:36 PM]  
+hey u around?
+
+[4:36]  
+about this:
+
+[4:36]  
+https://github.com/SocialFlowDev/SocialFlow-Web/blob/master/SocialFlow-Web-Config/lib/auto/share/dist/SocialFlow-Web-Config/etc/shared/controllers/api/api_settings.yml#L95
+
+[4:37]  
+the social account admin needs the ability to resend invites right
+
+[4:37]  
+but i'd need some sort of "or" validation there right
+
+[4:37]  
+Validate::Client::MinimumRole::Admin  or Validate::ClientService::MinimumRole::SocialAccountAdmin
+
+[4:38]  
+would it be ok to just move that validation to the code?
+
+[4:38]  
+like in sub resend_invite ?
+
+
+
+* TODO cleanup
+
+shousl I change some of the paths?
+settings/social_account_admin ?
+
+api/settings/user_permissions_social_account_admin:
+edit params
+
+can edit user name etc?
+cant on prod
+
+no need to send full name etc through fron end?
+
+it's all in a form...
+
+social account admin hasthe capability TODO_CABABILITY_admin, so why doesnt it show up on edit_user_permissions_social_account_admin.html ?
+has only that capability on client service?
+
+
+supposed to have capability TODO_CAPABILITY_admin?
+
+
+
+
+** does social account admin need TODO_capability_admin capability? 
+
+
+
+** combine templates?
+
+
+
+
+** DONE remove todo_capability_admin from capabilities
+
+  
+* change settings/social_account_admin_add_user to settings/admin/social_account_admin_add_user
+
+
+
+
+is_social_account_admin function somewhere?
+
+has capabilty on client service?
+
+might be in my changes to 
+
+
+1> $c->model( 'SocialFlowApp::AppuserClientServiceRole' )                                                                 
+Can't locate object method "model" via package "SocialFlow::Web::View::AppBasedLoggedIn" at reply input line 1.
+
+need another approach
+
+
+$self->client_service_roles->search_related
+
+** DONE make new method on Appuser.pm to check if appuser is a social acccount admin
+
+
+
+$self->has_client_service_capability( 'social_account_admin' ) 
+
+
+** stop redirecting to puclish
+
+use new method to see if is SAA on at least one account?
+
+is there some other method I could use?
+
+
+** user details and permissions not displaying corrrectly when editing use from SAA dash, why is that?
+
+client service role 'social_account_admin' isn't recognized as a publishing role at /home/ammathew/to_devel_local/SocialFlow-Web-Schema/lib/SocialFlow/Web/Schema/Result/Appuser.pm line 610.
+
+
+
+[error] [ 206 ] [ http://ammathew.home.saturn.sflow.us:4010/settings/admin/users_permissions/edit_user_permissions_social_account_admin/214 ] [206][A.M. MATHEW]Couldn't detach to command "display_error": Invalid action or component. at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/Root.pm line 406.
+
+why is it redirecting to publish nw>
+
+10.126.0.30 - - [27/Jul/2016:15:46:01 +0000] "GET /settings/admin/users_permissions/edit_user_permissions_social_account_admin/213 HTTP/1.1" 302 292 "http://ammathew.home.saturn.sflow.us:4010/settings/social_account_admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
+
+
+
+
+
+** ability to resend invite email 
+
+{msgid: "invalid_form", message: "TODO_CAPABILITY_admin capability required"}
+                Does:
+                    - Validates
+                    - Validate::Client::MinimumRole::SocialAccountAdmin
+
+
+
+Error while loading /home/ammathew/to_devel_local/SocialFlow-Web/app.psgi: Can't locate SocialFlow::Web::ActionRole::Validate::Client::MinimumRole::SocialAccountAdmin
+
+Error while loading /home/ammathew/to_devel_local/SocialFlow-Web/app.psgi: Couldn't load class (SocialFlow::Web::ActionRole::Validate::Client::MinimumRole::SocialAccountAdmin) because: Role 'SocialFlow::Web::ActionRole::Validates' has encountered an attribute conflict while being composed into 'SocialFlow::Web::ActionRole::Validate::Client::MinimumRole::Admin'. This is a fatal error and cannot be disambiguated. The conflicting attribute is named 'redirect_back_to_action'. at /home/ammathew/perl5/lib/perl5/x86_64-linux-gnu-thread-multi/Moose/Exporter.pm line 419
+
+
+added  SocialFlow::Web::ActionRole::Validate::Client::MinimumRole::SocialAccountAdmin; package
+
+need to pass in client service id
+
+didnt need client services for original resend_invite endpoint because if client_admin, than can regardless 
+
+appuser email not in there eiterh
+
+
+on invite user, hows are client services taken from page?
+
+cant just sent in form data because form action is already taken
+
+dont see email etc?
+
+how to send in array to back end?
+
+
+
+
+
+* why is superadmin being listed out on SAA dash; thoughntI fixed this
+
+
+
+* read only bug when try to compose on account with only read ony access?
+this is also a bug on prod..
+
+
+* can you have a capability on a user?
+
+the appuser who is a social account admin
+
+
+
+
+
+* TODO how about if client sets permissions for "all future social accounts" to a value (read/write/admin) for example .. and the social account admin changes setting on that accound, does that take? it should
+
+* TODO what if anything does sso have to do with this new page/feature* TODO table client_appuser_role isnt being used? is there something i need to do with this?
+* TODO make better path names?
+* TODO what does the  save_user function in /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API/Admin.pm ... do i have to change something?
+
+* TODO what is in the table SocialFlowApp::ClientAppuserConfigParameter ?
+
+
+
+---
+
+* TODO hide or show using template toolkit instead of making all these new templates?
+
+
+
+
+  
+* PR COMMENTS
+
+why id $client showing up as empty?
+
+does this user on this client...
+
+a user can be on multiple clients
+
+does this user on this client...
+
+why am i getting a not an array error?
+
+does this user on this client...
+
+
+The schema should not require a catalyst object to do anything, the schema should be self contained when it comes to determining permissions and such, could you reformulate this so it takes a $client object or a resultset of client services instead? I would think take a client, because the method is really does this user on this client have any capability to be a social account admin.
+
+this uers on this client
+currentlly, has_social_account_admin_capability calls social_account_admin_client_services 
+which uses client_services stashed in a catalyst object...
+
+return 1 if any { $_ eq $capability_name } map { @{ $caps->capabilities_for_role( $self->role_name($_) ) // [] } }  $appuser_client_service->roles->get_column('role_id')->all;
+
+got through and change has_social_account_admin capability to
+$self->has_capability_within_client( 'social_account_admin', 4 )
+
+huild_nav
+
+This seems unneccesary, you already have @users, why reassign it to the same value? SAA.pm L30
+
+
+* archived
+
+** TODO test: add social account to client admin... give ( or revoke? ) access
+
+*** where is add social account button?
+
+need to be on client admin
+
+*** form not filled out correctly error when trying to set ammathew+3@socialflow.com as social account admin from client admin
+
+[error] [ 4 ] [ http://ammathew.home.saturn.sflow.us:4010/api/settings/user_permissions ] [4][A.M. MATHEW]DBIx::Class::Storage::DBI::_dbh_execute(): DBI Exception: DBD::Pg::st execute failed: ERROR:  duplicate key value violates unique constraint "client_appuser_role_pkey"
+DETAIL:  Key (appuser_id, client_id, role_id)=(206, 4, 21) already exists. [for Statement "INSERT INTO client_appuser_role ( appuser_id, client_id, role_id) VALUES ( ?, ?, ? )" with ParamValues: 1='206', 2='4', 3='21'] at /home/ammathew/perl5/lib/perl5/SocialFlow/Web/Schema/Result/Appuser.pm line 296
+ at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API.pm line 214.
+
+in add_client_role
+
+add a try catch in there?
+
+try catches need return values?
+
+is there say a "try to create" function on $schema->resultset?
+
+revert commit
+
+need to add additional logic: social_account_admin selected for any account, then appuser is social account admin 
+
+
+** TODO does social account admin have right to revoke access to a social account onc
+
+** DONE build social account admin page eg settings/social_account_admin/base_index method
+*** DONE how to add a page in catayst (added page associated with settings controller, but was not able to create own controller...did not recognize controller config )
+
+
+SocialFlow-Web-Config/lib/auto/share/dist/SocialFlow-Web-Config/etc/shared/app_based_navigation.yml
+
+
+
+SocialFlow-Web/SocialFlow-Web-Config/lib/auto/share/dist/SocialFlow-Web-Config/etc/shared/controllers/controller_admin.yml 
+
+SocialFlow-Web/SocialFlow-Web-Config/lib/auto/share/dist/SocialFlow-Web-Config/etc/shared/controllers/controller_settings.yml
+
+javascript_roles:
+   - settings? 
+
+**** DONE why is server not comming up?
+
+doesnt come up when add
+            social_account_admin:
+                Chained: base
+                Args: 0
+
+to SocialFlow-Web/SocialFlow-Web-Config/lib/auto/share/dist/SocialFlow-Web-Config/etc/shared/controllers/controller_settings.yml
+
+
+**** what is the difference in content betweeen controller_settings.yml and controller_settings_socialflow.yml ?
+
+
+/SocialFlow-Web-Config/lib/auto/share/dist/SocialFlow-Web-Config/etc/shared/controllers/controller_settings_admin.yml
+
+**** in catalyst config, what is the differece betweet base and base_index? 
+**** how to add new blank page to new controller config file? 
+
+Chained vs. Pathpart?
+
+client role 'social_account_admin' isn't recognized as a publishing role at /home/ammathew/perl5/lib/perl5/SocialFlow/Web/Schema/Result/Appuser.pm line 544.
+
+    for (qw/Client::Appuser::SocialFlow::AccountManagement superadmin admin/) {
+        return $_ if $client_roles{$_};
+    }
+
+why is it looking for publishing roles? 
+
+now getting 404, but probably shoulnt be adding that there anyway...
+
+possible that controller_settings_socialaccoundadmin.yml is not being recognized
+
+
+
+BEGIN { 
+    extends 'Catalyst::Controller';
+};
+
+*** list out social accounts that that user is admin for
+
+
+
+**** HANGING table of social account permissions somewhere?
+
+appuser_client_service ?
+
+./lib/SocialFlow/Web/Controller/Settings.pm:          $ar->appuser_client_service->client_service->supported_service;
+
+'SocialFlowApp::AppuserClientServiceRole'
+
+
+sf_web=> select * from appuser_client_service_role where appuser_id=206;
+ appuser_id | client_service_id | role_id 
+------------+-------------------+---------
+        206 |              1537 |      10
+(1 row)
+
+** DONE how to send invite 
+
+from page path http://ammathew.home.saturn.sflow.us:4010/settings/admin/users_permissions
+
+http://ammathew.home.saturn.sflow.us:4010/settings/admin/users_permissions/add_user
+
+invite user/list of accounts that social account admin is admin on... list those accounts.. 
+
+** DONE make invite user work
+
+Request URL:http://ammathew.home.saturn.sflow.us:4010/api/settings/invite_user
+
+*** TODO error when hitting activate_user
+
+http://api-permission.dev.saturn.sfsrv.net:8001/set?session_id=f665e918324e66786f210f43ca4ca59c873d1de9&redirect=http%3A%2F%2Fammathew.home.saturn.sflow.us%3A4010%2Fpublish
+
+
+10.126.0.38 - - [09/Jun/2016:19:30:28 +0000] "POST /activate_user HTTP/1.1" 302 460 "http://ammathew.home.saturn.sflow.us:4010/introduce?h=OJV5jYlh&email=ammathew%2B4%40socialflow.com" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"
+
+
+ $user->update;
+Root.pm L1009
+
+
+**** DONE was new user added to db?
+
+yes it was; just, redirect doesnt work
+
+** TODO make social_account_admin template
+
+root/templates/settings/users_permissions.html
+
+Admin.pm vs. Settings.pm
+
+**** DONE why reverting to publish now?
+not doing that
+
+
+
+**** give invite new user permission
+
+app based navigation.yml?
+
+client role 'social_account_admin' isn't recognized as a publishing role at /home/ammathew/perl5/lib/perl5/SocialFlow/Web/Schema/Result/Appuser.pm line 544.
+
+lib/SocialFlow/Web/Controller/Settings/Admin.pm
+
+where is page getting redirected? 
+
+***** MAYBE werhe are permission for this page defined?
+
+
+    unless ( $user->has_capability( 'TODO_CAPABILITY_admin', $client )) {
+        return $c->res->redirect( '/publish' );
+    }
+in users_permissions in Admin.pm
+
+Deep recursion on subroutine "SocialFlow::Capabilities::_caps_for_roles" at /home/ammathew/perl5/lib/perl5/SocialFlow/Capabilities.pm line 68.
+
+
+
+ammathew [2:46 PM]  
+joe...happen to know in which repo id find the file /home/ammathew/perl5/lib/perl5/SocialFlow/Capabilities.pm
+
+[2:46]  
+if any
+
+new messages
+joe [2:46 PM]  
+hrm
+
+[2:47]  
+ammathew: https://github.com/SocialFlowDev/SocialFlow-Web-Schema/blob/master/lib/SocialFlow/Capabilities.pm
+
+warning out _caps_for_roles prints out lots of stuff. 
+
+_caps_for_roles i logs out many things; how often is it called?
+
+role_capabilities called here:
+
+lib/SocialFlow/Web/Controller/Root.pm
+
+added these lines to tole_capabilitie.yml and now it works
+
+    social_account_admin:
+      capabilities:
+        - TODO_CAPABILITY_admin
+
+
+
+
+
+
+
+***  
+
+** DONE what was sam saying about has_capability etc?
+
+
+skaufman [11:59 AM] Star this message
+ammathew: yeah, i'm porting that stuff over to the new validation style
+
+[11:59] Star this message
+and enforcing CSRF
+
+yazanator [11:59 AM] 
+so the spaces over underscores thing she did is the equivalent of a developer saying “eff you"
+
+skaufman [11:59 AM] Star this message
+nah
+
+[12:00] Star this message
+just unfamiliarity with web programming
+
+ammathew [12:00 PM] Star this message
+skaufman: how are you doing htat?
+
+yazanator [12:00 PM] Star this message
+i mean, i see how it’s cleaner with underscores
+
+ammathew [12:00 PM] Star this message
+*that?
+
+skaufman [12:00 PM] Star this message
+ammathew: copying over the validation profile from shared forms to api_settings.yml in the controller
+
+[12:01] Star this message
+then i converted the 'enum' thing to a validation Type
+
+[12:01] Star this message
+in SocialFlow::API::Types
+
+ammathew [12:01 PM] Star this message
+ok...figure thats important to know for this project
+
+skaufman [12:01 PM] Star this message
+ammathew: i mean i'm not changing a ton of stuff so the merge should'nt be so bad
+
+ammathew [12:01 PM] Star this message
+k
+
+skaufman [12:02 PM] Star this message
+im not totally clear how this endpoint is validated in the first place
+
+
+*** use capabilities instead of roles!!!
+
+SocialFlow-Web/SocialFlow-Web-Config/lib/auto/share/dist/SocialFlow-Web-Config/etc/shared/capabilities.yml
+
+SocialFlow-Web/SocialFlow-Web-Config/lib/auto/share/dist/SocialFlow-Web-Config/etc/shared/role_capabilities.yml
+
+**** what changes am i supposed to make to these configs?
+
+$c->user->has_capability( 'TODO_CAPABILITY_admin',
+                    $self->current_client($c) )
+
+so capability is on a client...?
+can make it on a social account?
+
+
+./lib/SocialFlow/Web/ActionRole/Validate/Client/MinimumRole/Write.pm:            my $capability = 'TODO_CAPABILITY_write';
+
+
+
+***** TODO add capability associated with a client
+
+
+
+
+     shorten_links:
+     description: "shorten_links"
+      service_type: publishing
+
+add in service_type? what would that accomplish?
+
+
+***** TODO how to add a capability to a client?
+
+
+
+
+*** doesnt seem like capabilities are in db at least
+
+** DONE build rough front end for client admin first 
+
+
+*** add user to social account button
+
+****  link to add user page eg, the one that client admin has permissions for?
+
+http://ammathew.home.saturn.sflow.us:4010/settings/admin/users_permissions/add_user
+
+**** add permissions for add_user page 
+
+lib/SocialFlow/Web/Controller/Settings/Admin.pm
+
+
+in add_user method:
+    $c->stash(
+        client_services     => $c->controller('API::ClientService')->list_all($c),
+        client_list         => \@clients,
+        client              => $cur_client,
+        group_list          => \@groups,
+        template            => "settings/add_user.html",
+        default_country     => $default_country,
+        default_time_zones  => $self->time_zones_in_country($default_country),
+        timezone_countries  => $self->countries,
+ 
+does $c->stash automatically stash permissions?
+
+
+10.126.0.38 - - [10/May/2016:18:13:21 +0000] "GET /settings/admin/users_permissions/add_user HTTP/1.1" 302 292 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36"
+
+***** adding  " - client_admin" to 'account_admin' and admin did not work; still redirects to publish
+
+lib/SocialFlow/Web/ControllerRole/ExtAuth.pm?
+that is extended auth...dont think that's right
+
+lib/SocialFlow/Web/Controller/API.pm
+
+
+***** redirect
+
+
+ammathew [2:50 PM] 
+hey ... still playing around with this ... at this line for example https://github.com/SocialFlowDev/SocialFlow-Web/blob/master/lib/SocialFlow/Web/Controller/Settings/Admin.pm#L275   ... how would it know to redirect to publish when the appuser does not have client_admin?
+
+guru [2:55 PM] 
+how it redirects to publish if you enter \/admin?
+
+ammathew [3:07 PM] 
+nah, when you just enter settings/admin/users_permissions/add_user in address bar
+
+[3:07] 
+when you are not a client andmin
+
+[3:07] 
+*admin
+
+guru [3:09 PM] 
+https://github.com/SocialFlowDev/SocialFlow-Web/blob/master/lib/SocialFlow/Web/Controller/Settings/Admin.pm#L187
+
+[3:09] 
+checks here
+
+[3:09] 
+since the path is users_permissions/add_user
+
+
+***** user->has_capability
+
+( $user->has_capability( 'TODO_CAPABILITY_admin', $client ))
+
+ my $client = $c->model( 'SocialFlowApp::Client' )->find( $client_id );
+
+
+where is table tha  associates TODO_CAPABILITY_admin witha  client?
+
+
+
+ammathew [4:08 PM] 
+guru: is the function $user->has_capability located somewhere in the codebase? is it just part of catalyst? ( if so not finding documentation for it )
+
+new messages
+guru [4:09 PM] 
+its in sf-web-schema i think
+
+kathrina [4:09 PM] 
+@brianlai: turn around pls
+
+guru [4:09 PM] 
+ammathew: in SocialFlow-Web-Schema/SocialFlow/Web/Schema/Result/Appuser.pm
+
+
+*** DONE hook up radio button to db ( role table ? )
+
+
+from form data when submitted:
+client_service:1537:social_account_admin
+endpoint:
+http://ammathew.home.saturn.sflow.us:4010/api/settings/user_permissions
+
+
+5> $user->add_client_service_role( $cs, 'read_only' );                            
+No such role [read_only] at /home/ammathew/perl5/lib/perl5/SocialFlow/Web/Schema/Result/Appuser.pm line 356.
+
+psql -U socialflow_web -h pg-site.dev -d sf_web -W
+
+ appuser_id | full_name |           email           |                           password                           | language |     update_date     | active | allow_password_login |     create_date     |    time_zone     
+------------+-----------+---------------------------+--------------------------------------------------------------+----------+---------------------+--------+----------------------+---------------------+------------------
+        194 | A.M.      | ammathew+1@socialflow.com | $2a$10$FOAXhadNZHVLa4wDl5U2Cu2kIojky2PzqvLtisklgXg3W1Sf7DXfq |          | 2016-05-06 18:39:42 |      1 | t                    | 2016-05-06 18:38:36 | America/New_York
+
+
+
+sf_web=> select * from appuser_role where appuser_id=194;
+ appuser_id | role_id 
+------------+---------
+(0 rows)
+
+
+sf_web=> select * from appuser_client_service_role where appuser_id=194;
+ appuser_id | client_service_id | role_id 
+------------+-------------------+---------
+        194 |              1537 |      21
+        194 |              1537 |      10
+
+
+*** set up social account admin page
+
+**** TODO why still have "users and permissions" page when not admin anymore
+
+new account does not have users and permissions tab
+
+**** TODO why in db does appuser 194 still have social account admin id in appuser_client_service_role
+
+**** add social account admin tab if appuser has social_account_admin role
+
+./SocialFlow-Web-Config/lib/auto/share/dist/SocialFlow-Web-Config/etc/shared/app_based_navigation.yml
+
+***** why is users and permissions tab not on appuser A.M. Mathew?
+
+change came with app_based_navigation.yml changes
+
+*** how to get appuser_id from front end?
+
+sf.user.appuser_id
+
+*** add "social account admin" option outside of any connection to specific social account ( made frontend changes incorrectly before )
+
+*** TODO put under "additional roles" 
+
+/root/templates/settings/edit_user_permissions.html
+
+[% IF roles.$billing_contact %] 
+
+*** change backend to reflect changes on frontend/how permission params get passed
+
+**** how are other checkbox items handeled?
+
+  $user->add_client_role( $client, $val );
+
+**** what is difference between add_client_role and add_client_service_role ?
+
+these methods are in SocialFlow-Web-Schema? 
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-Web-Schema$ grep -r "sub add_client_role" .
+./lib/SocialFlow/Web/Schema/Result/Appuser.pm:sub add_client_role {
+
+  if ($role_rec->name eq 'superadmin' ||
+        $role_rec->name eq 'billing contact') {
+
+        # we can only have one. revoke the privilege from other users
+        $schema->resultset( 'ClientAppuserRole' )->search(
+            { client_id  => $client->client_id,
+              role_id    => $role_rec->role_id })->delete_all;
+    }
+
+    $schema->resultset( 'ClientAppuserRole' )->create( {
+        appuser_id      => $self->appuser_id,
+        client_id       => $client->client_id,
+        role_id         => $role_rec->role_id
+    } );
+
+
+**** $role_selected var ?
+
+**** social account admin field does not pass validator
+
+SocialFlow-Web-Config/lib/auto/share/dist/SocialFlow-Web-Config/etc/shared/forms/api_settings.yml
+
+**** no such role error
+
+[error] [ 4 ] [ http://ammathew.home.saturn.sflow.us:4010/api/settings/user_permissions ] [4][A.M. MATHEW]Caught exception in SocialFlow::Web::Controller::API::Settings->user_permissions "No such role [social account admin] at /home/ammathew/perl5/lib/perl5/SocialFlow/Web/Schema/Result/Appuser.pm line 356." at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API.pm line 214.
+
+***** is there another role table? 
+
+**** edit_user_permissions vs. edit_user_permissions/:appuser_id: endpoint
+
+
+*** TODO only add social account admin checkbox if client admin?
+
+*** update template on client admin side
+
+./root/templates/settings/edit_user_permissions.html
+
+
+
+sf_web=> insert into role ( name ) values ( 'social_account_admin' );
+
+
+*** difference between client_appuser_role and appuser_client_service_role/what are these 2 tables used for?
+
+*** DONE social account admin check box needs to save state
+
+*** DONE make ability to add social account admin specific to client admin
+
+*** role in catalyst template
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-Web$ grep -r "edit_user_permissions.html" .
+./lib/SocialFlow/Web/Controller/Settings/Admin.pm:        template            => "settings/edit_user_permissions.html");
+
+   my %roles = map { $_->role->name => 1 } $c->model( 'SocialFlowApp::ClientAppuserRole' )->search( { 
+        client_id  => $cur_client->client_id,
+        appuser_id => $user_id
+    } );
+
+** DONE added in role
+
+** STUFF
+
+**** log_cnt
+
+I don't believe so.  My recollection is that it's actually the number of
+IDs available before we have to write another WAL log entry for the
+sequence.  So unless you're using a replication method that can get at
+WAL entries, it's a non-issue.
+
+
+*** undo all in region on emacs?
+
+
+
+yazanator [11:50 AM] 
+@jonlorusso: is system the best way to run cli scripts with perl
+
+[11:50] 
+system($command, @arguments)
+
+[11:51] 
+http://perldoc.perl.org/functions/system.html
+
+ammathew [11:53 AM] 
+looks like thats for running a perl script within a perl script no?
+
+yazanator [11:53 AM] 
+woah
+
+[11:53] 
+perlception
+
+[11:53] 
+hrm
+
+[11:53] 
+gotta investigate further then
+
+jonlorusso [11:53 AM] 
+nah you can run other than perl with that
+
+ammathew [11:54 AM] 
+ah cool
+
+yazanator [11:54 AM] 
+oh nice
+
+jonlorusso [11:54 AM] 
+system is like backticks
+
+[11:54] 
+`echo foo`
+
+[11:54] 
+derp
+
+[11:54] 
+` ` echo foo ` `
+
+git log -p -S Raquel
+
+git log --author is cleaner
+
+** endpoint
+
+http://ammathew.home.saturn.sflow.us:4010/api/group/add?name=kkk
+
+
+https://github.com/SocialFlowDev/SocialFlow-Web/blob/master/lib/SocialFlow/API/Controller/Group.pm
+
+** client admin permissions
+
+** get handle on how permissionas currently work
+
+appuser( attached to email/how u sign in)
+associated with a client
+social account added to client
+
+** where are permissions stored in db/code that stores in db
+
+
+lib/SocialFlow/Web/Controller/API/Admin.pm
+
+*** what does admin radio currently do?
+
+
+http://ammathew.home.saturn.sflow.us:4010/api/settings/user_permissions
+
+client_service:1537:read_write_admin
+
+
+lib/SocialFlow/Web/Controller/API/Settings.pm
+
+
+$user->add_client_service_role
+
+$user ||= $c->model('SocialFlowApp::Appuser')->find($user_id);
+
+lib/SocialFlow/Web/Controller/API/Settings/Appuser.pm
+
+
+client_role => $c->user->obj->publish_role_for($client) // '',
+
+
+** which endpoint gets hit when you change something on settings page?
+
+http://ammathew.home.saturn.sflow.us:4010/api/settings/user_permissions
+
+** what does current admin button do?
+
+** what would the db/db changes look like?
+
+db: sf_web
+table: appuser
+
+
+sf_web=> select * from appuser_role limit 10;
+ appuser_id | role_id 
+------------+---------
+      30000 |       6
+      10000 |      12
+
+
+
+sf_web=> select * from appuser limit 10;
+ appuser_id |    full_name    |              email              |                           password                           | language |     update_date     | active | allow_password_login |     create_date     |    time_zone     
+------------+-----------------+---------------------------------+--------------------------------------------------------------+----------+---------------------+--------+----------------------+---------------------+------------------
+        171 | Arseni NY       | amouchinski+ny@socialflow.com   | $2a$10$EdTokx3EAo.yKGWCc9KSI.2Yh6I8/jeKmB2iXh5McsoAzJsXHzhES |          | 2015-11-03 19:15:09 |      1 | t                    | 2015-11-03 19:15:09 | America/New_York
+         28 | Chris Nehren    | cnehren+socialflow@pobox.com    | $2a$10$lIhwopvRKv7SCGT0wKdGKOmzJW0TJ4iKnBn1bFE7NAx8V9sZV901S |          | 2014-07-11 19:29:34 |      1 | t                    | 2014-07-11 19:24:38 | UTC
+
+
+** where are roles defined?
+
+** some possibly relevant tables
+
+   
+ public | appuser_appuser_id_seq                                          | sequence | socialflow_web
+
+ public | client_appuser                                                  | table    | socialflow_web
+
+ public | role                                                            | table    | socialflow_web
+
+
+     194 | A.M.      | ammathew+1@socialflow.com | $2a$10$FOAXhadNZHVLa4wDl5U2Cu2kIojky2PzqvLtisklgXg3W1Sf7DXfq |          | 2016-05-06 18:39:42 |      1 | t                    | 2016-05-06 18:38:36 | America/New_York
+
+          4 | a.m.mathew | ammathew@socialflow.com | $2a$10$xzRk8RFbccgwJ15RASzAjuPtgeRAhyZZGWFwQlR1xcsHU8ttjm8F2 |          | 2015-06-24 18:44:40 |      1 | t                    | 2014-04-03 18:59:49 | America/New_York
+
+
+sf_web=> select * from client_appuser limit 10;
+ appuser_id | client_id | is_default 
+------------+-----------+------------
+      30000 |     30000 |          0
+          1 |         1 |          1
+          2 |         2 |          1
+
+sf_web=> select * from appuser_appuser_id_seq limit 10;;
+     sequence_name      | last_value | start_value | increment_by |      max_value      | min_value | cache_value | log_cnt | is_cycled | is_called 
+------------------------+------------+-------------+--------------+---------------------+-----------+-------------+---------+-----------+-----------
+ appuser_appuser_id_seq |        194 |           1 |            1 | 9223372036854775807 |         1 |           1 |      32 | f         | t
+
+
+public | client_group_appuser_role                                       | table    | socialflow_web
+(empty )
+
+
+*** where is appuser_role
+
+
+
+** need to add another row
+
+
+ammathew [3:41 PM] 
+skaufman: so do u think adding this new permissions tier would mean adding another role to  the role table in the sf_web database?
+
+[3:42] 
+joe^?
+
+new messages
+patspeiser [3:43 PM] 
+lol joe
+
+[3:43] 
+"posts from years ago are sending out"
+
+[3:43] 
+and the create date in socialflow asys "Added 2 years ago."
+
+[3:43] 
+Prize for least looked at queue?!
+
+joe [3:45 PM] 
+lol
+
+[3:46] 
+ammathew: i only have a vague idea of what you are working on :)
+
+[3:46] 
+sorry
+
+[3:46] 
+hehe
+
+[3:46] 
+if you explain more i can answer though
+
+[3:46] 
+patspeiser: who wrote in with that?
+
+patspeiser [3:47 PM] 
+BlackAmericaWeb (edited)
+
+skaufman [3:49 PM] 
+ammathew: yeah
+
+[3:49] 
+new row
+
+ammathew [3:50 PM] 
+ok cool
+
+
+"appuser_client_service_role is where the relationship between a user and a social account is stored."
+
+
+
+
+** WORDS
+./SocialFlow-Web-Config/lib/auto/share/dist/SocialFlow-Web-Config/etc/dev/catalyst.bak:          superadmin:
+
+
+./lib/SocialFlow/Web/ActionRole/Validate/Client/MinimumRole/SuperAdmin.pm:            my $capability = 'superadmin';
+
+
+my $user   = $ctx->user->obj;
+return 1 if $user->has_capability( $capability,$params);
+
+
+./lib/SocialFlow/Web/Controller/API/Admin.pm:    # these API methods are only available to the 'superadmin' appuser role.
+
+
+lib/SocialFlow/Web/SocialFlow-Web-Config/lib/auto/share/dist/SocialFlow-Web-Config/etc/shared/forms/api_settings.yml
+
+
+lib/SocialFlow/Web/Controller/API/Settings.pm
+
+ my %role_map = (
+        read_only             => 'read',
+        read_write            => 'write',
+        read_write_admin      => 'admin',
+        advertise             => 'advertise',
+        advertise_admin       => 'advertise_admin',
+    );
+
+$user->add_client_service_role( $cs, $cs_role_id );
+
+** if 1st user for client, then is superadmin
+
+$c->model('SocialFlowApp::ClientAppuserRole')->new(
+                    {
+                        appuser_id => $user->appuser_id,
+                        client_id  => $client_id,
+                        role_id    => $c->model('SocialFlowApp')
+                          ->schema->role_id_for('superadmin'),
+                    }
+                )->insert;
+
+
+** add type of role
+** what to name new role?
+
+
+
+
+
+** connect social_account_admin with specific socialaccounts
+
+list out social accounts
+
+connect social account with admin
+
+select * from appuser_client_service_role where appuser_id=206;
+
+
+*** have social accounts page list out all social accounts it's admin on
+
+**** how to set social account admin by social account
+
+send in param
+
+client_service:1537:social_account_admin gets sent into 
+http://ammathew.home.saturn.sflow.us:4010/api/settings/user_permissions
+
+**** build out user_permissions backend
+
+[error] [ 4 ] [ http://ammathew.home.saturn.sflow.us:4010/api/settings/user_permissions ] [4][A.M. MATHEW]Caught exception in SocialFlow::Web::Controller::API::Settings->user_permissions "Can't locate object method "so" via package "SocialFlow::Web" at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API/Settings.pm line 153." at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API.pm line 214.
+
+
+
+** on front end set to social account admin if selected on at least one account?
+
+
+** TODO why does setting social account admin for certain social accounts on client admin not maintain state?
+   
+
+
+---
+
+** DONE list out social accounts correctly
+
+under editable users...
+Settings.pm L277
+
+ why isnt cant I pront out blah blah.
+
+
+** DONE serve up right template for social account admin edit permissions, create temppate ... use new user_permissions_social_account_admin endpoint'
+*** serve up template
+
+why isnt url hitting endpoint?
+verify url
+yml issues restarting server. one space off
+
+api/settings/user_permissions
+
+*** additional edit user template (?)
+Request URL:http://ammathew.home.saturn.sflow.us:4010/api/settings/user_permissions_social_account_admin
+Request Method:POST
+Status Code:404 Not Found
+
+what endpoint is this url trying to hit?
+
+
+10.126.0.34 - - [28/Jun/2016:20:28:56 +0000] "POST /api/settings/user_permissions_social_account_admin HTTP/1.1" 404 9061 "http://ammathew.home.saturn.sflow.us:4010/settings/admin/users_permissions/edit_user_permissions_social_account_admin/214" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
+
+*** what db to check regarding whether social account admin has access to user/ social account?
+
+what params to send in to new web schema method?
+
+
+[error] [ 206 ] [ http://ammathew.home.saturn.sflow.us:4010/api/settings/user_permissions_social_account_admin ] [206][A.M. MATHEW]Caught exception in SocialFlow::Web::Controller::API::Settings->user_permissions_social_account_admin "unknown profile api/settings/user_permissions_social_account_admin at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Validation.pm line 57." at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API.pm line 214.
+
+how to get past validator?
+
+*** NEXT make method in socialflow_web_schema _is_social_account_admin 
+
+
+[error] [ 206 ] [ http://ammathew.home.saturn.sflow.us:4010/api/settings/user_permissions_social_account_admin ] [206][A.M. MATHEW]Caught exception in SocialFlow::Web::Controller::API::Settings->user_permissions_social_account_admin "Can't locate object method "has_social_account_admin_role" via package "SocialFlow::Web::Controller::API::Settings" at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API/Settings.pm line 143." at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API.pm line 214.
+
+
+why is client service id a big object when thought i just passed in id?
+
+
+DBIx::Class::_Util::detected_reinvoked_destructor(): Preventing *MULTIPLE* DESTROY() invocations on DBIx::Class::Storage::TxnScopeGuard=HASH(0x174bc368) - an *EXTREMELY DANGEROUS* condition which is *ALMOST CERTAINLY GLOBAL* within your application, affecting *ALL* classes without active protection against this. Diagnose and fix the root cause ASAP!!! at /home/ammathew/perl5/bin/plackup line 0
+
+
+ammathew [3:42 PM]  
+is this function being used anywhere?
+
+[3:42]  
+https://github.com/SocialFlowDev/SocialFlow-Web-Schema/blob/master/lib/SocialFlow/Web/Schema/Result/Appuser.pm#L238
+
+[3:42]  
+greped through sf-web with no results
+
+joe [3:43 PM]  
+i think all of that has_role stuff was deprecated in favor of the has_capability stuff
+
+[3:43]  
+since the idea was that the roles themselves would no longer matter
+
+[3:43]  
+it would be more about what you are able to do
+
+[3:43]  
+since the roles are collections of capabilities
+
+ammathew [3:44 PM]  
+oh...good point
+
+[3:44]  
+thanks
+
+
+how to use has_capability here?
+
+
+ $self->has_client_service_capability(
+
+./lib/SocialFlow/Capabilities.pm:package SocialFlow::Capabilities;
+
+ammathew+7 appuser id is 213
+
+sf_web=> select * from appuser_client_service_role where appuser_id=213;
+ appuser_id | client_service_id | role_id 
+------------+-------------------+---------
+        213 |              1545 |      13
+
+still  no access...
+
+
+
+** DONE when set to social account admin on ind`ividual social account, not set
+** DONE dont list out accounts that dont have access to
+
+where is this social account admin dashboard template?
+
+
+ $c->model( 'SocialFlowApp::AppuserClientServiceRole' )->search( {  appuser_id => $user_id, role_id => 21  } );
+
+client service role table?
+why are client services not displaying?
+how is client services queried?
+need to query for client services accounts that appuser is social account admin for
+$c->model( 'SocialFlowApp::AppuserClientServiceRole' )->search( {  appuser_id => $user->appuser_id, role_id => 21 } )->all();
+
+$c->model( 'SocialFlowApp::AppuserClientServiceRole' )->search( {  appuser_id => $user->appuser_id  } )->all();
+
+not querying anything?
+
+DBIx::Class::Storage::DBI::_execute(): Cannot bind a reference at reply input line 1
+
+\DBIx::Class::Storage::DBI::_execute(): Cannot bind a reference at reply input line 1
+
+
+[error] [ 4 ] [ http://ammathew.home.saturn.sflow.us:4010/api/settings/user_permissions ] [4][A.M. MATHEW]DBIx::Class::Storage::DBI::_dbh_execute(): DBI Exception: DBD::Pg::st execute failed: ERROR:  duplicate key value violates unique constraint "client_appuser_role_pkey"
+DETAIL:  Key (appuser_id, client_id, role_id)=(206, 4, 21) already exists. [for Statement "INSERT INTO client_appuser_role ( appuser_id, client_id, role_id) VALUES ( ?, ?, ? )" with ParamValues: 1='206', 2='4', 3='21'] at /home/ammathew/to_devel_local/SocialFlow-Web-Schema/lib/SocialFlow/Web/Schema/Result/Appuser.pm line 327
+ at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API.pm line 214.
+
+
+ my @trah = $c->model( 'SocialFlowApp::AppuserClientServiceRole' )->search( {  appuser_id => $c->user->obj->appuser_id , role_id=>21 } )->all();
+
+[warn] [ 206 ] [ http://ammathew.home.saturn.sflow.us:4010/api/settings/user_permissions_social_account_admin ] user: ammathew+3@socialflow.com cannot edit user ammathew+7@gmail.com at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API/Settings.pm line 139.
+** DONE list out users on social account admin dash PROPERLY
+** DONE Should SAA only have access to accounts that they invited?
+no all accounts
+** DONE only list out if not social account admin
+
+
+where listed out
+
+** DONE right to revoke access
+
+ammathew [2:50 PM]  
+hey...should social account admins have the right to revoke users?
+
+[2:51]  
+like, what do they have the ability to do after they invite users to a social account and the user accepts?
+
+new messages
+matt [3:05 PM]  
+well they could remove them from the social accoun tyeah
+
+[3:05]  
+they could change their permissions on the account
+
+[3:06]  
+they can't remove users from the client though
+
+ammathew [3:06 PM]  
+i see ...even though they were the ones who invited them to the client, right?
+
+
+matt [3:07 PM]  
+well the users might get rights added on other social accounts no? sam seemed to think it was a constraint because of our existing architecture
+
+
+ammathew [3:09 PM]  
+never actually looked that that use case
+
+[3:09]  
+lms
+
+
+ammathew [3:10 PM]  
+so is the client admin the only one who has the right to add users to the client?
+
+[3:10]  
+and then the social account admin invites to the social account
+
+[3:11]  
+?
+
+[3:11]  
+right now the social account admin can invite anybody
+
+matt [3:11 PM]  
+no i think the social account admin has to be able to add users to client
+
+[3:11]  
+to get them to the social account
+
+[3:11]  
+I think that wa sin the spec
+
+[3:11]  
+we wrote up
+
+[3:12]  
+and Sam spoke about it a bunch
+
+[3:12]  
+but they probably shouldn't be able to remove from client
+
+[3:12]  
+anyway thats what it seemed to net out to
+
+[3:12]  
+but if in investigating it -that makes no sense
+
+[3:12]  
+let me know
+** DONE add new, more descriptive capabilities?
+
+change from placeholder capability "TODO_CAPABILITY_admin" to new capability
+
+ check to $user->has_role( 'social_account_admin' ) not returning 1 in social_account_admin controller function
+
+does has_role no longer work?
+
+manage users on client service, as well as add users to client?
+super confusing
+add a user
+
+why is edit_user_permissions_social_account_admin redirecting now?
+
+"Unknown capability 'edit_user_permissions_on_client_service' 
+** DONE clean up templates and template code
+*** how do groups fit in here?
+
+
+
+
+
+
+remove groups
+
+** DONE what does admin radio do?
+
+
+
+sent in:
+client_service:1545:read_write_admin
+client_service:1537:read_write_admin
+
+relationship between read_write_admin and social_account_admin??
+
+admin has ability to add to group, edit social accounts...etc
+
+*** pat answers
+
+
+ammathew [2:56 PM]  
+hey ... have a question ... on the "User Details and Permissions" page...  where the social accounts are listed out ... do u know if anyone actually uses the admin radio button?
+
+[2:56]  
+sam and matt didnt know what setting a social account permission to admin did
+
+new messages
+patspeiser [3:56 PM]  
+yeah people use that one
+
+[3:56]  
+the admin radio button allows a user to edit the social accounts settings as well as re-authorize the account
+
+*** DONE where did socia_account_admin radio go?
+** DONE ljst edit user permissions for social account admin
+   
+*** DONE why arent social acconts being listsed out now?
+
+not listed out when on just social account admin
+do i already have a template for social account admin?
+why is groups empty when social account admin but not when client admin?
+
+in client admin: IN CLIENT SERVICES LOOP publishing IN CLIENT SERVICES LOOP publishing IN CLIENT SERVICES LOOP url_shortening
+
+
+
+IN CLIENT SERVICES LOOP url_shortening
+
+where did the contents of the client_services variable come from?
+
+$self->_stash_client_services($c,$client);
+in list_all social_account_admin
+
+
+client role 'social_account_admin' isn't recognized as a publishing role at /home/ammathew/perl5/lib/perl5/SocialFlow/Web/Schema/Result/Appuser.pm line 544.
+
+ my @client_services = @{ $self->_restricted_client_services($c) }; ?
+
+_restricted_client_services_social_account_admin .. eh? i put that in?
+
+** DONE fix up list all social account admin accounts  
+** DONE get unauthorized cherrypy error when try to log in, but does actually log in
+
+$c->forward( 'SocialFlow::Web::Controller::Auth', 'login' );
+
+File "/opt/socialflow/dev/api_permission_server/current/APIPermission/app/web/root.py", line 94, in set
+    raise cherrypy.HTTPError(401, 'Unauthorized')
+
+Request URL:http://ammathew.home.saturn.sflow.us:4010/auth/login
+Request Method:POST
+Status Code:302 Found
+Remote Address:10.125.3.25:4010
+
+sub _post_login_redirect
+
+errors at     $c->res->redirect($redirect_url) in abpve function
+
+
+ redirect url 
+http://api-permission.dev.saturn.sfsrv.net:8001/set?session_id=572e9ce18077ce9cc273810ca96242eb85922031&redirect=http%3A%2F%2Fammathew.home.saturn.sflow.us%3A4010%2Fpublish at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/Auth.pm line 105.
+
+i think this has something to do with 2 factor
+ 
+set up 2 factor and see if it fails
+
+$self->session_redirect
+
+whch box is
+http://api-permission.dev.saturn.sfsrv.net/ ?
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-Web$ host  api-permission.dev.saturn.sfsrv.net
+api-permission.dev.saturn.sfsrv.net is an alias for services-1.dev.saturn.sfsrv.net.
+services-1.dev.saturn.sfsrv.net has address 10.125.2.35
+
+
+
+just change sflow.us to sfsrv.net
+
+** DONE invite user logic on new social_account_admin page
+   
+*** error
+
+[error] [ 206 ] [ http://ammathew.home.saturn.sflow.us:4010/api/settings/invite_user ] [206][A.M. MATHEW]DBIx::Class::Storage::DBI::_dbh_execute(): DBI Exception: DBD::Pg::st execute failed: ERROR:  duplicate key value violates unique constraint "client_appuser_pkey"
+DETAIL:  Key (appuser_id, client_id)=(210, 4) already exists. [for Statement "INSERT INTO client_appuser ( appuser_id, client_id) VALUES ( ?, ? )" with ParamValues: 1='210', 2='4'] at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API/Settings.pm line 288
+ at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API.pm line 214.
+
+**** have to change invite_user function?
+
+** DONE list out social accounts social account admin is admin for in social account admin dashbo
+ard
+*** DONE what page is being rendered now at that path? where is it being rendered?
+*** DONE change routing in nav bar
+
+looks like already set to settings/social_account_admin/base_index? 
+
+*** make own add user dash instead of using exitsting template? 
+
+why did i have to add a dummy function into Settings.pm to make  settings/social_account_admin_add_user path work?
+
+
+*** DONE route invite new user to social account admin invite new user page
+*** DONE in social_account_admin_add_user.html, list accounts user has acceaa to
+
+**** not page not being routed through social_account_admin_add_user_index routine?
+
+not being logged out
+
+
+**** how to grab these accounts?
+$c->user->appuser_id
+**** how to list resultset
+
+Can't locate object method "list_all" via package "SocialFlow::Web::Schema::ResultSet" at reply input line 1.
+
+
+my %roles;
+    foreach my $user( @users ) { 
+        my @roles = $c->model( 'SocialFlowApp::ClientAppuserRole' )->search( { 
+            appuser_id => $user->appuser_id,
+            client_id  => $client->client_id
+        } );
+
+        $roles{ $user->appuser_id } = \@roles;
+    }
+
+**** how to get methods on an object?
+
+**** use map...
+
+**** DONE make new method on appuser?
+
+     
+***** get resultset information into array of hashes 
+
+** DONE Make social account admin radio buttons persist
+
+*** where is csrole_read for example defined?
+
+ [% SET csrole_read = cs_roles.item("${cli.client_service_id}-read") %]
+within template
+
+** DONE if social_account admin is selected for at least one social account, then set that appuser to social_account_admin. set that permission also on client service table
+
+
+where is add_client_role called ( eg, where  )
+
+*** if client_service:social_account_admin is sent in at all, add to client_role(?) table, if not already there. if absent, remove from client_role table if not already there
+
+*** need to loop through params with key prepended with client_service
+
+has_many
+  client_appuser_roles => '::ClientAppuserRole',
+  'appuser_id', { cache => 1 };
+
+** DONE applescript to bring up this project?
+
+** DONE social_account_admin:85 Uncaught SyntaxError: Unexpected end of input
+*** DONE settings.js?v=3.401:949 Uncaught TypeError: $(...).parsley is not a function
+
+skaufman says he thinks that we never used parsely
+ammathew [2:17 PM]  
+oh weird it's in the version of settings.js that im using now but not on master, hrm
+
+merge in master
+
+need to install deps
+
+add in parsley ( javascript role? )
+
+where is parsley.js added, if anywhere?
+
+i greped but did not find
+
+- /static/js/libs/parsley.min.js
+
+
+Installing /home/ammathew/perl5/lib/perl5/x86_64-linux-gnu-thread-multi/.meta/SocialFlow-Ads-1.54/install.json
+Installing /home/ammathew/perl5/lib/perl5/x86_64-linux-gnu-thread-multi/.meta/SocialFlow-Ads-1.54/MYMETA.json
+! Configuring SocialFlow-Web-3.401 failed. See /home/ammathew/.cpanm/work/1466109203.3413/build.log for details.
+Expiring 11 work directories.
+5 distributions installed
+
+
+why is installdepts failing on that
+
+Error while loading /home/ammathew/to_devel_local/SocialFlow-Web/app.psgi: Can't locate SocialFlow/WorkQueue/Job/Ads/Refresh.pm in @INC (@INC contains: /home/ammathew/to_devel_local/SocialFlow-Web/SocialFlow-Web-Config/lib /home/ammathew/to_devel_local/SocialFlow-Web/SocialFlow-JobQueue/lib /home/ammathew/to_devel_local/SocialFlow-Web/lib /home/ammathew/perl5/lib/perl5/x86_64-linux-gnu-thread-multi /home/ammathew/perl5/lib/perl5 /etc/perl /usr/local/lib/perl/5.14.2 /usr/local/share/perl/5.14.2 /usr/lib/perl5 /usr/share/perl5 /usr/lib/perl/5.14 /usr/share/perl/5.14 /usr/local/lib/site_perl .) at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API/Ads.pm line 22.
+BEGIN failed--compilation aborted at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API/Ads.pm line 22.
+Compilation failed in require at /home/ammathew/perl5/lib/perl5/Catalyst/Utils.pm line 308.
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-Web$ sfcpanm SocialFlow-Workqueue
+! Finding SocialFlow-Workqueue () on mirror http://cpan-mirror.dev.saturn.sfsrv.net:25123 failed.
+! Couldn't find module or a distribution SocialFlow-Workqueue
+ammathew@ammathew:~/to_devel_local/SocialFlow-Web$ 
+
+just copied Refresh.pm over
+
+
+
+*** prob introduced a bug with latest commits
+
+** DONE fix up social account admin template
+
+** DONE bug? why is permissions endpoint now throwing an error>
+
+
+"missing_default_permissions"
+
+reverting removal of groups column did not resolve this
+
+how does defaut permissions figure into this. social account admin cant configure future default permissions
+
+
+
+
+set no access as dedault
+
+
+
+
+** DONE why account id instead of name and icon on social account admin dash?
+
+ [% ELSE %]
+                                            [% cli.service_user_id %]
+
+because client service queried from different table than edit user permissions function originally copied and pasted from
+
+  
+ my @users = $cur_client->client_appusers->search_related( 'appuser', undef,
+        { prefetch => 'two_factor' } );
+
+
+client appusers in socialflow web schema?
+which db table has screen name for ecample as a column
+or name..
+./lib/SocialFlow/Web/Schema/Result/Appuser.pm:many_to_many( clients => 'client_appusers', 'client', { order_by => { -asc => 'company' } });
+
+./lib/SocialFlow/Web/Schema/Result/Appuser.pm:          $self->client_appusers->find( { client_id => $client_id },
+
+$cur_client->client_appusers->find( { client_id => 4 } )
+
+ammathew [4:01 PM]  
+hey...what table contains client service columns data like screen_name, name etc?
+
+[4:01]  
+jonlorusso?
+
+jonlorusso [4:02 PM]  
+facebook_page_credential,
+
+[4:02]  
+twitter_credential
+
+[4:02]  
+ads_twitter_account
+
+[4:02]  
+etc.
+
+[4:02]  
+in your case i presume twitter_credential ?
+
+[4:02]  
+ammathew: ^
+
+
+** so, think have to use schema method
+
+lib/SocialFlow/Web/Schema/Result/Client.pm
+
+** maybe put in a new schema method?
+
+
+
+
+** TODO anyone with role social account admin  has access ot all social accounts on clinet?
+** TODO  ability for social account admin to update
+
+[warn] [ 206 ] [ http://ammathew.home.saturn.sflow.us:4010/api/settings/user_permissions ] user: ammathew+3@socialflow.com cannot edit user ammathew+7@gmail.com at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API/Settings.pm line 117.
+
+
+unless ( $self->_can_edit_user
+
+$user->has_client_role( $client_id, 'admin' ) );
+
+./lib/SocialFlow/Web/Schema/Result/Appuser.pm:sub has_client_role {
+
+
+sub has_client_service_role ?
+
+
+changes not taking
+what is happening in $user->add_client_service_role( $cs, $cs_role_id ) ?
+
+** TODO combine admin and social_account_admin?
+
+
+ammathew [4:05 PM]  
+hey ...talked to pat
+
+[4:05]  
+ammathew [2:56 PM]  
+hey ... have a question ... on the "User Details and Permissions" page...  where the social accounts are listed out ... do u know if anyone actually uses the admin radio button?
+
+[2:56]  
+sam and matt didnt know what setting a social account permission to admin did
+
+patspeiser [3:56 PM]  
+yeah people use that one
+
+[3:56]  
+the admin radio button allows a user to edit the social accounts settings as well as re-authorize the account
+
+ammathew [3:59 PM]  
+oh ..  so im working on adding a social account admin role ( can invite new users to a subset of social accounts on the client ) ... im thinking of making that permissions tier like a subset of that admin tier ... like all admins on a social account can invite new users to it
+
+[3:59]  
+dont know how that sits with u
+
+[3:59]  
+ill copy and paste this chat over to matt
+
+new messages
+patspeiser [4:00 PM]  
+omg we're finally making that permission level?!
+
+[4:00]  
+I can still remember the meeting where our first project manager permission said we didn't need it. Haha
+
+[4:01]  
+Should just make that admin role the ability to add users to that account
+
+ammathew [4:01 PM]  
+yea come to think of it i dont really get why there needs to be a separate admin and social_account_admin role
+
+[4:02]  
+why not just let admins invite new users?
+
+patspeiser [4:02 PM]  
+yeah im sure someone will have a reason
+
+[4:03]  
+there were two things always missing frmo user permissions
+
+[4:03]  
+1) A user needs to be able to be delegated a number of social accounts they're allowed to add. Like - this dude can add 10.
+
+[4:03]  
+2) That user should be able to invite new users and assign their permissions out to the accounts they have access to
+
+ammathew [4:04 PM]  
+but how about reauthng/settings etc
+
+[4:04]  
+i guess there might be a good reason for that to be a separate (higher?) permission tier
+
+[4:04]  
+the second one i feel like im almost done with building out
+
+[4:04]  
+unless im missing something
+
+[4:06]  
+so... make admin a higher permission tier that includes social_account_admin ?
+
+matt [4:06 PM]  
+If pay is cool with it o think yeah
+
+[4:06]  
+Oh wait slack error
+
+[4:07]  
+I didn't get the whole message reading now
+
+ammathew [4:07 PM]  
+oh ill make a gist
+
+
+slackbot [4:07 PM] Only visible to you
+That looks like a GitHub Gist link. Do you want us to import it (and all further GitHub Gist links from you)?
+Yes • Just this once • Not now • Never
+ammathew [4:07 PM]  
+https://gist.github.com/ammathew/1a2a4dba4ef283a455c619503da60b0b
+
+matt [4:07 PM]  
+Hey so
+
+[4:08]  
+Yeah I agree it could all be admin
+
+[4:08]  
+But I didn't know what it did or where it was set or if pat thought it would eff anything up
+
+[4:08]  
+But if not it would be better if they were the same thing
+
+ammathew [4:08 PM]  
+i can kind of understand making it separate...like admin can  create groups etc
+
+matt [4:09 PM]  
+Ok
+
+new messages
+[4:09]  
+Then separate lol
+
+ammathew [4:10 PM]  
+hold on, im checking what else  admin can do that social account admin cant currently
+
+matt [4:10 PM]  
+Cool
+
+ammathew [4:11 PM]  
+so, alot ...heh:
+
+[4:11]  
+Social Account Groups
+
+[4:11]  
+Active Content Sources
+
+[4:11]  
+Link Shortener
+
+[4:11]  
+Publishing Limits
+
+[4:11]  
+etc...
+
+[4:11]  
+social account admin right now can just invite users
+
+[4:12]  
+does that work, or should they be combined?
+
+[4:12]  
+i can see client admin not wanting to bother with that stuff
+
+[4:12]  
+wanting to delegate it to a social account admin
+
+** TODO make all admins social account admins
+
+sf.user.appuser_id to get appuser id from frontend
+
+
+** dont think i need that?
+** what is difference between admin and account_admin?
+** add social account admin to nav bar?
+
+what is client_role?
+
+** TODO how do groups fit into all of this?
+   
+** NEXT cleanup
+   
+** social account admin is a permissions level above admin. is this reflected int config files, and the broader ap[p?
+
+what is role account_admin ... is is used?
+
+if set to social_account_admin, then lose reauth account capability 
+
+Account Admin - Can add and remove social accounts and add, edit, and remove users.
+
+ TODO_CAPABILITY_account_admin is only in config files
+
+looks messed up. ammathew+6 was set to read/write on one account, social account admin in another, can still reauth both...  also, no menu shortcut for social_account_admin?
+
+just added TODO_CAPABILITY_admin as capability under the social_account admin role, why would I have to do this?
+
+imples roles... 
+
+shouldnt be able to add groups
+
+manage_client_service_accounts?
+
+not anywhere...
+
+
+      implies_roles:
+        - client_admin
+
+lists social accounts but cant change them in any way
+
+** what does hitting the admin radio do, code wise?
+
+
+admin-permission-check, hide-show on 
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-Web$ grep -r "adminPermissionCheck" .
+./root/templates/javascript/settings/social_accounts/directives/directives.js:sfApp.angularApp.directive('adminPermissionCheck',
+./root/templates/javascript/settings/social_accounts/directives/directives.js:        var id = attr.adminPermissionCheck || sf.user.client_id;
+
+
+sf.user.has_capability('TODO_CAPABILITY_admin', id) ? $(elem).show() : $(elem).hide();
+
+
+ng-repeat="account in socialAccounts"
+
+
+root/templates/javascript/settings/social_accounts/social_accounts.js
+
+angular.forEach(sf.client_services ...
+
+./root/templates/javascript/common/sfobj.js:sf.client_services = "<? (client_services ? (jsonify(client_services) | none) : '[]') | none ?>";
+
+
+pi/settings/user_permissions 
+
+
+$user->add_client_service_role
+
+
+
+ cs 
+SocialFlow::Web::Model::SocialFlowApp::ClientService=HASH(0x18cd58d0) at /home/ammathew/perl5/lib/perl5/IO/All.pm line 149.
+
+ cs role id 
+admin at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API/Settings.pm line 305.
+
+ cs 
+SocialFlow::Web::Model::SocialFlowApp::ClientService=HASH(0x18cd7ad8) at /home/ammathew/perl5/lib/perl5/IO/All.pm line 149.
+
+ cs role id 
+social_account_admin 
+
+
+$schema->resultset( 'AppuserClientServiceRole' )->find_or_create( {
+
+
+ role_id |                         name                         
+---------+------------------------------------------------------
+       1 | admin
+
+
+
+
+why does SAA have ability to edit groups etc?
+
+
+so "admin" role can be on client or on social account??
+if on client, then can add groups, add accounts etc?
+
+
+for access to social account admin, need to check if admin on at least one account... CANNOT PUT THIS ON CLIENT TABLE
+
+
+** need a way to check if user is SAA for at least on eaccount, so that SAA menu bar option appears
+
+
+client_role:  ??
+
+
+
+
+removing client_role param in nav bar config, and menu item appeards
+
+where is this config parsed?
+can I a new method to it?
+
+
+./lib/SocialFlow/Web/View/AppBasedLoggedIn.pm:    $selected_map ||= _navigation_map($config->{app_based_navigation}{items});
+
+
+$has_user_role = first { $user_obj->has_user_role($_) } @$user_roles;
+
+
+
+
+* not doing
+
+** combine admin and social account admin
+
+
+** add in select all to be social account admin 
+
+
+
+** make social account admin less than admin?
+
+CANT edit group, CANT add a social account
+
+ability to be BOTH SAA and Admin? 
+
+admin can not currently invite user to account
+
+
+social account admin can not delete accounts/add accounts/reauth
+
+client role..
+2
+/home/amouchinski/mpa_members_aug_mpa.yml
+
+
+****
+
+
+PERMISSIONS INSTRUCTIONS TO TEST
+
+
+
+a  little insane 
+its okay, in okay  
+just saw some blue
+your eyes in your eyes
+
+take from me
+as i give to you
+far away far away
+it's okay it's okay
+
+try me once
+take a truck
+get fucked up
+under the boardwalk
+
+take a truck
+the first cunt ever
+
+keep it going keep in going
+no use in knowing
+just know its broken 
+keep it going keep it going
+hands on me
+hands on you
+
+oh there was a few
+now so many
+take it from me
+as i take it from you
+
+
+
+dimension, demented
+just seem to happen
+
+
+***
+
+
+
+
+
+
+
+
+* did I not commit the template changes? not seeing saa in invite new users. 
+
+add back social account admin add user?
+
+* something that really doesnt  make any sense: saa should not be able to set admin because dont have admin privilidges on social accout ( eg cant reauth )
+
+
+SAA needs to be admin...how do this?
+
+* change saa to tp user admin
+
+ammathew [2:19 PM]  
+hey should I change social account admin to user admin throughout the code?
+
+[2:19]  
+wonder if it might be confusing otherwise
+
+[2:19]  
+to just change displayed names
+
+
+skaufman [3:18 PM]  
+uhhh
+
+[3:18]  
+sure
+
+[3:18]  
+you can change it in the code
+
+ammathew [3:19 PM]  
+have to change it in a lot of places
+
+[3:19]  
+but think it's prob worth it
+
+
+[error] [ 188 ] [ http://ammathew.home.saturn.sflow.us:4010/settings/application/content_sources/add_content_source?prev_url=/settings/application/content_sources ] [188][Test-Eric]Caught exception in SocialFlow::Web::Controller::Settings::SocialFlow->add_content_source "Can't call method "att" on an undefined value at /home/ammathew/perl5/lib/perl5/Spreadsheet/ParseXLSX.pm line 58." at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/Root.pm line 407.
+
+i think i was using wrongly formatted file
+
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-Web$ git diff
+error: bad index file sha1 signature
+fatal: index file corrupt
+
+
+* "missing default permissions" bug?
+
+* write up
+
+
+Users can now be "User Admins", which means that Client Admins can put certain users in charge of of inviting users to specific social accounts and set their permissions on those social accounts.
+
+what User Admins CAN do:
+
+can invite users to a particular social account
+can set permissions foe users on those accounts (eg: read, write, admin ). 
+
+what they CANT do:
+
+add new social accounts
+delete users who were already invited
+
+THINGS TO TEST:
+1) logged in as client admin, invite new user and set to social account admin
+settings->admin->users and permissions->invite new user 
+set to User Admin
+
+2) accept invite and log in
+the new User Admin should be able to invite new users and set their permissions
+settings->user admin->invite new user
+
+
+3) user admin can change permissions for any users on social accounts they are admin of
+settings->user admin->edit (a particular user)->save
+
+
+* add tooltips
+
+* qa
+
+how to get client service object from client service id?
+
+supported service id versus client_service_id?
+
+14> $row->get_column('service_user_id' )            
+ $res[7] = '18ce53w2rn2'
+
+service_user_id vs. clien_service_id
+
+
+[error] [ 4 ] [ http://ammathew.home.saturn.sflow.us:4010/api/ads/campaign_sets ] [4][HERPDERP]DBIx::Class::Row::get_column(): No such column 'client_service_id' on SocialFlow::Web::Model::Ads::Campaign at /home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/Controller/API/Ads.pm line 109
+
+
+instead of pulling the list of services _from_ the list of campaigns,
+
+
+new messages
+[4:40]  
+you could: grep { has_access_to_service( $_ ) } qw/ ads_facebook_ad_account ads_twitter_account ads_pinterest_account /;
+
+[4:40]  
+sand then just limit the campaign_set->campaigns query to that list of supported_service_ids (edited)
+
+[4:40]  
+that might be a bit clearer
+
+[4:41]  
+but aside from that it looks right
+
+
+
+
+
+kathrina [10:31 AM]  
+fyi team, that change effected both campaign sets, on the campaign sets page and pacing dash
+
+http://ammathew.home.saturn.sflow.us:4010/settings/application/campaign_sets
+
+
+trouble recreating
+
+
+
+
+https://github.com/SocialFlowDev/qa/issues/3640
+
+
+
+
+
+
+
+* issues to look into
+
+under User Status sayd social_account_admin...
+
+
+
+joe [11:56 AM]  
+brianlai you can use the command tee to write to both stdout and stderr
+
+[11:56]  
+er
+
+[11:56]  
+to stdout, stderr and file
+
+joe [11:58 AM]  
+sf-spawn.pl SocialFlow::FeedSource::ContentQueueImport 2>&1 | tee -a out.log
+
+[11:58]  
+etc
+
+[11:59]  
+i hate '2>&1' , can never remember the order

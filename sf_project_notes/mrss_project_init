@@ -1,0 +1,43 @@
+tell application "Terminal"
+    activate
+    tell application "System Events" to keystroke "t" using command down
+    repeat while contents of selected tab of window 1 starts with linefeed
+        delay 0.01
+    end repeat
+    set custom title of window 1 to "feedfetcher_db_writer"
+    do script "ssh sf" in window 1
+    do script "cd SocialFlow-FeedSource" in window 1 
+    do script "devel-local ." in window 1
+    do script "devel-local ../SocialFlow-ContentQueue" in window 1   
+    do script "devel-local ../xml-feed" in window 1      
+    do script "SOCIALFLOW_WEB_PATH=~/yml" in window 1   
+    do script "perl ~/perl5/bin/sf-spawn.pl  SocialFlow::FeedSource::Fetcher --db_writer" in window 1  
+ 
+
+    activate
+    tell application "System Events" to keystroke "t" using command down
+    repeat while contents of selected tab of window 1 starts with linefeed
+        delay 0.01
+    end repeat
+    set custom title of window 1 to "feedfetcher"
+    do script "ssh sf" in window 1
+    do script "cd SocialFlow-FeedSource" in window 1 
+    do script "devel-local ." in window 1
+    do script "devel-local ../SocialFlow-ContentQueue" in window 1   
+    do script "SOCIALFLOW_WEB_PATH=~/yml" in window 1       
+    do script "perl ~/perl5/bin/sf-spawn.pl  SocialFlow::FeedSource::Fetcher --pool_size 10 --hard_timeout 90" in window 1   
+
+    activate
+    tell application "System Events" to keystroke "t" using command down
+    repeat while contents of selected tab of window 1 starts with linefeed
+        delay 0.01
+    end repeat
+    set custom title of window 1 to "content queue import"
+    do script "ssh sf" in window 1
+    do script "cd SocialFlow-FeedSource" in window 1 
+    do script "devel-local ." in window 1
+    do script "devel-local ../SocialFlow-ContentQueue" in window 1   
+    do script "SOCIALFLOW_WEB_PATH=~/yml" in window 1   
+    do script "perl ~/perl5/bin/sf-spawn.pl  SocialFlow::FeedSource::ContentQueueImport --pool_size 10 --hard_timeout 90" in window 1
+
+end tell

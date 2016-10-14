@@ -1,0 +1,414 @@
+* TODO missing data from mpa report
+
+People and People Style Watch both did not have reported Facebook data in March and People Style Watch does not have Facebook data for April, I wanted to inquire about why that was.
+
+
+** TODO trouble getting onto arseni's box
+
+
+mohammad [2:47 PM] 
+sorry, cleaning up extraneous servers
+
+ammathew [2:48 PM] 
+all the mpa stuff is on there
+
+[2:48] 
+and, uh, not elsewhere
+
+mohammad [2:48 PM] 
+ok i can bring it back up
+
+ammathew [2:48 PM] 
+great
+
+skaufman [2:48 PM] 
+one sec,
+
+ammathew [2:48 PM] 
+heh
+
+mohammad [2:48 PM] 
+ok
+
+skaufman [2:48 PM] 
+ammathew: was it in his home dir?
+
+ammathew [2:48 PM] 
+yea
+
+skaufman [2:48 PM] 
+cause you can ssh amouchinski@localhosyt
+
+[2:48] 
+localhost
+
+[2:48] 
+the homedirs are attached everywhere
+
+[2:48] 
+- the type
+
+[2:48] 
+typo
+
+[2:49] 
+i am failing at typing right now
+
+[2:49] 
+basically however you used to ssh into his account,
+
+[2:49] 
+just substitute your own instance
+
+ammathew [2:49 PM] 
+oh.... guess i have to to add my key to my saturn box then
+
+skaufman [2:49 PM] 
+where were you sshing from
+
+ammathew [2:49 PM] 
+u mean log onto saturn
+
+[2:49] 
+right?
+
+[2:49] 
+and then ssh into his box?
+
+skaufman [2:49 PM] 
+either,
+
+[2:50] 
+if you used to ssh amouchinski@amouchinski.home.saturn.sfsrv.net
+
+[2:50] 
+you canjust ssh amouchinski@ammathew.home.saturn.sfsrv.net
+
+ammathew [2:50 PM] 
+ah cool
+
+[2:50] 
+thanks
+
+[2:50] 
+that works
+
+
+** TODO how to find mpa yml
+
+** write up new yml and get missing data?
+
+** construct command to run rep for missing vals
+
+
+source $HOME/perl5/perlbrew/etc/bashrc; cd /home/amouchinski/mpa; ./SocialFlow-Web/dist/mpa_report/generic_run_report.sh config_generic.yml
+
+*** errors
+
+
+**** for people
+
+[Thu May 12 20:12:44 2016 #19587] Caught exception: Error: 500 read timeout (500)
+undef at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 1092.
+
+[Thu May 12 20:12:44 2016 #19587] Sleeping...
+[Thu May 12 20:12:49 2016 #19587] Retrying (1)
+[Thu May 12 20:12:52 2016 #19587] Caught exception: Error: 500 Internal Server Error (500)
+{
+  error => {
+    code => 2,
+    fbtrace_id => "EqOCuO+0n3u",
+    is_transient => bless(do{\(my $o = 1)}, "JSON::PP::Boolean"),
+    message => "An unexpected error has occurred. Please retry your request later.",
+    type => "OAuthException",
+  },
+} at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 1092.
+
+
+**** for people style watch
+
+[Thu May 12 20:14:12 2016 #19587] Caught exception: {
+  code    => 404,
+  data    => "https://graph.facebook.com/PeopleStyleWatchMag/insights?until=1460678400&since=1459468800&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U",
+  message => "Could not execute request (https://graph.facebook.com/PeopleStyleWatchMag/insights?until=1460678400&since=1459468800&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U): OAuthException - (#803) Some of the aliases you requested do not exist: PeopleStyleWatchMag",
+}
+
+
+[Thu May 12 20:17:42 2016 #19753] Caught exception: Error: 500 Internal Server Error (500)
+{
+  error => {
+    code => 2,
+    fbtrace_id => "EerCmEb2h0J",
+    is_transient => bless(do{\(my $o = 1)}, "JSON::PP::Boolean"),
+    message => "An unexpected error has occurred. Please retry your request later.",
+    type => "OAuthException",
+  },
+} at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 1092.
+
+** find correct report
+
+
+*** add in missing values ( in missing mpag_files_april_may_2.yml )
+
+
+[Thu May 12 21:34:01 2016 #21271] Caught exception: {
+  code    => 400,
+  data    => "https://graph.facebook.com/GunsAndAmmoMag/insights?until=1458018000&since=1456808400&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U",
+  message => "Could not execute request (https://graph.facebook.com/GunsAndAmmoMag/insights?until=1458018000&since=1456808400&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U): GraphMethodException - Unsupported get request. Object with ID 'GunsAndAmmoMag' does not exist, cannot be loaded due to missing permissions, or does not support this operation. Please read the Graph API documentation at https://developers.facebook.com/docs/graph-api",
+}
+
+
+[Thu May 12 21:34:11 2016 #21271] Caught exception: {
+  code    => 400,
+  data    => "https://graph.facebook.com/GunsAndAmmoMag/insights?until=1458018000&since=1456808400&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U",
+  message => "Could not execute request (https://graph.facebook.com/GunsAndAmmoMag/insights?until=1458018000&since=1456808400&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U): GraphMethodException - Unsupported get request. Object with ID 'GunsAndAmmoMag' does not exist, cannot be loaded due to missing permissions, or does not support this operation. Please read the Graph API documentation at https://developers.facebook.com/docs/graph-api",
+}
+
+
+Page error, skipping: Could not execute request (https://graph.facebook.com/GunsAndAmmoMag/insights?until=1458018000&since=1456808400&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U): GraphMethodException - Unsupported get request. Object with ID 'GunsAndAmmoMag' does not exist, cannot be loaded due to missing permissions, or does not support this operation. Please read the Graph API documentation at https://developers.facebook.com/docs/graph-api at /home/amouchinski/.perlbrew/libs/perl-5.16.3@def/lib/perl5/Facebook/Graph/Response.pm line 39.
+
+
+[Thu May 12 21:37:18 2016 #21271] Getting pinterest counts for user 'reminiscemag'
+[Thu May 12 21:37:18 2016 #21271] Caught exception: Request failed: 404 NOT FOUND(404) at ./SocialFlow-Web/dist/mpa_report/mpa_report.pl line 390.
+
+
+
+* better homes and garden 
+
+  march numbers i ran do not match whats in sheet?
+
+what perry sent over doesnt match what's in sheet?
+
+"missing fields" pdf is as of march 21?
+
+* csv to yml
+
+perl ysv.pl --from MPAPurePlay.csv --to mpa_members_july.yml
+
+./repos/SocialFlow-Web/blib/lib/SocialFlow/Web/dist/mpa_report/ysv.pl
+
+./repos/SocialFlow-Web/dist/mpa_report/ysv.pl
+
+
+amouchinski@ammathew:~/repos/SocialFlow-Web/dist/mpa_report$ perl ysv.pl --from Master_Publication_List_Final.csv --to mpa_members_july.yml
+Error: Google Plus URL doesn't seem right: 'N/A', CSV row:
+[
+  "MPA-1",
+  "American Media, Inc. (AMI)",
+  "National Enquirer",
+  "http://www.nationalenquirer.com/",
+  "https://www.facebook.com/TheNationalEnquirer",
+  "https://twitter.com/NatEnquirer",
+  "N/A",
+  "N/A",
+  "N/A",
+] at ysv.pl line 70.
+
+
+
+guru [3:26 PM]  
+so its the same xls file from last time
+
+[3:26]  
+which has 3 tabs
+
+[3:26]  
+i made 3 yml files from that
+
+[3:27]  
+mpa_members1 mpa_members2 and mpa_members_pure_play
+
+[3:27]  
+in cd mpa/SocialFlow-Web/dist/mpa_report/
+
+[3:27]  
+so for each one, i change the name to mpa_members.yml then run `bash generic_run_report.sh config_generic.yml mpa_members.yml &
+
+
+
+
+
+[4:13]  
+ammathew: ^^
+
+joe [4:13 PM]  
+ammathew: do you need teh prod ones?
+
+ammathew [4:14 PM]  
+erm, they are for mpa reports
+
+joe [4:14 PM]  
+yeah ideally dont send creds across, let me know if you need the prod ones specifically
+
+ammathew [4:14 PM]  
+not exactly sure
+
+new messages
+joe [4:14 PM]  
+i think what jmlenehan sent might be fine, since you only really need the access token i think
+
+[4:14]  
+which would be from db
+
+
+
+---
+#data_path: [% application_lib_path %]
+#data_path: /home/amouchinski/mpa
+data_path: /home/amouchinski/mpa/data
+
+twitter_consumer_key: RPYl4NrWBOO5UPQjtwvXOGlbx
+twitter_consumer_secret: GynOGrblFRkcdsh37ZC5RzmTdZZLvmm7MoOna8d4DgMLj9CEAs
+
+#facebook_access_token: CAAB1NNHpZAWoBAANPZBlZCi73dnFrvXtRtCoE9BttHJP8BaNmqh6wpRrCeFYlNHpTRhKIKb30cTvSSCzRvAPlhLc87RmJoAojxZAskCAIAW4tLS90CL85ydRLv8iqHZCbGHOUZBk8qPyvLsJsJM85JjDNbEfdNTdRIOkKJPYhhflE2QUAuUNgZB
+facebook_access_token: 473808219433521|-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c
+
+instagram_client_id: ca68105c7ea8465abb1a7feb9d3d2a2b
+
+gnip_auth_hash: c2FtQHNvY2lhbGZsb3cuY29tOmdhcnkgbml0d2l0IHBhcnR5IHBlb3BsZQ==
+
+google_api_key: AIzaSyDpxDlBM5ExXXVhRgpcxK9uJLE2h9aRBPE
+
+#pinterest_access_token: Adcwkp7vvJPNZi35oPep0UL_TvO_E_NdsPOIqe9CWH8qdiAd_AAAAAA
+pinterest_access_token: MTQzMTU5NDo0MzU1ODI3MzI2MTgyNjE1NzA6OTIyMzM3MjAzNjg1NDc3NTgwNzoxfDE0Mzc3MDI2OTc6MC0tNjhlY2IxZjIyN2E2OGRiNmZiOTY1ODE1MDVmNjU5MDI=
+
+# custom service account that belongs to the google api app
+google_service_account_email: 211304317610-sl1acvqej5ei8lqm4tuoh0nptfo13ffs@developer.gserviceaccount.com
+# base64
+google_service_account_pkey: |
+    QmFnIEF0dHJpYnV0ZXMKICAgIGZyaWVuZGx5TmFtZTogcHJpdmF0ZWtleQogICAgbG9jYWxLZXlJRDog
+    NTQgNjkgNkQgNjUgMjAgMzEgMzQgMzEgMzAgMzUgMzUgMzAgMzcgMzkgMzkgMzIgMzEgMzYgCktleSBB
+    dHRyaWJ1dGVzOiA8Tm8gQXR0cmlidXRlcz4KLS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUNk
+    UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQWw4d2dnSmJBZ0VBQW9HQkFLZDdzZDhOS2JSTUwwd08K
+    VHZDVmM3VmRiMmVwcmVSVzVEWS9wVDNpSjdXZUdoYlJqdlVsUHczajRDRzBCQko2TStGWTRRTVFIOXpp
+    WFpTdApsR0xuMW1icWw2bEF6R2FUK1BXQUlwTGJYYTZzNjVTYzgrYkJ3KzNYWnI5M2pTelYyMHRjNFVa
+    c1N2Yk1pRENLClFpOWlieHFldCs1aTJydGlVMmRySVFoTURoQjFBZ01CQUFFQ2dZQmhUWGppYUtoUkNt
+    MzBGdC8vNENRd08wOXMKLzJSNm80ekVnNmVCMDNGVWo3MENnczgyVjJSUnNwRlZvMXMyVE83MVBnakVH
+    Y3NaTGg1R01hNWk0K1JvUngxUgp5bHk4ZU5FSENBRWVYUEhWWXNpd1NrdmtmUi9FSDhkZUR1cUpNRXJx
+    eHZtTEFWYitnNk1vanpGTm96WjBDL0lFCmRKcEhZeDVmQStyUnhOMHdBUUpCQU44M3NMRDR4SUhPWTdY
+    d3RpVWN4TUtXUUZwNHJQeUdtVGh0VmVFNzVqdzMKS21kWFovdnJRWUIyWGFadnZpSHh2UjdKT29GZ3FF
+    Tkh6U2dac1BkNk5BRUNRUURBRkk5Y09FQ2hGZjFhY3JBNAp2SkpLSk1xS2RuSlhyV0NRcTRBMEQ5clBH
+    elBtY1NWK2xLMXUzQTNYQUVqcm96c0xwQjlDUG9tYnJOSEtOUXNaCnhFeDFBa0FvajlFZXg0WEY1TUEv
+    dm9jS3hXaUh4NC9ZSU5lbVo3c09BdWc1TG81TzRPTm10ZjVpUzhTeVdFLzYKUDVINFR4cERydU5md1RX
+    eVRDamVvWlNEMUFRQkFrQlFaTXFVQ0o5VVRNWGJvNEVLWGpMRWdaMmNVbk1OSzIzdApYenFyajY4L1c5
+    MWZLQ0JQV0o4MmRUZjlzd3JTUldHalA3QXRvOHNvc3k2amVZd0ozdFU1QWtCZnVqbWNCOGhjCkpibVVw
+    KzBhaWtQcDdBZlYvam1hb3VQTndlNDIydWxoRXlpUHZ2UEsrWXlHMnVCY1RHN2FiQ0U2akZhQnRDbm4K
+    NmVJYUx4eHFMZTNxCi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K
+
+# folder shared with the service account above and granted with edit permission
+gdrive_dest_folder: MPA
+#gdrive_dest_folder: Test
+
+# google drive share notifications will go to
+share_with_emails:
+    - gururaj@socialflow.com
+
+
+
+
+Can't use an undefined value as a HASH reference at ./mpa_report.pl line 314.
+
+* try to get facebook to work
+  DEADLINE: <2016-07-05 Tue>
+
+bash generic_run_report.sh config_generic.yml mpa_members.yml &
+
+Fatal error: Could not execute request (https://graph.facebook.com/complex/insights?until=1465948800&since=1464739200&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U): OAuthException - Unsupported operation at /home/amouchinski/.perlbrew/libs/perl-5.16.3@def/lib/perl5/Facebook/Graph/Response.pm line 39.
+
+
+my $fb = Facebook::Graph->new({ access_token => $conf->{facebook_access_token} });
+
+
+why does it stop when i try to print out a var after prying?
+> $conf
+[2]+  Stopped                 bash generic_run_report.sh D_generic.yml mpa_members.yml
+
+
+how does auth happen?
+
+make a script to reauth?
+
+
+
+ammathew: https://graph.facebook.com/v2.5/8719774366/insights?until=1465948800&since=1464739200&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U'
+
+[12:43]  
+insights is not supported in the default version
+
+[12:43]  
+you’ve got to include v2.5 in the url
+
+[12:43]  
+or if you are using Facebook::Graph::ThinWrapper:
+
+[12:43]  
+api_version => ‘v2.5'
+
+[12:44]  
+you’ll also want to specify some fields
+
+[12:44]  
+https://developers.facebook.com/docs/graph-api/reference/v2.5/insights
+ Facebook Developers
+Graph API Reference Insights Metrics /object-id/insights - Documentation - Facebook for Developers
+Insights and metrics for an object 
+
+
+fb now wo'
+* try to get instagram to work
+
+https://api.instagram.com/v1/users/search?q=jack&access_token=ACCESS-TOKEN
+
+
+curl \-F 'client_id=ca68105c7ea8465abb1a7feb9d3d2a2b' \
+    -F 'client_secret=665132e7a1c84da097f51b985e7f1c1b' \
+    -F 'grant_type=authorization_code' \
+    https://api.instagram.com/oauth/access_token
+
+
+
+matt [4:24 PM]  
+CLIENT ID    ca68105c7ea8465abb1a7feb9d3d2a2b
+CLIENT SECRET    665132e7a1c84da097f51b985e7f1c1b
+
+
+https://instagram.com/oauth/authorize/?client_id= ca68105c7ea8465abb1a7feb9d3d2a2b&redirect_uri=http://localhost&response_type=token
+
+
+    _content => "{\"meta\": {\"error_type\": \"OAuthPermissionsException\", \"code\": 400, \"error_message\": \"This request requires scope=public_content, but this access token is not authorized with this scope. The user must re-authorize your application with scope=public_content to be granted this permissions.\"}}",
+
+
+tried to register my own client
+
+
+psql -U prod_user -h pg-site.prod.priv.sf -d sf_web -W
+
+326363690.ca68105.3799668d6aa04de0a7618c7b63fd9478
+
+* TODO make new mpa list 
+
+Error: Google Plus URL doesn't seem right: 'https://plus.google.com/u/1/111755999033017100138/posts', CSV row:
+
+update script
+
+update gplus regex?
+
+
+$item{gplus_url} =~ m!  https?://plus\.google\.com/u/1 (?:u/0/(?:b/)? | app/basic/)?  (  \d+   | \+[\w\d\-\.]+  )\b  !gx
+$item{gplus_url} = "https://plus.google.com/u/1/111755999033017100138/posts" 
+
+
+$item{gplus_url} =~ m!  https?://plus\.google\.com/ (?:u/0/(?:b/)? | app/basic/ | \/u\/1)?  (  \d+   | \+[\w\d\-\.]+  )\b  !gx
+
+
+Can't use an undefined value as a HASH reference at ./mpa_report.pl line 315.
+ ... hrm?
+
+
+* DONE run ppa rep
+
+
+* looks like it failed..look at logs
+  
+
+Fatal error: Could not execute request (https://graph.facebook.com/v2.5/ml/insights?until=1465948800&since=1464739200&access_token=473808219433521%7C-Y4VuN6Kq_eCm-Bwi-JiZJ5oe5c&period=lifetime&date_format=U): OAuthException - (#803) Cannot query users by their username (ml) at /home/amouchinski/.perlbrew/libs/perl-5.16.3@def/lib/perl5/Facebook/Graph/Response.pm line 39.

@@ -1,0 +1,31 @@
+* PR comments
+
+** TODO add add captions to queue
+
+*** TODO bring up facebook video worker?
+
+get release candidate up for socialflow-workqueue\
+
+**** errors on facebook redis config, cannot connect error
+
+redis-1.dev.saturn.sflow.us:7004
+
+**** posts not going through worker
+
+
+
+
+*** where is html for queue item?
+
+illegal token error
+
+
+
+** TODO can captions be uploaded to a slideshow video too?
+
+
+
+
+* STUFF
+
+  Listen will be polling for changes. Learn more at https://github.com/guard/listen#polling-fallback.
