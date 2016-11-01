@@ -2265,3 +2265,374 @@ i hate '2>&1' , can never remember the order
 
 https://github.com/SocialFlowDev/qa/issues/3642
 
+error: src refspec master does not match any.
+error: failed to push some refs to 'git@github.com:ammathew/dev.git'
+
+
+ssh: Could not resolve hostname github.com: nodename nor servname provided, or not known
+
+
+ssh itself not working?
+
+Permission denied (publickey).
+
+sf_web=> select * from supported_service where supported_service_id=22;
+ supported_service_id | service_type |          name           |     display_name     
+----------------------+--------------+-------------------------+----------------------
+                   22 | ads_account  | ads_facebook_ad_account | Facebook Ads Account
+
+
+shouldnt be able to add role on backend
+
+make change on schema level? eg client service cant have this particular role tied to it? 
+
+
+ammathew [3:22 PM]  
+joe: so im working on https://github.com/SocialFlowDev/qa/issues/3642  ... pretty easy change to make on front end, but u could potentially add the new user_admin role to an advertising account on the backend which doesnt really make sense and wonder if that might be harmful in some way... is there like a config anywhere provides like allowed roles for a client service ?
+
+[3:22]  
+^guru
+
+just make front end change for now
+
+
+joe [3:24 PM]  
+ammathew hmm it's tough b/c on the one hand we want to make the role itself not important and have only what's important be the capabilities that the role is made up of, but in this case obviously it is important,
+
+
+joe [3:26 PM]  
+and maybe you can use that lookup in the call that saves the role as well
+
+joe [3:26 PM]  
+and error if they try to save an account with an invalid role
+
+
+joe [3:26 PM]  
+but i think for now it should live in the controller
+
+
+* how do I put this in the controller?
+
+
+but so many roles, so many client services? it's it's own project to map accptable roles to client services no?
+
+just make this change on the front end
+
+
+where is template
+
+
+
+
+** qa issue 3642
+
+user admin is only on social accounts, not advertising accounts
+
+goes backend:
+
+Request URL:http://ammathew.home.saturn.sflow.us:4010/api/settings/invite_user
+Request Method:POST
+Status Code:200 OK
+Remote Address:10.125.3.25:4010
+Response Headers
+view source
+Cache-Control:no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0
+Connection:keep-alive
+Content-Length:26
+Content-Type:text/javascript; charset=utf-8
+Date:Fri, 14 Oct 2016 16:12:46 GMT
+Pragma:no-cache
+Set-Cookie:socialflow_web_session_v2=223f305d2fc655500a51a2d9c77fc2b39e522bbb; path=/; expires=Fri, 14-Oct-2016 18:12:46 GMT; HttpOnly
+Request Headers
+view source
+Accept:application/json, text/javascript, */*; q=0.01
+Accept-Encoding:gzip, deflate
+Accept-Language:en-US,en;q=0.8
+Connection:keep-alive
+Content-Length:186
+Content-Type:application/x-www-form-urlencoded; charset=UTF-8
+Cookie:tfcid=tfcid_0C62DD1A-8400-11E6-8BFF-C12FA5D9DC26; current_client_service_id=1406; _mkto_trk=id:786-QHH-424&token:_mch-saturn.sflow.us-1440525798740-46561; __utmt=1; socialflow_web_session_v2=223f305d2fc655500a51a2d9c77fc2b39e522bbb; __utma=200461502.966317911.1440525799.1476283477.1476461267.526; __utmb=200461502.14.9.1476461534975; __utmc=200461502; __utmz=200461502.1465504209.291.3.utmcsr=Sailthru|utmccn=invite_user|utmcmd=email
+Host:ammathew.home.saturn.sflow.us:4010
+Origin:http://ammathew.home.saturn.sflow.us:4010
+Referer:http://ammathew.home.saturn.sflow.us:4010/settings/admin/users_permissions/add_user
+User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36
+X-Requested-With:XMLHttpRequest
+Form Data
+view source
+view URL encoded
+full_name:asdfsad
+email:asdfsad@asdfsad.com
+user_country:US
+time_zone:America/New_York
+default_permissions:no_access
+client_service:1406:user_admin
+client_service:1088:user_admin
+
+
+user admin should not be on advertising account
+
+quick fix: take off option on front end
+
+longer: make so cant add that role on backend
+
+select * from appuser where email="ammathew+40@socialflow.com";
+
+select * from appuser  where email='ammathew+40@socialflow.com';
+appuser_id=242
+
+select * from appuser_client_service_role where appuser_id=242;
+
+client_service_id | client_id | supported_service_id | service_user_id  | is_valid | is_active |     create_date     
+-------------------+-----------+----------------------+------------------+----------+-----------+---------------------
+              1406 |         9 |                   22 | 1374829029397522 | t        | t         | 2015-10-07 19:20:28
+
+              
+
+* TODO put in PR for branch ammathew.qa_3621?
+
+
+ServerAliveInterval 5
+
+
+* qa issue 3621
+
+
+ammathew [1:52 PM]  
+jonlorusso.. so for this https://github.com/SocialFlowDev/qa/issues/3621 ... i currently have a fix on the the campaigns_set endpoint ... do u think itd be better have a method on Ads::CampaignSet instead that returns the campaigns that a particular user can see?
+
+** move to Schema
+
+
+https://github.com/SocialFlowDev/SocialFlow-Ads/blob/master/lib/SocialFlow/Ads/CampaignSet.pm
+
+3> $c->model('Ads::CampaignSet')->blah                                          
+Can't locate object method "blah" via package "SocialFlow::Ads::Schema::ResultSet" at reply input line 1.
+
+SocialFlow::Ads::Schema::ResultSet
+
+ my $ads = SocialFlow::Ads::Twitter->new(
+        reporting_schema => $reporting_schema,
+        ads_schema       => $ads_schema,
+        web_schema       => $web_schema,
+        net_twitter      => 1
+    );
+    ok $ads->refresh_campaign_set( 1234 );
+
+
+
+SocialFlow::Ads::Twitter->blah
+
+5> $self->ads_schema->resultset('CampaignSet')                                  
+Can't locate object method "ads_schema" via package "SocialFlow::Ads::CampaignSet" at reply input line 1.
+
+return SocialFlow::Ads::Util->ads(
+            account                => $account,
+            args                   => {
+                web_schema       => $self->web_schema,
+                ads_schema       => $self->ads_schema,
+                reporting_schema => $self->reporting_schema,
+            }
+        );
+
+
+./lib/SocialFlow/Ads/Campaign.pm:    $as_of = $self->ads_schema->storage->datetime_parser->format_datetime($as_of);
+
+./lib/SocialFlow/Ads.pm:    $self->ads_schema->resultset($resultset)
+
+why is $self->ads_schema not available?
+
+SocialFlow::Ads::Twitter ->new works...   
+21> SocialFlow::Ads->new                                                                     
+Can't locate object method "new" via package "SocialFlow::Ads" at reply input line 1.
+
+
+
+return SocialFlow::Ads::Util->ads(
+
+
+0> $c->model('Ads::CampaignSet')->blah                                          
+Can't locate object method "blah" via package "SocialFlow::Ads::Schema::ResultSet" at reply input line 1.
+
+./dist/SocialFlow-Ads-Schema/lib/SocialFlow/Ads/Schema/ResultSet.pm:package SocialFlow::Ads::Schema::ResultSet;
+
+'_result_class' => 'SocialFlow::Web::Model::Ads::CampaignSet',
+
+
+giving up on moving to Schema
+
+
+* qa 3622
+
+User Access > Reports > Pacing > User that has access to a FB service only may view pacing dash with campaign set names , although has no access to display them #3622
+
+
+* qa 3630
+
+User Access > Settings > Application > Campaign Sets > user that has only permission to view a FB service type is able to view all existing campaign sets on the client account regardless of service type #3630
+
+cannot reproduce BUT a server error is getting passed into the front end
+
+ok, can reproduce now
+
+** client admin does not have same access as before
+
+test this on dev home?
+
+dont see chnange on master??
+
+installdeps
+
+not seeing users on dev home
+
+
+[error] [ 17751 ] [ http://10.183.142.190:8070/api/ads/campaign_sets ] [17751][Joes K]Caught exception in SocialFlow::Web::Controller::API::Ads->campaign_sets "file '/home/ammathew/.replyrc' does not exist at /home/ammathew/perl5/lib/perl5/Reply/Config.pm line 47." at /home/ammathew/SocialFlow-Web/lib/SocialFlow/Web/Controller/API.pm line 214.
+
+14> $c->user->has_capability( 'read_ads', $client_service )
+$res[4] = 0
+
+13> $client_service->supported_service_id
+$res[3] = 25
+                   
+25 | ads_account    | ads_pinterest_account   | Pinterest Ads Account
+
+
+$res[2] = 19848
+
+
+
+skaufman [5:26 PM]  
+i gtg but i didnt see that user in client_appuser_role for that client
+
+new messages
+[5:26]  
+sf_web=> select * from client_service join supported_service using( supported_service_id ) where client_service_id = 14816;
+
+[5:26]  
+then checked the client_id against the client_apppuser_role table
+
+
+
+4> $self->current_client_id($c);
+$res[1] = '3567'
+
+
+1> $c->user->id
+$res[0] = '17751'
+
+
+5> $client_service->id
+$res[2] = 14816
+
+
+
+
+* qa 3640
+
+git alert forbidden
+
+Alert Forbidden
+
+
+
+* qa 3630
+
+https://github.com/SocialFlowDev/qa/issues/3630
+
+* qa
+
+
+skaufman [12:30 PM]  
+ammathew: found the bug
+
+[12:30]  
+https://github.com/SocialFlowDev/SocialFlow-Web/blob/qa-2016-10-10/lib/SocialFlow/Web/Controller/API/Ads.pm#L107
+
+[12:30]  
+thats not a unique key
+
+[12:31]  
+so there can be multiple ad accounts in there
+
+[12:31]  
+that code is just finding the first one
+
+[12:31]  
+that line should be more like, my $ad_client_services = ...
+
+[12:31]  
+for( $ad_client_services->all )
+
+[12:31]  
+then it
+
+[12:31]  
+it'll work fine
+
+[12:32]  
+its not an issue with pinterest, its just the fact that we have a test account for pinterest on like 10 different clients
+
+
+* qa 3693
+
+
+    my @accts_roles = $c->model( 'SocialFlowApp::AppuserClientServiceRole' )->search( { 
+        appuser_id    => $c->user->obj->id,
+    } );
+
+    foreach my $ar (@accts_roles) {
+{
+  3567 => [
+    {
+      name => "FB Tests 2",
+      role => "",
+      service => "ads_facebook_ad_account"
+    },
+    {
+      name => "Earll's T",
+      role => "View/Publish/Settings/Users",
+      service => "facebook_page"
+    }
+  ]
+}
+
+
+find advertise_admin on role_capabilities
+
+before appuser role for account was admin, not advertise_admin?
+
+
+
+* qa 3704
+
+
+https://github.com/SocialFlowDev/qa/issues/3704
+
+* 3706
+
+https://github.com/SocialFlowDev/qa/issues/3706
+
+
+
+cookieValue[sf.user.client_id] = cookieValue[sf.client_id] || {};
+
+$cookies.sfPacingConfig = JSON.stringify(cookieValue);
+
+
+
+* add to multiple clients
+
+ammathew do you know if after the most recent permissions changes it would change that a user can no longer be added to multiple clients
+
+[3:32]  
+we can do it via our admin... but they are saying they can't do it any more
+
+Error That email already exists. Please choose a new email, or edit the existing user.
+
+what would have changed?
+
+Error That email already exists. Please choose a new email, or edit the existing user.
+
+10.126.0.42 - - [27/Oct/2016:20:29:21 +0000] "POST /api/settings/invite_user HTTP/1.1" 200 26 "http://ammathew.home.saturn.sflow.us:4010/settings/admin/users_permissions/add_user" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36"
+Error That email already exists. Please choose a new email, or edit the existing user.
+
+

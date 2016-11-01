@@ -754,3 +754,96 @@ what does feed->entries look like?
 
 ** parse with FeedPP and THEN make and XML::RSS object?
 
+add to xml-feed
+
+    if ($specified_format) {
+        $format = $specified_format;
+
+ my $format_class = join '::', __PACKAGE__, "Format", $format;
+
+
+XML::RSS is already using FeedPP?
+not it wasnt
+
+$feed->{rss}
+'XML::RSS'
+
+3> my $blah = XML::FeedPP->new( $str );                                         
+Invalid feed source: SCALAR(0x3c1d120) at reply input line 1.
+4> my $blah = XML::FeedPP->new( \$str );                                        
+Invalid feed source: REF(0x3d1e1f0) at reply input line 1.
+5> ref $str                                                       
+
+
+{
+                        'description' => 'Doubleclick HTML5/ mobile',
+                        'guid' => 'NiY2oxMjpfJ3lhE-xfyz0AfucZ8mH-qt',
+                        'http://purl.org/dc/terms/' => {
+                                                       'valid' => 'start=2011-02-14T21:21+00:00;scheme=W3C-DTF'
+                                                     },
+                        'http://search.yahoo.com/mrss/' => {
+                                                           'category' => 'ARRAY(0x636ae60)/Training',
+                                                           'description' => 'Doubleclick HTML5/ mobile',
+                                                           'group' => '
+        
+        
+        
+        
+        
+        
+        
+        
+      ',
+                                                           'title' => 'The Tourist.mov'
+                                                         },
+                        'isPermaLink' => '',
+                        'item' => '
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    ',
+                        'link' => 'http://api.ooyala.com/syndication/redirect?embed_code=NiY2oxMjpfJ3lhE-xfyz0AfucZ8mH-qt&type=mp4&id=6fc9f471-c735-46ec-8f63-312dc9135987',
+                        'pubDate' => 'Mon, 14 Feb 2011 21:21:32 +0000',
+                        'title' => 'The Tourist.mov'
+                      },
+
+
+
+31> my ($rr) = grep { $_->{'guid'} == $guid } @parsed_feed_items;                           
+Not a HASH reference at reply input line
+
+
+grep { $_->{'guid'} == $guid } $parsed_feed->{items} ; 
+
+
+
+left it at MRSS.pm L67
+
+so what did  want to do here?
+
+make XML::RSS object?
+
+
+my $rss = XML::RSS->new (version => '2.0'); 
+MRSS IS A DIFFERENT VERSION THAN 2.0 ?? CANT GO ON WITH THIS?
+
+his is version 1.5.1 of the Media RSS specification, a namespace for RSS 2.0 
+
+
+so extend version 2.0
+
+
+not working now that i stashed a bunch of stuff ... need to bring back to working state tomorrow
+
+
+* eventually auto detect rss feed format in XML::Feed
+

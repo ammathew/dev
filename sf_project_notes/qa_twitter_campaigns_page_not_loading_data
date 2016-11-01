@@ -1,0 +1,63 @@
+* ticket
+
+https://github.com/SocialFlowDev/qa/issues/3704
+
+* working on it
+
+already have branch on saturn?
+nope
+
+need to generate javascript
+
+generated...why does it still look messed up?
+needed to load publish first?
+nah, still messed up on listen; appears correctly on
+
+
+Request URL:http://10.183.142.190:8070/api/ads_pinterest/21081/ads/v0/campaigns/626734572552
+
+trying to load a lot of campaigns? very slow?
+yes slow; pinterest campaignes eventually loaded
+
+angular.js:9400 TypeError: i.match is not a function  
+
+front end error?
+
+angular.js:9400 TypeError: i.match is not a function
+    at d (numeral.min.js?v=3.43:8)
+    at Object.unformat (numeral.min.js?v=3.43:8)
+    at m (numeral.min.js?v=3.43:8)
+    at microToDollar (campaigns.js?v=3.43:427)
+    at Object.budgetGuage (campaigns.js?v=3.43:520)
+    at jquery.dataTables.min.js?v=3.43:15
+    at jquery.dataTables.min.js?v=3.43:15
+    at Object.b.fnGetData (jquery.dataTables.min.js?v=3.43:9)
+    at A (jquery.dataTables.min.js?v=3.43:14)
+    at Fa (jquery.dataTables.min.js?v=3.43:21)
+
+
+data not defined in budgetGauge function in campaings.js
+
+budgetGauge called by data-tables
+
+
+<p>Budget: {{$root.activeCampaign.total_budget_amount_local_micro | microToDollar}} lifetime, {{$root.activeCampaign.daily_budget_amount_local_micro | microToDollar}} daily</p>
+
+
+looks like twitter is the only service erroring out because only one that hits budgetGauge function? is empty data ok here?
+
+return '' if data.length < 1 in budgetGauge  but no spends are showing up 
+
+billed_charge_local_micro
+
+
+./root/templates/javascript/report/campaigns/campaigns.js:                    var spend = full.stats.id_data[0].metrics.billed_charge_local_micro[0];
+
+
+./blib/lib/SocialFlow/Web/root/templates/javascript/report/campaigns/table/controller_campaigns_table.js:                    { data: 'stats.id_data.0.metrics.billed_charge_local_micro', title: 'eCPE', render: format.costPerEngagement, defaultContent: 0 },
+
+campaigns on FB and pinterest not showing up now??
+
+rate limited on pinterest
+
+hopping back on mrss stuff now; revisit when rate limits have been lifted.
