@@ -752,6 +752,8 @@ what does feed->entries look like?
 'XML::Feed::Format::RSS'
 
 
+
+
 ** parse with FeedPP and THEN make and XML::RSS object?
 
 add to xml-feed
@@ -843,6 +845,78 @@ so extend version 2.0
 
 
 not working now that i stashed a bunch of stuff ... need to bring back to working state tomorrow
+
+
+** 
+
+
+lagging a Working on method [_update_feed_entries] at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Fetcher.pm line 111.
+
+ in parse 
+
+
+[Thu Nov  3 19:11:03 2016 30/0/0] Unable to update feed 4365 (0.280 seconds; http://api.ooyala.com/syndication/mp4?id=00d1c219-1b16-4273-a591-3bfb5bf7f2fc): Can't locate object method "entries" via package "XML::RSS" at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/Result/Feed.pm line 92.
+
+
+
+'XML::Feed::Entry::Format::RSS'
+
+'sub entries {
+    my $rss = $_[0]->{rss};
+    my @entries;
+    for my $item (@{ $rss->{items} }) {
+        push @entries, XML::Feed::Entry::Format::RSS->wrap($item);
+		$entries[-1]->{_version} = $rss->{'version'};		
+    }
+    @entries;
+}
+
+
+0> $feed->entries                                                                                     
+Can't locate object method "entries" via package "XML::RSS" at reply input line 1.
+
+
+need to return 'XML::Feed::Format::RSS' object, eg follow RSS
+
+
+[Thu Nov  3 22:32:40 2016 30/0/0] Unable to update feed 4365 (0.019 seconds; http://api.ooyala.com/syndication/mp4?id=00d1c219-1b16-4273-a591-3bfb5bf7f2fc): SQL::Abstract::puke(): [SQL::Abstract::__ANON__] Fatal: Only simple { -func => arg } functions accepted as sub-arguments to IN at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/ResultSet/FeedEntry.pm line 79
+
+
+hanging on in init empty mrss.pm  now mrss line 31
+
+turn dupe checking off?
+
+with pry there now getting
+
+[Mon Nov  7 21:45:57 2016 30/0/0] Unable to update feed 4365 (0.230 seconds; http://api.ooyala.com/syndication/mp4?id=00d1c219-1b16-4273-a591-3bfb5bf7f2fc): SQL::Abstract::puke(): [SQL::Abstract::__ANON__] Fatal: Only simple { -func => arg } functions accepted as sub-arguments to IN at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/ResultSet/FeedEntry.pm line 83
+
+but only when there is a pry at MRSS.om line 82??
+
+
+@guids = ( 'NjbGoxMjqMRw66RZJJ993wWRxux7Z4cf', 'NiY2oxMjpfJ3lhE-xfyz0AfucZ8mH-qt' )
+
+guids not in proper array
+
+delete from db
+
+ource=> select * from feed_entry where guid='NjbGoxMjqMRw66RZJJ993wWRxux'
+
+
+
+SQL::Abstract::belch(): [SQL::Abstract::__ANON__] Warning: HASH ref as bind value in insert is not supported at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/ResultSet/FeedEntry.pm line 193
+[Mon Nov  7 22:08:25 2016 30/0/0] Unable to update feed 4365 (0.007 seconds; http://api.ooyala.com/syndication/mp4?id=00d1c219-1b16-4273-a591-3bfb5bf7f2fc): Cannot bind a reference
+
+
+Total entries: 3, Not found in local cache: 3 at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/ResultSet/FeedEntry.pm line 74.
+
+
+SQL::Abstract::belch(): [SQL::Abstract::__ANON__] Warning: HASH ref as bind value in insert is not supported at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/ResultSet/FeedEntry.pm line 199
+[Mon Nov  7 22:31:15 2016 30/0/0] Unable to update feed 4365 (0.005 seconds; http://api.ooyala.com/syndication/mp4?id=00d1c219-1b16-4273-a591-3bfb5bf7f2fc): Cannot bind a reference
+
+
+[Mon Nov  7 22:43:42 2016 30/0/0] Added 1 new entries to feed 4365 (0.045 seconds)
+Adding feed http://api.ooyala.com/syndication/mp4?id=00d1c219-1b16-4273-a591-3bfb5bf7f2fc to redis at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Fetcher.pm line 430, <FIN> line 6.
+
 
 
 * eventually auto detect rss feed format in XML::Feed
