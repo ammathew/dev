@@ -919,5 +919,727 @@ Adding feed http://api.ooyala.com/syndication/mp4?id=00d1c219-1b16-4273-a591-3bf
 
 
 
-* eventually auto detect rss feed format in XML::Feed
+11/8
+
+delete entries in db
+
+get into content item
+
+
+/home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/ContentQueueImport.pm
+
+how to update with url?
+
+what happens to media posts?
+
+Fetcher.pm 254 changed to nasa image feed
+
+goes to mrss automatically
+
+Feed.pm L70 uncomment and comment
+
+[Tue Nov  8 22:58:19 2016 30/0/0] Unable to parse feed 4374 (https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss): No feed source at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/Result/Feed.pm line 70.
+
+[Wed Nov  9 20:01:33 2016 10/0/0] Error: Unable to fetch feed 4374 (https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss): not_modified
+
+
+* 11/9
+
+ok how are rss feeds with enclosures dealt with right now?
+
+dont see any entries coming through 
+maybe has to do with introduced changes
+
+[Wed Nov  9 22:43:07 2016 10/1/0] Fetching 1 feeds
+[Wed Nov  9 22:43:07 2016 10/1/0] Mark finished for feed 4374 start time 1478731387.92385
+
+
+[Wed Nov  9 22:43:43 2016 30/0/0] Unable to parse feed 4374 (https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss): No feed source at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/Result/Feed.pm line 70.
+
+
+2> my $feed = XML::Feed->parse( \$body )                                        
+ in init empty mrss .pm 
+ in init empty mrss .pm 
+
+
+[Wed Nov  9 23:01:24 2016 30/0/0] Unable to parse feed 4374 (https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss): XML::Feed was unable to parse the body (53076):
+
+why is it trying to parse mrss feed?
+
+
+why is is mrss being used as default?
+
+11/10
+
+$feed->identify_format(\$xml)   
+MRSS
+
+
+
+[Thu Nov 10 20:48:37 2016 30/0/0] Unable to parse feed 4374 (https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss): XML::Feed was unable to parse the body (52999): Cannot detect feed type
+
++
++    @guids = ( 'NjbGoxMjqMRw66RZJJ993wWRxux7Z4cf', 'NiY2oxMjpfJ3lhE-xfyz0AfucZ8
++
+
+lib/SocialFlow/FeedSource/Schema/ResultSet/FeedEntry.pm
+
+
+* 11/11
+
+in indentify in MRSS.pm:
+
+   my $tag     = $class->_get_first_tag($xml);
+    return ($tag eq 'mrss' || $tag eq 'RDF');
+
+this needs to be changed
+
+
+[Fri Nov 11 20:12:16 2016 30/0/0] Added 0 new entries to feed 4374 (0.002 seconds)
+
+
+Total entries: 60, Not found in local cache: 60 at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/ResultSet/FeedEntry.pm line 74.
+
+
+[Fri Nov 11 20:16:34 2016 10/0/0] Error: Unable to fetch feed 4374 (https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss): md5_not_modified
+
+
+why gives this error for this feed and the media feed ive been using to test?
+
+
+Headline object to encapsulate the headline/URL combiornation of a RSS feed. It provides a unique id either by way of the URL or by doing an MD5 checksum on the headline (when URL uniqueness fails).
+
+[Fri Nov 11 20:43:42 2016 30/0/0] Unable to update feed 4374 (0.001 seconds; https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss): DBIx::Class::Storage::DBI::_dbh_execute(): DBI Exception: DBD::Pg::st execute failed: ERROR:  duplicate key value violates unique constraint "feed_entry_feed_id_title_link"
+
+DETAIL:  Key (feed_id, title, link)=(4374, Getting to Know the Getz Ice Shelf, http://www.nasa.gov/image-feature/getting-to-know-the-getz-ice-shelf) already exists. [for Statement "INSERT INTO feed_entry ( feed_id, fetch_date, guid, link, original, pub_date, title) VALUES ( ?, ?, ?, ?, ?, ?, ? ) RETURNING feed_entry_id" with ParamValues: 1='4374', 2='2016-11-11 20:43:41', 3='http://www.nasa.gov/image-feature/getting-to-know-the-getz-ice-shelf', 4='http://www.nasa.gov/image-feature/getting-to-know-the-getz-ice-shelf', 5='<?xml version="1.0" encoding="UTF-8"?>
+
+add in  code to delete existing feed entries if they already exist?
+
+
+dbix delete
+
+foreach my $guid (%seen_by_guid   ) { warn $guid }
+
+grep { $_ ne 1 } %seen_by_guid 
+
+my @guids = grep { $_ ne 1 } %seen_by_guid;
+
+$self->search( { guid => { -in => @guids } } )->delete()
+
+
+[Fri Nov 11 22:15:12 2016 30/0/0] Unable to update feed 4374 (0.001 seconds; https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss): Odd number of elements in anonymous hash at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/ResultSet/FeedEntry.pm line 92.
+
+[Fri Nov 11 22:20:46 2016 30/0/0] Added 60 new entries to feed 4374 (0.008 seconds)
+
+
+in feed entry db now look in lib/SocialFlow/FeedSource/ContentQueueImport.pm ?
+
+not finding it here 
+where are enclosures dealt with?
+
+./lib/SocialFlow/FeedSource/Schema/ResultSet/FeedEntry.pm:            $link = $entry->enclosure->url;
+
+might just be link
+
+Pry at FeedEntry.pn at create_from_xml_feed_entry
+
+still need to figure out how enclosures are handled
+
+
+
+* 11/14
+
+
+are 
+
+New entries[20] at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/ContentQueueImport.pm line 417.
+
+
+ $content_item = $self->cq_schema->resultset(
+            'SocialFlow::ContentQueue::Schema::Result::ContentItem')
+          ->create_content_item(
+L469
+
+* 11/15
+
+look at post daemons?
+
+after prepare entries, jpg's still have not been parsed out
+
+not at content item level either
+
+look at post daemon
+
+
+SocialFlow-WorkQueue/dist/SocialFlow-WorkQueue-Job/lib/SocialFlow/WorkQueue/Job/FacebookVideoPost.pm
+
+where are posts posted?
+
+content item type:
+https://github.com/SocialFlowDev/SocialFlow-ContentQueue/blob/master/lib/SocialFlow/ContentQueue/Schema/Result/ContentItem.pm#L213
+
+
+
+ammathew	[3:52 PM]  
+hey having  a hard time finding this .... do u know where enclosure urls are used to post images (to fb for example ) ?
+
+guru	[4:01 PM]  
+like in the fb docs?
+
+[4:01]  
+for videos
+
+ammathew	[4:01 PM]  
+so i have a feed like this:
+
+[4:01]  
+https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss
+
+[4:02]  
+with something like this in there
+
+[4:02]  
+for each post
+
+[4:02]  
+enclosure url="http://www.nasa.gov/sites/default/files/thumbnails/image/12-gemini_12_recovery-23jpg.jpg (757KB)
+
+" length="775246" type="image/jpeg" />
+
+[4:02]  
+actually thought that the app made image posts out of these
+
+[4:03]  
+but dont actually see evidence of that
+
+[4:03]  
+thought u mentioned that once?
+
+[4:03]  
+seems like they just post as link posts?
+
+guru	[4:04 PM]  
+yeah, i dont think we do that for images.
+
+[4:04]  
+we only do link posts for fb
+
+[4:04]  
+and for twitter we scrape the link for images
+
+[4:04]  
+and then attach that a an image
+
+ammathew	[4:04 PM]  
+oh damn, dont know why i thought we did then
+
+[4:05]  
+but what we want now is to make video posts out of mrss feeds right?
+
+guru	[4:06 PM]  
+yeah, its weird that we skipped the image step and jumped to video
+
+[4:06]  
+i never thought about image enclosure urls either
+
+ammathew	[4:06 PM]  
+right i guess that's where i got confused
+
+guru	[4:06 PM]  
+oh (edited)
+
+[4:06]  
+but this should be fine
+
+[4:06]  
+facebook allows passing in a video url for a video post
+
+[4:06]  
+so if we pass in the enclosure url
+
+[4:06]  
+for videos
+
+[4:06]  
+it should work
+
+ammathew	[4:07 PM]  
+ok ... but is the video url thing used elsewhere on the site? dont see it on compose ....thought guess could try to put one in compose box itself
+
+guru	[4:07 PM]  
+its used in a way
+
+[4:08]  
+so from the compose box
+
+[4:08]  
+we upload the video to s3
+
+[4:08]  
+via front end
+
+[4:08]  
+and we pass that s3 url to fb
+
+[4:08]  
+in the worker
+
+ammathew	[4:08 PM]  
+ah right
+
+[4:09]  
+so do u think the video url should go into content item meta?
+
+new messages
+guru	[4:09 PM]  
+https://github.com/SocialFlowDev/SocialFlow-WorkQueue/blob/master/lib/SocialFlow/WorkQueue/Runner/FacebookVideoPost.pm#L218
+
+
+guru	[4:09 PM]  
+https://github.com/SocialFlowDev/SocialFlow-WorkQueue/blob/master/lib/SocialFlow/WorkQueue/Runner/FacebookVideoPost.pm#L218
+
+[4:10]  
+i think it should be in the same spot as it is when a post is created from the compose
+
+[4:10]  
+which is meta right?
+
+new messages
+[4:10]  
+yeah
+
+[4:10]  
+meta
+
+
+meta
+
+[4:10]  
+so that way you wont need to make any changes in the worker
+
+ammathew	[4:11 PM]  
+but woudnt I have to because on that line it's assuming the video url will be an s3 url?
+
+
+guru	[4:14 PM]  
+hmm
+
+[4:14]  
+yeah
+
+[4:14]  
+so the worker checks the content_item_media table
+
+[4:15]  
+based on the content item id
+
+[4:15]  
+pulls the filename from there
+
+[4:15]  
+and creates the url
+
+[4:16]  
+this will be a bit tricky, so we would need to store the rss video url entry in content_item_media table and be able to display it in the queue on edit
+
+[4:17]  
+but since all this is currently done off filename
+
+
+** discuss with joe and guru
+
+
+guru	[4:17 PM]  
+hey joe
+
+joe	[4:17 PM]  
+whats up
+
+guru	[4:17 PM]  
+for the mrss stuff
+
+[4:17]  
+since the idea is to get the enclosure url from the feed
+
+[4:18]  
+and pass that on to facebook
+
+[4:18]  
+as a video post
+
+[4:18]  
+it becomes a bit tricky
+
+[4:18]  
+right now if you compose a video post it uploads it to s3
+
+[4:18]  
+and stores the filename in meta
+
+[4:18]  
+and in content_item_media
+
+[4:19]  
+so the queue edit display, SMR display, workqueue all is based off the video filename
+
+[4:19]  
+any idea what the smoothest way to use the rss video link in this would be?
+
+joe	[4:20 PM]  
+what do we show in queue edit display? can the user watch the video?
+
+guru	[4:20 PM]  
+yes
+
+[4:21]  
+the easiest way would be to if else all over the place
+
+[4:21]  
+but that sounds like a lot of work
+
+joe	[4:22 PM]  
+im looking at content_item_media and seeing weird stuff-
+
+[4:22]  
+894560 | https://s3.amazonaws.com/dev-cust-photo-posts-euyhabcakleui/137-c1f2ef2b3d34aec2574b07f97bfb64f1.png (313KB)
+
+| 137-c1f2ef2b3d34aec2574b07f97bfb64f1.png  | video
+
+[4:22]  
+why is that type video?
+
+ammathew	[4:22 PM]  
+hehe
+
+guru	[4:22 PM]  
+wow
+
+[4:22]  
+thats messed up
+
+[4:22]  
+when was that created?
+
+joe	[4:22 PM]  
+uhmm
+
+[4:22]  
+no create_Date on this table
+
+[4:22]  
+lol
+
+[4:23]  
+which is the right table? _media or _attachment?
+
+guru	[4:23 PM]  
+oh
+
+[4:23]  
+attachment
+
+[4:23]  
+not media
+
+ammathew	[4:23 PM]  
+content_item_media  doesnt get used?
+
+guru	[4:23 PM]  
+create_date          | 2012-02-26 13:15:23
+
+[4:23]  
+so thats ok :slightly_smiling_face:
+
+joe	[4:23 PM]  
+hahaha
+
+[4:23]  
+ok good!
+
+guru	[4:23 PM]  
+for the bee post
+
+ammathew	[4:23 PM]  
+someone really effed up back in 2012
+
+joe	[4:23 PM]  
+lol
+
+guru	[4:23 PM]  
+i blame missy
+
+[4:23]  
+and andy
+
+ammathew	[4:23 PM]  
+i blame andy
+
+guru	[4:23 PM]  
+and brianlai
+
+ammathew	[4:24 PM]  
+hehe
+
+joe	[4:24 PM]  
+well, if our plan is to try to keep the video file on its host server and just send that url to facebook,
+
+[4:24]  
+maybe we store the full url in filename
+
+[4:24]  
+and then in code we're just like
+
+[4:25]  
+if (URI->new($attachment->filename)->is_absolute) { [ this is an mrss upload, treat filename like a full url ] } else { this is just a filename, build s3 url }
+
+[4:25]  
+and that can be a helper function in the contentItemAttachment result.pm
+
+[4:25]  
+->media_url() or something
+
+guru	[4:26 PM]  
+cool
+
+joe	[4:26 PM]  
+so, the content importer would create the content_item_attachment entry and add the appropriate info to content_item.meta
+
+guru	[4:26 PM]  
+ammathew yeah content_item_media isnt used anymore
+
+[4:26]  
+joe yeah that makes sense
+
+joe	[4:27 PM]  
+i dont know if it would make things more complicated to create a new attachment type or not
+
+[4:27]  
+it might make sense to leave it as video, at least to start w/
+
+guru	[4:27 PM]  
+a new content type would make it hard to include on the pub page
+
+joe	[4:27 PM]  
+hehe yeah i figured :)
+
+[4:27]  
+ok cool
+
+[4:28]  
+does the frontend build s3 urls in queue editing? would need to have similar logic there and on SMR i guess
+
+guru	[4:28 PM]  
+yeah it does
+
+joe	[4:28 PM]  
+maybe we can try to centralize that to a single js function just like how it will be a single function in backend code?
+
+[4:28]  
+content_item_attachment_url() and do similar shit
+
+guru	[4:28 PM]  
+yeah
+
+ammathew	[4:29 PM]  
+cool, ill start working on that then
+
+
+
+
+need it on feed entry table?
+
+another column on feed entry table?
+
+
+use FeedPP after feed entry already created?
+
+** not indicated if feedentry entries contain video
+
+
+ammathew	[5:56 PM]  
+hey...so another issue is that theres no way to know from the feed_entry table right now if the entry came from an mrss feed
+
+[5:56]  
+or contains a video
+
+guru	[5:57 PM]  
+umm is there a column somewhere where we can store info that its an mrss feed?
+
+[5:57]  
+or a config maybe
+
+[5:57]  
+so we check if that feed has that config set
+
+ammathew	[5:59 PM]  
+no relevant columne in feed_source at least
+
+[5:59]  
+as for config...
+
+[5:59]  
+maybe?
+
+
+
+sf_web=> select * from feed_source_config_parameter limit 1;
+ feed_source_id | config_parameter_id |  value   
+----------------+---------------------+----------
+              1 |                   6 | post_all
+
+
+
+fidn feed source configs
+
+
+
+
+ammathew	[5:59 PM]  
+no relevant columne in feed_source at least
+
+[5:59]  
+as for config...
+
+[5:59]  
+maybe?
+
+[6:03]  
+theres a table called feed_source_config_parameter fwiw
+
+guru	[6:04 PM]  
+yeah, i think thats what we can use
+
+ammathew	[6:06 PM]  
+there is also a "feed_type" on the feed table
+
+[6:06]  
+indicated Atom, RSS etc ... but
+
+[6:07]  
+MRSS is technically just an RSS feed...
+
+guru	[6:07 PM]  
+ah ok, so we cant use that?
+
+ammathew	[6:07 PM]  
+dont know...dont know if it's wise to hehe
+
+[6:07]  
+maybe ask joe or same tomm....
+
+new messages
+guru	[6:08 PM]  
+yeah
+
+
+./lib/SocialFlow/API/Controller/FeedSource.pm:                    $feed_source->feed_source_config_parameters->create( {
+
+start tomorrow with adding config to a feed to indicate that it is an mrss feed
+
+
+* 11/16
+
+how do feed configs work?
+
+    my $default_import_config =
+        $c->model("SocialFlowApp::ConfigParameter")
+        ->find( { name => "FeedSource::initial_import_rule" } );
+
+
+config paramenter or feed type
+
+look at feed type
+
+type seems like proper place for this
+
+http://ammathew.home.saturn.sflow.us:4010/api/feed_source/add
+
+where are feeds added to sf_feed_source.feed?
+
+revert to MRSS feed
+
+[Wed Nov 16 17:31:03 2016 30/0/0] Unable to parse feed 4365 (http://api.ooyala.com/syndication/mp4?id=00d1c219-1b16-4273-a591-3bfb5bf7f2fc): No feed source at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/Result/Feed.pm line 71.
+
+2>  XML::FeedPP->new( $body, 'MRSS' );                                                                          
+No feed source at reply input line 1.
+
+4> use XML::FeedPP                                                                                              
+5>  XML::FeedPP->new( $body, 'MRSS' );                                                                          
+No feed source at reply input line 1.
+6>  XML::FeedPP->new( $body, 'RSS' );                                                                           
+No feed source at reply input line 1.
+
+
+12> my $media_feed = XML::Feed->parse( \$body, 'MRSS' );                                                        
+
+ specified format exists 
+
+ this is format 
+MRSS at /home/ammathew/to_devel_local/xml-feed/lib/XML/Feed.pm line 89.
+
+ in init empty mrss .pm 
+
+ in init empty mrss .pm 
+$res[4] = undef
+
+13> $media_feed                                                                                                 
+$res[5] = undef
+
+
+when is update from body called?
+
+
+$parsed_feed = $feed->parse_xml_feed($body); 
+not returning anything
+
+ok, changed feed type
+ 
+* in content queue import add to meta if feed type is mrss
+
+
+in attachments
+
+\SocialFlow::ContentQueue::Schema::Result::ContentItemAttachments
+
+
+ attachment_id | content_item_id |                                           thumbnail_url                                            |                filename                | type  | meta |     create_date     
+---------------+-----------------+----------------------------------------------------------------------------------------------------+----------------------------------------+-------+------+---------------------
+             1 |           74850 | https://s3.amazonaws.com/socialflow-image-upload-thumbs-dev/8-1a4468f31aee4484606dcc07045026f3.jpg | 8-1a4468f31aee4484606dcc07045026f3.jpg | photo | {}   | 2014-09-08 15:16:16
+(1 row)
+
+
+select * from content_item_attachment limit 1;
+
+
+next: hot to add to ContentItemAttachments table?, BRING FACEBOOK WORKER UP;
+
+on wenesday 
+MRSS feeds now show up in the feed database with mrss as type, so can indicate in the post worker whether to use the full url or the s3 upload prefix
+
+
+* 11/18
+
+bring up facebook worker
+
+st up release candidate?
+
+./mrss_feeds:ammathew@ammathew:~/to_devel_local/SocialFlow-WorkQueue/bin$ sf-workqueue worker --release_candidate ammathew.mrss --job_name FacebookVideoPost
+./mrss_feeds:added in release_candidate => 'ammathew.mrss'
+
+
+/home/ammathew/to_devel_local/SocialFlow-Web/lib/SocialFlow/Web/ControllerRole/JobQueue.pm
+L51, 
+
+take down FB worker already running on dev
+
+dont need to do that because of release candidate
+
+dont see jobs comming through
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-WorkQueue/bin$ sf-workqueue worker --release_candidate ammathew.mrss --job_name FacebookPost
+
+
+[info] working on job 20010680 at /home/ammathew/perl5/lib/perl5/SocialFlow/WorkQueue/JobRunner.pm line 307.
+
+
 

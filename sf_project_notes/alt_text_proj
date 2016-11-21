@@ -360,20 +360,9 @@ jmlenehan [3:49 PM]
 skaufman [3:49 PM] 
 you can run a specific release candidate
 
-joe [3:49 PM] 
-patspeiser: seeing lots of veronica@gawker support tickets recently
-
-[3:50] 
-lauren needs her to tell her to chill
-
-ryan [3:50 PM] 
-skaufman: to sf-app=iser
 
 skaufman [3:50 PM] 
 then add in that release candidate to socialflow web
-
-[3:50] 
-ryan: yeah
 
 ammathew [3:50 PM] 
 how can i do that?
@@ -484,7 +473,5 @@ looks like need to reauth account
 * set up alt text dev env again
 
 
-
-One thing are you registered as democrat to vote tomorrow.One request please vote for Hillary. Lots of love  mom
 
 alt_text.js?v=3.401:6 Uncaught TypeError: Cannot read property 'meta' of undefined

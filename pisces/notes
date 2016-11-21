@@ -72,3 +72,24 @@ reader.onload = function(e) {
 }
 
 reader.readAsBinaryString(file);
+$.get("heartrate_timeseries", function(data) { heartrate_ts = data.split('\n');  });
+
+
+SyntaxError /Users/ammathew/test/PropertyFinder/index.ios.js: "React" is read-only
+
+
+
+2016-11-15 20:16:44.922 [fatal][tid:main] SyntaxError /Users/ammathew/test/PropertyFinder/index.ios.js: "React" is read-only
+
+
+* 11/16
+
+
+Whenever the app updates the state of any React component, this triggers an entire UI re-rendering that in turn calls the render of all of your components. This is a great idea, as it entirely de-couples the rendering logic from the state changes that affect the UI.
+
+With React, you no longer have to worry about which parts of the UI might be affected by a state change; your entire UI is simply expressed as a function of your application state.
+
+In order to implement the search functionality you need handle the ‘Go’ button press, create a suitable API request, and provide a visual indication to the user that a query is in progress.
+
+
+network req failed?

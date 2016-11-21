@@ -200,70 +200,63 @@ var heartrate_ts = [ 84.2697,
 ]
 
 
-var mainCanvas = document.querySelector("#blinking-light");
-var mainContext = mainCanvas.getContext("2d");
+var hr = 88;
+var lastFewHeartRates = [];
+var countdownRate = 80;
+var countDownNumberStart = 5;
+var countDownNumber = countDownNumberStart;
+var n = 0;
 
-var canvasWidth = mainCanvas.width;
-var canvasHeight = mainCanvas.height;
-
-var angle = 0;
-
-var requestAnimationFrame = window.requestAnimationFrame || 
-                            window.mozRequestAnimationFrame || 
-                            window.webkitRequestAnimationFrame || 
-                            window.msRequestAnimationFrame;
-
-
-var hr = 80;
-
-function drawCircle( hr ) {
-
-
-
-    mainContext.clearRect(0, 0, canvasWidth, canvasHeight);
+function convertToMillisecondIntervals( bpm ) {
+    var millisecondIntervals = 60000/bpm;
     
-    // color in the background
-    mainContext.fillStyle = "#EEEEEE";
-    mainContext.fillRect(0, 0, canvasWidth, canvasHeight);
-    
-    // draw the circle
-    mainContext.beginPath();
-    
- 
-    angle += Math.PI / hr;
-    
-    
-    console.log( 'hr :' + hr );
-
-    var radius = 25 + 150 * Math.abs(Math.cos(angle));
-
-  //  console.log( 'angle :' + angle );
-   // console.log( 'radius :' + radius );
-
-    mainContext.arc(225, 225, radius, 0, Math.PI * 2, false);
-    mainContext.closePath();
-    
-    // color in the circle
-    mainContext.fillStyle = "#006699";
-    mainContext.fill();
-
-
-    
+    return millisecondIntervals;
 }
 
-n = 0;
-var hr;
-setInterval(function(){ 
+Array.prototype.sum = Array.prototype.sum || function() {
+  return this.reduce(function(sum, a) { return sum + Number(a) }, 0);
+}
 
-   // if (n>100 ) {
-    hr = heartrate_ts.shift();
-    console.log( hr );
-    n = 0;
-   // }
-    
-  
-    drawCircle( hr );
+Array.prototype.average = Array.prototype.average || function() {
+  return this.sum() / (this.length || 1);
+}
+
+function sampleHeartRate ( hr ) {
+    if ( lastFewHeartRates.length > 1 ) { // change this to 5 later
+        countdownRate = ( lastFewHeartRates.average() ) / 2; 
+        lastFewHeartRates = [];
+    } 
+    lastFewHeartRates.push( hr )
+}
+
+
+
+setInterval(function(){ 
+ 
+    if ( n > convertToMillisecondIntervals( countdownRate ) ) {
+        
+        console.log( 'this is countdown rate' );
+        console.log(  convertToMillisecondIntervals( countdownRate )  );
+        
+        if ( countDownNumber > 1 )  {
+            countDownNumber = countDownNumber - 1;
+        } else {
+            countDownNumber = countDownNumberStart;
+            hr = heartrate_ts.shift() + 8;
+            console.log( 'this is hr' );
+            console.log( hr );
+
+            sampleHeartRate ( hr )
+        }
+        $("#countdown_number").html( countDownNumber );
+        n = 0;
+    }
+
+
+
     n +=1
-}, 100);
+
+}, 1);
 //heartrate refreshes every second; animation every mi
+// 80 beats/ 60000 milliseconds .. 1 beat every 750 millisecons
 
