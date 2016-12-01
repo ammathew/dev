@@ -1641,5 +1641,414 @@ ammathew@ammathew:~/to_devel_local/SocialFlow-WorkQueue/bin$ sf-workqueue worker
 
 [info] working on job 20010680 at /home/ammathew/perl5/lib/perl5/SocialFlow/WorkQueue/JobRunner.pm line 307.
 
+[info] working on job 20011023 at /home/ammathew/perl5/lib/perl5/SocialFlow/WorkQueue/JobRunner.pm line 307.
+
+look up job in db?
+
+add to attachments first?
+
+after devel-local, getting this error:
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-WorkQueue/bin$ sf-workqueue worker --release_candidate ammathew.mrss --job_name FacebookPost
+-bash: /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/sf-workqueue: perl: bad interpreter: No such file or directory
+
+had to all perl before sf-workqueue
+
+[info] working on job 20011027 at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib//SocialFlow/WorkQueue/JobRunner.pm line 307.
 
 
+why not warning out?
+
+having hard time querying...
+
+nothing was posted...query db
+
+not finding in db
+
+
+ammathew	[4:22 PM]  
+hey work_queue_job was ported over to sf_web recently right?
+
+"content_item_id":906534
+
+
+select * from content_item where content_item_id=906534;
+
+
+* 11/22
+
+Unhandled error in job 20011301: hash- or arrayref expected (not a simple scalar, use allow_nonref to allow this) at /home/ammathew/perl5/lib/perl5/x86_64-linux-gnu-thread-multi/Moose/Meta/Method/Delegation.pm line 110.
+
+
+$res[0] = '{"stringified":"Attribute (content_queue_redis) is required at constructor SocialFlow::WorkQueue::Runner::FacebookPost::new (defined at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib/SocialFlow/WorkQueue/Runner/FacebookPost.pm line 305) line 42\\n\\tSocialFlow::WorkQueue::Runner::FacebookPost::new(\'SocialFlow::WorkQueue::Runner::FacebookPost\', \'progress_responder\', \'SocialFlow::WorkQueue::ProgressResponder=HASH(0x94125b8)\', \'job\', \'SocialFlow::WorkQueue::Job::FacebookPost=HASH(0x94df458)\', \'release_candidate\', \'ammathew.mrss\') called at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib/SocialFlow/WorkQueue/Worker/Base.pm line 41\\n\\tSocialFlow::WorkQueue::Worker::Base::work_on(\'SocialFlow::WorkQueue::Worker::Base=HASH(0x8f7bd00)\', \'SocialFlow::WorkQueue::Job::FacebookPost=HASH(0x94df458)\', \'SocialFlow::WorkQueue::ProgressResponder=HASH(0x94125b8)\') called at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib/SocialFlow/WorkQueue/Worker.pm line 11\\n\\tSocialFlow::WorkQueue::Worker::run(\'SocialFlow::WorkQueue::Worker::Base=HASH(0x8f7bd00)\', \'SocialFlow::WorkQueue::Job::FacebookPost=HASH(0x94df458)\', \'SocialFlow::WorkQueue::ProgressResponder=HASH(0x94125b8)\') called at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib/SocialFlow/WorkQueue/Worker/Role/Restartable.pm line 40\\n\\tSocialFlow::WorkQueue::Worker::Role::Restartable::try {...}  at /home/ammathew/perl5/lib/perl5/Try/Tiny.pm line 76\\n\\teval {...} at /home/ammathew/perl5/lib/perl5/Try/Tiny.pm line 72\\n\\tTry::Tiny::try(\'CODE(0x942b728)\', \'Try::Tiny::Catch=REF(0x8fc3558)\') called at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib/SocialFlow/WorkQueue/Worker/Role/Restartable.pm line 85\\n\\tClass::MOP::Class:::around(\'CODE(0x7dad3f0)\', \'SocialFlow::WorkQueue::Worker::Base=HASH(0x8f7bd00)\', \'SocialFlow::WorkQueue::Job::FacebookPost=HASH(0x94df458)\', \'SocialFlow::WorkQueue::ProgressResponder=HASH(0x94125b8)\') called at /home/ammathew/perl5/lib/perl5/x86_64-linux-gnu-thread-multi/Class/MOP/Method/Wrapped.pm line 164\\n\\tSocialFlow::WorkQueue::Worker::Base::_wrapped_run(\'SocialFlow::WorkQueue::Worker::Base=HASH(0x8f7bd00)\', \'SocialFlow::WorkQueue::Job::FacebookPost=HASH(0x94df458)\', \'SocialFlow::WorkQueue::ProgressResponder=HASH(0x94125b8)\') called at /home/ammathew/perl5/lib/perl5/x86_64-linux-gnu-thread-multi/Class/MOP/Method/Wrapped.pm line 95\\n\\tSocialFlow::WorkQueue::Worker::Base::run(\'SocialFlow::WorkQueue::Worker::Base=HASH(0x8f7bd00)\', \'SocialFlow::WorkQueue::Job::FacebookPost=HASH(0x94df458)\', \'SocialFlow::WorkQueue::ProgressResponder=HASH(0x94125b8)\') called at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib/SocialFlow/WorkQueue/JobRunner.pm line 180\\n\\tSocialFlow::WorkQueue::JobRunner::try {...}  at /home/ammathew/perl5/lib/perl5/Try/Tiny.pm line 76\\n\\teval {...} at /home/ammathew/perl5/lib/perl5/Try/Tiny.pm line 72\\n\\tTry::Tiny::try(\'CODE(0x8c7e620)\', \'Try::Tiny::Catch=REF(0x90cb140)\') called at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib/SocialFlow/WorkQueue/JobRunner.pm line 184\\n\\tSocialFlow::WorkQueue::JobRunner::try {...}  at /home/ammathew/perl5/lib/perl5/Try/Tiny.pm line 76\\n\\teval {...} at /home/ammathew/perl5/lib/perl5/Try/Tiny.pm line 72\\n\\tTry::Tiny::try(\'CODE(0x8f7bd18)\', \'Try::Tiny::Catch=REF(0x9553da8)\') called at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib/SocialFlow/WorkQueue/JobRunner.pm line 228\\n\\tSocialFlow::WorkQueue::JobRunner::_run_worker_mainloop(\'SocialFlow::WorkQueue::JobRunner=HASH(0x8da22a0)\', \'IO::Pipe::End=GLOB(0x8f7bc40)\', \'IO::Pipe::End=GLOB(0x8f795b8)\', \'IO::Pipe::End=GLOB(0x928c580)\') called at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib/SocialFlow/WorkQueue/JobRunner.pm line 139\\n\\tSocialFlow::WorkQueue::JobRunner::_fork_off_worker_process(\'SocialFlow::WorkQueue::JobRunner=HASH(0x8da22a0)\') called at reader SocialFlow::WorkQueue::JobRunner::worker_process_pid (defined at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib/SocialFlow/WorkQueue/JobRunner.pm line 78) line 7\\n\\tSocialFlow::WorkQueue::JobRunner::worker_process_pid(\'SocialFlow::WorkQueue::JobRunner=HASH(0x8da22a0)\') called at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib/SocialFlow/WorkQueue/JobRunner.pm line 110\\n\\tSocialFlow::WorkQueue::JobRunner::BUILD(\'SocialFlow::WorkQueue::JobRunner=HASH(0x8da22a0)\', \'HASH(0x8e8fd40)\') called at constructor SocialFlow::WorkQueue::JobRunner::new (defined at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib/SocialFlow/WorkQueue/JobRunner.pm line 498) line 188\\n\\tSocialFlow::WorkQueue::JobRunner::new(\'SocialFlow::WorkQueue::JobRunner\', \'keep_worker_stderr\', 1, \'consumer\', \'SocialFlow::WorkQueue::QueueSubscriber::RedisList=HASH(0x8f6d8b0)\', \'job_inflater\', \'SocialFlow::WorkQueue::JobInflater=HASH(0x8f7b868)\', \'result_deserializer\', \'SocialFlow::WorkQueue::Deserializer::JSON=HASH(0x8f6d8c8)\', \'job_deserializer\', \'SocialFlow::WorkQueue::Deserializer::JSON=HASH(0x8f7b4a8)\', \'get_worker_cb\', \'CODE(0x22d9a90)\', \'worker_timeout\', 60, \'job_serializer\', \'SocialFlow::WorkQueue::Serializer::JSON=HASH(0x8fadd58)\', \'result_serializer\', \'SocialFlow::WorkQueue::Serializer::JSON=HASH(0x8f7b3e8)\', \'work_queue\', \'SocialFlow::WorkQueue=HASH(0x8f7b8f8)\') called at /home/ammathew/perl5/lib/perl5/Bread/Board/ConstructorInjection.pm line 35\\n\\tBread::Board::ConstructorInjection::get(\'Bread::Board::ConstructorInjection=HASH(0x8ed0088)\') called at /home/ammathew/perl5/lib/perl5/x86_64-linux-gnu-thread-multi/Class/MOP/Method/Wrapped.pm line 29\\n\\tBread::Board::ConstructorInjection::_wrapped_get(\'Bread::Board::ConstructorInjection=HASH(0x8ed0088)\') called at /home/ammathew/perl5/lib/perl5/x86_64-linux-gnu-thread-multi/Class/MOP/Method/Wrapped.pm line 95\\n\\tBread::Board::ConstructorInjection::get(\'Bread::Board::ConstructorInjection=HASH(0x8ed0088)\') called at /home/ammathew/perl5/lib/perl5/Bread/Board/Container.pm line 159\\n\\tBread::Board::Container::resolve(undef, \'service\', \'runner\') called at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib/SocialFlow/WorkQueue/Container.pm line 764\\n\\tSocialFlow::WorkQueue::Container::job_runner(\'SocialFlow::WorkQueue::Container=HASH(0x3f9c9f8)\', \'FacebookPost\', \'Redis/List\', \'HASH(0x8cd8308)\') called at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib/SocialFlow/WorkQueue/CLI/Command/worker.pm line 32\\n\\tSocialFlow::WorkQueue::CLI::Command::worker::execute(\'SocialFlow::WorkQueue::CLI::Command::worker=HASH(0x8ce36f0)\', \'HASH(0x66c3e50)\', \'ARRAY(0x19ae378)\') called at /home/ammathew/perl5/lib/perl5/App/Cmd.pm line 282\\n\\tApp::Cmd::execute_command(\'SocialFlow::WorkQueue::CLI=HASH(0xb4a858)\', \'SocialFlow::WorkQueue::CLI::Command::worker=HASH(0x8ce36f0)\', \'HASH(0x66c3e50)\') called at /home/ammathew/perl5/lib/perl5/App/Cmd.pm line 210\\n\\tApp::Cmd::run(\'SocialFlow::WorkQueue::CLI\') called at sf-workqueue line 9\\n"}'
+
+
+so content_queue_redis was never defined...hyuk
+
+
+info] working on job 20011311 at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib//SocialFlow/WorkQueue/JobRunner.pm line 307.
+[info] [ job:20011311 ] Checking on emergency stop at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib//SocialFlow/WorkQueue/Runner/Role/EmergencyStopPublishing.pm line 19.
+URI[https://graph.facebook.com/v2.3/me/feed] at /home/ammathew/perl5/lib/perl5/Facebook/Graph/Publish.pm line 60, <GEN1> line 2.
+[info] [ job:20011311 ] Type is [Facebook::Graph::Publish::Post], setting id to [1744335812490915_1809820532609109] at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib//SocialFlow/WorkQueue/Runner/FacebookPost.pm line 300.
+LINKS ARE []
+
+* now add child_attachments to content items from MRSS feeds?
+
+
+if ( $self->content_item->media && not defined $job_hashref->{child_attachments} ) {
+        my $media = $self->content_item->media;
+        ## Attaching media uses the photo endpoint, overrides any other endpoint selection
+        log_info { "Updating with media[" . $media->filename . "]" };
+
+        my $res = $self->s3_download( $media->filename );
+        $post   = $fb->add_photo();
+        @fields = qw{
+          source
+          message
+          published
+          targeting
+          sponsor_id
+          feed_targeting
+        };
+
+        ## Pop source into job hashref, so the foreach can pick it up
+        $job_hashref->{source} = [undef, $media->filename, Content => $res->content];
+
+    }
+
+in FAcebookVideoPost..
+
+    my @media = $self->content_item->attachments;
+
+
+not making it to do_work in FacebookVideoPost
+
+[info] working on job 20011316 at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib//SocialFlow/WorkQueue/JobRunner.pm line 307.
+[info] listening for jobs on queue workqueue_list_SocialFlow::WorkQueue::Job::FacebookVideoPost-ammathew.mrss at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib//SocialFlow/WorkQueue/QueueSubscriber/RedisList.pm line 49.
+
+
+$res[6] = {
+  'class' => 'SocialFlow::WorkQueue::Job::FacebookVideoPost',
+  'client_service_id' => 1578,
+  'content_item_id' => 907342,
+  'final_score' => undef,
+  'job_id' => 20011318,
+  'release_candidate' => 'ammathew.mrss',
+  'restarted_times' => 0,
+  'scheduled_time' => 1479851994
+}
+
+
+Encountered job inconsistency
+
+$res[2] = '{"stringified":"Attribute (image_upload) is required at /home/ammathew/perl5/lib/perl5/x86_64-linux-gnu-thread-multi/Moose/Object.pm line 24\\n\\tMoose::Object::new(\'SocialFlow::WorkQueue::Runner::FacebookVideoPos
+
+another config issue?
+
+
+next:
+add video to 
+    my @media = $self->content_item->attachments;
+
+    try {
+        my $filename = $media[0]->filename;
+
+and make changes to worker
+
+
+* 11/23
+
+get url into content item
+
+ $self->content_item->attachment
+
+
+create content item with attachment?
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-Web$ grep -r "create_content_item" .
+./lib/SocialFlow/API/Controller/Message.pm:      $c->model("ContentQueue::ContentItem")->create_content_item(
+
+updating feed type
+
+why is feed type showing up as rss?
+
+no thosewere some previous entries i guess
+
+where to get url from within add_entries
+
+dont see media tags in  
+$template_msg->{entry}
+
+content_item_media
+
+$entries->create_from_xml_feed_entry($self->feed_id, $entry);
+
+ original    => $self->_prepare_content_backup($xml_entry),
+
+not hitting pry at _prepare_content_backup
+
+next: look into why media tags are not showing up in feed entry, even inn 'original' string
+
+
+* 11/28
+
+turn on fb video worker and try to upload video
+
+[info] working on job 20012017 at /home/ammathew/perl5/lib/perl5/SocialFlow/WorkQueue/JobRunner.pm line 307.
+
+original field in content_item
+
+Total entries: 3, Not found in local cache: 3 at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/ResultSet/FeedEntry.pm line 75.
+
+
+ original    => $self->_prepare_content_backup($xml_entry),
+
+
+
+2> $feed->add_entry( $entry )                                                                                            
+Can't locate object method "init_empty" via package "XML::Feed::Entry::Format::MRSS" at /home/ammathew/to_devel_local/xml-feed/lib/XML/Feed/Entry.pm line 29.
+
+Can't locate object method "init_empty" via package "XML::Feed::Entry::Format::MRSS" at /home/ammathew/to_devel_local/xml-feed/lib/XML/Feed/Entry.pm line 29.
+
+ammathew@ammathew:~/to_devel_local/xml-feed/lib$ grep -r "sub as_xml" .
+./XML/Feed/Format/MRSS.pm:sub as_xml { $_[0]->{rss}->as_string }
+
+2> $feed->add_entry($entry);                                                                                             
+Can't locate object method "init_empty" via package "XML::Feed::Entry::Format::MRSS" at /home/ammathew/to_devel_local/xml-feed/lib/XML/Feed/Entry.pm line 29.
+
+
+using RSS entry object though using MRSS feed object
+
+[Mon Nov 28 21:45:09 2016 30/0/0] Added 1 new entries to feed 4365 (0.001 seconds)
+
+Dependency SocialFlow::FeedSource::Schema required to use this functionality. [{UNKNOWN}: syntax error at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/ResultSet/FeedEntry.pm line 267, near "use Pry"
+
+Can't locate object method "init_empty" via package "XML::Feed::Entry::Format::MRSS" at /home/ammathew/to_devel_local/xml-feed/lib/XML/Feed/Entry.pm line 38, <FIN> line 15.
+
+remember enters content_item table as a Facebook::Link object ... that needs to be changed
+
+
+recognizing XML::Feed::Entry::Format::MRSS;?
+
+
+[Mon Nov 28 23:02:31 2016 30/0/0] Unable to update feed 4365 (0.003 seconds; http://api.ooyala.com/syndication/mp4?id=00d1c219-1b16-4273-a591-3bfb5bf7f2fc): Could not export xml "Can't locate object method \"media\" via package \"XML::Feed::Entry::Format::RSS\" at /home/ammathew/to_devel_local/xml-feed/lib/XML/Feed/Entry.pm line 48.\n"
+
+
+feed_pp as string?
+
+use FeedPP as string
+
+next: try using FeedPP in FeedEntry.pm L273
+
+
+* 11/29
+
+try to add media field in original RSS entry module?
+
+try to add support by just adding media to Entry.pm?
+
+created ammathew.mrss_2 branch off xml-feed
+
+use fresh SocialFlow-Feedsource branch from master?
+
+make changes in feed-source necessary for testing
+
+made ammathew.mrss_new branch on SocialFlow-Feedsource repo
+
+ammathew@ammathew:~/to_devel_local/SocialFlow-FeedSource$ git cherry-pick 1561e6daf215ec854e2072b71ebdc192c76621d6
+error: could not apply 1561e6d... changes for testing
+hint: after resolving the conflicts, mark the corrected paths
+hint: with 'git add <paths>' or 'git rm <paths>'
+hint: and commit the result with 'git commit'
+
+
+ok new branch and cherry-pick worked
+
+where to put pry so that created feed entry object is revealed?
+
+edit lib/SocialFlow/FeedSource/Schema/Result/Feed.pm
+
+new_entries is empty array now
+
+i see entries now...
+
+media pry not being hit ij RSS.pm
+
+where are feed entries created?
+
+    try {
+        $parsed_feed = $feed->parse_xml_feed($body);
+    }
+
+
+$feed->init_string(\$xml) in parse in Feed.pm
+
+'XML::Feed::Format::RSS'
+
+    $feed->{rss} = $PREFERRED_PARSER->new(%args);
+
+maybe send through convert?
+
+
+ok, so still need FeedPP conversion to convert MRSS feeds to RSS objects 
+
+reverting to previous branches
+
+populate original field correctly
+
+
+passed through media rss
+
+                    'media:content' => [
+                                                              undef,
+                                                              {}
+                                                            ]
+                                       },
+
+in entry...
+
+
+use Devel::StackTrace;
+my $trace = Devel::StackTrace->new;
+print $trace->as_string; # like carp
+
+
+mrss_as_xml todo in MRSS.om<Feed> ... but for now try to get media url into entry first
+
+looks at feed entries to see if in there with media urls etc properly
+
+feed_id: 4370
+4365?
+
+where exactly is is MRSS format object used then?
+
+
+entry now correct
+
+now create as_xml function for XML::Feed::Format::MRSS
+
+if MRSS feed then save entire original feed? pass straight through?
+
+
+
+$feed = XML::FeedPP::RSS->new( link => $link, title => $tile, ... );
+
+[Tue Nov 29 23:14:12 2016 30/0/0] Unable to update feed 4365 (0.003 seconds; http://api.ooyala.com/syndication/mp4?id=00d1c219-1b16-4273-a591-3bfb5bf7f2fc): Could not export xml "Can't call method \"HASH(0x5fb1bf0)\" on unblessed reference at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/ResultSet/FeedEntry.pm line 284.\n"
+
+
+* 11/30
+
+lift media tags from original field in feed entry
+
+bring up video worker
+
+pry where feed entry gets converted into a content item?
+
+but isnt that in contentqueueimport?
+
+where does feed entry get converted into a content item?
+
+ Fatal link shorten error ["LinkShortening:388: Query: http://tribal-shortener.dev.saturn.sfsrv.net:8960/shorten Error shortening link by tribal read timeout at /home/ammathew/perl5/lib/perl5/Net/HTTP/Methods.pm line 257.\n"
+
+is link shortening down?
+
+think it was; now pry is being hit
+
+lifting MRSS from $feed->type ..
+
+22> keys \$feed                                                                 
+Type of argument to keys on reference must be unblessed hashref or arrayref at reply input line 1.
+
+$template_msg->{entry}->{original}     
+
+ XML::FeedPP->new( $template_msg->{entry}->{original}     )                    
+Invalid tag sequence: <http:></www.w3.org/1999/xhtml> at /home/ammathew/perl5/lib/perl5/XML/FeedPP.pm line 549.
+
+what does actual original look like?
+
+strip off invalid tags?
+
+this is key 
+http://www.w3.org/1999/xhtml at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/Schema/ResultSet/FeedEntry.pm line 288.
+
+delete any key that starts with 'http://www.w3.org/1999/xhtml' => {},
+
+need to fix up feed
+
+items are in array without 
+
+
+30> $aa->add_item( link=>'http://asdfasd.com', title=>'blah', 'media:content'=>'asfdsa' )                    
+$res[15] = bless( {
+         'guid' => {
+                     '#text' => 'http://asdfasd.com',
+                     '-isPermaLink' => 'true'
+                   },
+         'link' => 'http://asdfasd.com',
+         'media:content' => 'asfdsa',
+         'title' => 'blah'
+       }, 'XML::FeedPP::RSS::Item' )
+
+
+my(%args) = (link=>'http://asdfasd.com', title=>'blah', 'media:content'=>'asfdsa' )
+
+
+32> my(%args) = (link=>'http://asdfasd.com', title=>'blah', 'media:content'=>'asfdsa' )                      
+$res[17] = [
+  'link',
+  'http://asdfasd.com',
+  'title',
+  'blah',
+  'media:content',
+  'asfdsa'
+]
+
+33> $aa->add_item( %args )                                                                                   
+$res[18] = bless( {
+         'guid' => {
+                     '#text' => 'http://asdfasd.com',
+                     '-isPermaLink' => 'true'
+                   },
+         'link' => 'http://asdfasd.com',
+         'media:content' => 'asfdsa',
+         'title' => 'blah'
+       }, 'XML::FeedPP::RSS::Item' )
+
+34>      
+
+
+  $new_feed->add_item( %args ); #totally messed up structure; revisit...but to_string works here can use for now
+
+29> $new_feed->add_item( %{$aa} );                                              
+$res[11] = bless( {
+         'sadfs' => 'asfdsa'
+       }, 'XML::FeedPP::RSS::Item' )
+
+
+now add to whatever field facebook video post takes media url from
+
+after, make changes to ContentQueueImport L488
+
+how knows to send to facebook video post instead of facebook post?
+
+type of content item?
+
+if media attachment switch in create content item?
+
+
+in ContentItemMedia.pm
+
+__PACKAGE__->table('content_item_media');
+__PACKAGE__->add_columns(
+    content_item_id => { data_type => 'integer' },
+    thumbnail_url   => { data_type => 'text' },
+    filename        => { data_type => 'text' },
+    type            => { data_type => 'enum', default_value => 'photo',
+                         extra => { custom_type_name => 'media_type', list => [qw/photo video audio document/] }
+                       }
+);
+
+
+content_item_media table
+
+o
