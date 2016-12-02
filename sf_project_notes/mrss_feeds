@@ -2051,4 +2051,110 @@ __PACKAGE__->add_columns(
 
 content_item_media table
 
-o
+* 12/1
+
+yestaday: worked through issue where original field in feeedentry tablew wasnt parsing correctly because of stray invalid tags... 
+worked through issues where original field in feed entry table wasnt deparsing correctly for a couple of different reasons...
+multiple items were being created within one item..
+
+feed entry being entered as facebooklink object?
+
+creat FacebookMediaPost object, something like that?
+
+how to create content item with media attachments?
+
+look at /add endpoint?
+
+my $content_item =
+      $c->model("ContentQueue::ContentItem")->create_content_item(
+        {
+            content_queue => $client_service->content_queue,
+            ($content_item_links) ? ( links => $content_item_links ) : (),
+            results           => \%valid_values,
+            user              => $c->user->obj,
+            api_source        => $c->stash->{api_source},
+            content_source_id => $c->stash->{content_source_id}
+        }
+      );
+
+follow "results" structure?
+
+Data::Verifier::Results object ... 
+
+https://github.com/SocialFlowDev/SocialFlow-ContentQueue/blob/master/lib/SocialFlow/ContentQueue/Schema/ResultSet/ContentItem.pm#L191
+
+whats up with my emacs?
+
+Cleaning up the recentf list...
+Tramp: Opening connection for amouchinski@amouchinski.home.saturn.sfsrv.net using ssh...
+
+what gets sent into create_content_item?
+
+./lib/SocialFlow/API/ControllerRole/CreateContentItem.pm:sub validate_content_item_or_detach {
+
+[error] [SocialFlow::FeedSource::ContentQueueImport] died with error [DBIx::Class::Storage::DBI::_dbh_execute(): DBI Exception: DBD::Pg::st execute failed: ERROR:  null value in column "thumbnail_url" violates not-null constraint [for Statement "INSERT INTO content_item_media ( content_item_id, filename) VALUES ( ?, ? )" with ParamValues: 1='934623', 2='http://api.ooyala.com/syndication/stream_redirect?pcode=F0Y2E6qDLc1XS9yvdR-48ulAQ2t1&expires=1480631040&streamID=6135215&signature=t0nhhnR9GNT4%2BNuwijHEVX4zK%2BiBWAAYx%2F5n5TEMjNI&size=583525&length=148096'] at /home/ammathew/to_devel_local/SocialFlow-ContentQueue/lib/SocialFlow/ContentQueue/Schema/ResultSet/ContentItem.pm line 199
+
+[error] [SocialFlow::FeedSource::ContentQueueImport] died with error [DBIx::Class::Storage::DBI::_dbh_execute(): DBI Exception: DBD::Pg::st execute failed: ERROR:  null value in column "thumbnail_url" violates not-null constraint [for Statement "INSERT INTO content_item_media ( content_item_id, filename) VALUES ( ?, ? )" with ParamValues: 1='934628', 2='http://api.ooyala.com/syndication/stream_redirect?pcode=F0Y2E6qDLc1XS9yvdR-48ulAQ2t1&expires=1480631387&streamID=6135215&signature=6%2B1icI2D3xuNbrdfksz2BAymPuxWR%2BWLjilFJ7hYdj0&size=583525&length=148096'] at /home/ammathew/to_devel_local/SocialFlow-ContentQueue/lib/SocialFlow/ContentQueue/Schema/ResultSet/ContentItem.pm line 199
+
+New entries[3] at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/ContentQueueImport.pm line 420.
+Using token format at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/View/FormatMask.pm line 185.
+Error parsing feed entry xml for feed_id[4365] feed_entry_id[25889528] [
+unbound prefix at line 7, column 0, byte 267 at /home/ammathew/perl5/lib/perl5/x86_64-linux-gnu-thread-multi/XML/Parser.pm line 187.
+]. Skipping parsing of rss body. at /home/ammathew/to_devel_local/SocialFlow-FeedSource/lib/SocialFlow/FeedSource/View.pm line 157.
+
+is now in content_item table
+
+need to update type..
+
+where does type get created
+
+make changes to facebook post worker
+
+
+Could not connect to Redis server at redis-1.dev.saturn.sflow.us:7004: Connection refused at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib//SocialFlow/WorkQueue/Container.pm line 101.
+
+ammathew [5:41 PM]  
+anyone getting this kind of error when trying to run a workqueue worker?
+
+[5:41]  
+Could not connect to Redis server at redis-1.dev.saturn.sflow.us:7004: Connection refused at /home/ammathew/to_devel_local/SocialFlow-WorkQueue/bin/../lib//SocialFlow/WorkQueue/Container.pm line 101.
+
+new messages
+yaz [5:41 PM]  
+i got that yesterday
+
+[5:41]  
+didn’t get it today
+
+[5:41]  
+but on dev-home
+
+[5:41]  
+i think it’s because mem might be full
+
+[5:41]  
+if you’re on the redis-1 box
+
+brianlai [5:41 PM]  
+oh jebus
+
+yaz [5:41 PM]  
+try doing a: top
+
+[5:41]  
+then M
+
+brianlai [5:41 PM]  
+redis again..
+
+27590
+
+
+next: try running fb video post worker again, if exits fid out which box is redis-1 box, top and checkout out which processes are eating up memory
+
+
+ammathew [5:50 PM]  
+hey guru i cant connect to  redis-1.dev.saturn.sflow.us
+
+[5:50]  
+wondering if my keys are one there

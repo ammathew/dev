@@ -35,20 +35,33 @@ class DynamicCountdown extends Component {
         var millisecondIntervals = 60000/bpm;    
         return millisecondIntervals;
     }
-    // sampleHeartRate() {
-    //     if ( this.state.lastFewHeartRates.length > 1 ) { // change this to 5 later
-    //         this.countdownRate = ( this.lastFewHeartRates.average() ) / 2; 
-    //         this.state.lastFewHeartRates = [];
-    //     } 
-    //     this.lastFewHeartRates.push( this.heartRate )
-    // }
+    sampleHeartRate() {
+        this.state.heartRate = heartrate_ts.shift();
+        if ( this.state.lastFewHeartRates.length > 1 ) { // change this to 5 later
+            console.log( 'this is lastFewHeartrate' );
+            console.log( this.state.lastFewHeartRates );
+            this.state.countdownRate = ( this.state.lastFewHeartRates.average() ) / 2; 
+            this.state.lastFewHeartRates = [];
+        } 
+        this.state.lastFewHeartRates.push( this.state.heartRate )
+    }
     tick(){
-
+        console.log('this.tck called' );
 
         this.setState({secondsRemaining: this.state.secondsRemaining - 1});
 
         if (this.state.secondsRemaining <= 0) {
-            clearInterval(this.interval);
+            this.state.secondsRemaining = 10; //remove this hardcorded variable
+
+            console.log('countdown rate' );
+            console.log( this.state.countdownRate );
+
+            var i = this.convertToMillisecondIntervals( this.state.countdownRate )
+
+            console.log( 'this is new interval in milliseconds' );
+            console.log( i );
+
+            this.interval = setInterval(this.tick.bind(this), i );
         }
     }
     componentDidMount(){
@@ -59,11 +72,11 @@ class DynamicCountdown extends Component {
         console.log( 'convert to millisecond intervals');
         
         var i = this.convertToMillisecondIntervals( this.state.countdownRate )
-        
-        console.log( 'countdown rate: ' );
-        console.log( i );
 
         this.interval = setInterval(this.tick.bind(this), i );
+        
+        this.heartrateCheckInterval = setInterval( this.sampleHeartRate.bind(this), 1000 );
+
     }
     componentWillUnmount(){
         clearInterval(this.interval);

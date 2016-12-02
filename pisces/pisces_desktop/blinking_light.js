@@ -208,8 +208,7 @@ var countDownNumber = countDownNumberStart;
 var n = 0;
 
 function convertToMillisecondIntervals( bpm ) {
-    var millisecondIntervals = 60000/bpm;
-    
+    var millisecondIntervals = 60000/bpm;    
     return millisecondIntervals;
 }
 
